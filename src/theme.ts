@@ -20,6 +20,9 @@ export const theme = {
       surface: '#ffffff',
       text: '#000000',
     },
+    margin: 1,
+    padding: 3,
+    borderRadius: 3,
     animation: {
       scale: 1,
     },
@@ -41,6 +44,9 @@ export const theme = {
       surface: '#646979',
       text: '#ffffff',
     },
+    margin: 1,
+    padding: 3,
+    borderRadius: 3,
     animation: {
       scale: 1,
     },
