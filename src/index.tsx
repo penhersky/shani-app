@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {Subheading} from 'react-native-paper';
 
 const App = (): JSX.Element => {
   return (
     <View style={styles.app}>
-      <Text>It works well!</Text>
+      <Subheading>It works well!</Subheading>
     </View>
   );
 };
