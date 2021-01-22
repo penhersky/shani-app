@@ -6,6 +6,7 @@ import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 
 import {mainApiUrl} from './src/config';
 
+import {useTheme} from './src/theme';
 import store from './redux/store';
 import App from './src';
 
@@ -15,11 +16,12 @@ const client = new ApolloClient({
 });
 
 const Root = () => {
+  const theme = useTheme();
   return (
     <>
       <ApolloProvider client={client}>
         <Provider store={store}>
-          <PaperProvider>
+          <PaperProvider theme={theme}>
             <SafeAreaView>
               <App />
             </SafeAreaView>
