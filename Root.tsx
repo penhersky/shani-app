@@ -1,6 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import {SafeAreaView} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 
 import {mainApiUrl} from './src/config';
@@ -18,9 +19,11 @@ const Root = () => {
     <>
       <ApolloProvider client={client}>
         <Provider store={store}>
-          <SafeAreaView>
-            <App />
-          </SafeAreaView>
+          <PaperProvider>
+            <SafeAreaView>
+              <App />
+            </SafeAreaView>
+          </PaperProvider>
         </Provider>
       </ApolloProvider>
     </>
