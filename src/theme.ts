@@ -1,3 +1,4 @@
+import {get} from 'lodash';
 import {DefaultTheme} from 'react-native-paper';
 
 import store from '../redux/store';
@@ -54,9 +55,9 @@ export const theme = {
 };
 
 export const getTheme = (() => {
-  return theme[store.getState().settings.theme];
+  return get(theme, store.getState().settings.theme);
 })();
 
 export const useTheme = () => {
-  return theme[store.getState().settings.theme];
+  return get(theme, store.getState().settings.theme);
 };
