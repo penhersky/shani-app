@@ -5,12 +5,26 @@ import {useQuery} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import {getTheme} from './theme';
+
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
-import {NetworkError} from './screen';
+import {NetworkError, Loading} from './screen';
 
 const Stack = createStackNavigator();
+
+const theme = {
+  dark: false,
+  colors: {
+    primary: getTheme.colors.primary,
+    background: getTheme.colors.background,
+    card: getTheme.colors.surface,
+    text: getTheme.colors.text,
+    border: getTheme.colors.backdrop,
+    notification: 'rgb(255, 69, 58)',
+  },
+};
 
 const Main = () => (
   <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -44,25 +58,23 @@ const App = (): JSX.Element => {
   };
 
   if (loading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Text>Loading</Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   if (error && error.message !== 'Access denied') {
     return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
+
   if (error || !user) {
     return (
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
         <Stack.Navigator initialRouteName="Landing">
           <Stack.Screen name="Landing" component={Main} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
