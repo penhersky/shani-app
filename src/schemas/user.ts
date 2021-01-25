@@ -4,6 +4,11 @@ export const shortAccount = gql`
   query getAccount {
     getAccount {
       result
+      admin {
+        id
+        name
+        imageUrl
+      }
       user {
         id
         name
@@ -14,6 +19,7 @@ export const shortAccount = gql`
         }
       }
       userToken
+      adminToken
     }
   }
 `;
