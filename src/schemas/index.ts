@@ -1,0 +1,1 @@
+export {shortAccount} from './user';

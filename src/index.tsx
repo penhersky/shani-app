@@ -1,27 +1,19 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Subheading, Searchbar} from 'react-native-paper';
+import {useQuery} from '@apollo/client';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import {useTranslation, text} from './translate';
+const Stack = createStackNavigator();
 
 const App = (): JSX.Element => {
-  const {tr} = useTranslation();
-
   return (
-    <View style={styles.app}>
-      <Subheading>{tr(text, 'text')}</Subheading>
-      <Searchbar placeholder="Search" value="" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Main">
+        <Stack.Screen name="Main" component={() => <View></View>} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  app: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-  },
-});
 
 export default App;
