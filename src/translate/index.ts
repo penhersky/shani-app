@@ -1,7 +1,7 @@
 import {get} from 'lodash';
 import {useSelector} from 'react-redux';
 
-export {default as text} from './text/default';
+export {default as collapsed} from './text/collapsed';
 
 export const useTranslation = () => {
   const {lng} = useSelector((state: any) => state.settings);

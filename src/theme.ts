@@ -55,7 +55,7 @@ export const theme = {
 };
 
 export const getTheme = (() => {
-  return get(theme, store.getState().settings.theme);
+  return theme[store.getState().settings.theme];
 })();
 
 export const useTheme = () => {

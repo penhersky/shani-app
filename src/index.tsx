@@ -8,6 +8,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
+import {NetworkError} from './screen';
+
 const Stack = createStackNavigator();
 
 const Main = () => (
@@ -17,13 +19,29 @@ const Main = () => (
 );
 
 const App = (): JSX.Element => {
-  const {data, error, loading} = useQuery(shortAccount, {client: authClient});
+  const [user, setUser] = React.useState();
+  const {data, error, loading, refetch} = useQuery(shortAccount, {
+    client: authClient,
+  });
+
   /*
       data.getAccount.result
       data.getAccount.userToken
       data.getAccount.adminToken
       data.getAccount.user.id
     */
+
+  React.useEffect(() => {
+    if (data) {
+      setUser(get(data?.getAccount, 'user') || get(data?.getAccount, 'admin'));
+    }
+  }, [data]);
+
+  const reFetchResult = (err: any, info: any) => {
+    if (!err) {
+      setUser(get(info?.getAccount, 'user') || get(info?.getAccount, 'admin'));
+    }
+  };
 
   if (loading) {
     return (
@@ -34,17 +52,9 @@ const App = (): JSX.Element => {
   }
 
   if (error && error.message !== 'Access denied') {
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Text>{error?.message}</Text>
-      </View>
-    );
+    return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
-  if (
-    error ||
-    get(data?.getAccount, 'user') ||
-    get(data?.getAccount, 'admin')
-  ) {
+  if (error || !user) {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Landing">
