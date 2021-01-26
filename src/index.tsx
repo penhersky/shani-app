@@ -1,30 +1,22 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {get} from 'lodash';
 import {View, Text} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {getTheme} from './theme';
+import {navigationTheme} from './theme';
+import device from './lib/detectDevice';
 
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
 import {NetworkError, Loading} from './screen';
 
-const Stack = createStackNavigator();
+import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
-const theme = {
-  dark: false,
-  colors: {
-    primary: getTheme.colors.primary,
-    background: getTheme.colors.background,
-    card: getTheme.colors.surface,
-    text: getTheme.colors.text,
-    border: getTheme.colors.backdrop,
-    notification: 'rgb(255, 69, 58)',
-  },
-};
+const Stack = createStackNavigator();
 
 const Main = () => (
   <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -34,10 +26,18 @@ const Main = () => (
 
 const App = (): JSX.Element => {
   const [user, setUser] = React.useState();
+  const dispatch = useDispatch();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
   });
 
+  React.useEffect(() => {
+    const deviceLng = String(device.getLng()).split('_').join('-');
+    dispatch({
+      type: SET_LNG,
+      lng: languages.includes(deviceLng) ? deviceLng : Lng.en,
+    });
+  }, [dispatch]);
   /*
       data.getAccount.result
       data.getAccount.userToken
@@ -67,7 +67,7 @@ const App = (): JSX.Element => {
 
   if (error || !user) {
     return (
-      <NavigationContainer theme={theme}>
+      <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator initialRouteName="Landing">
           <Stack.Screen name="Landing" component={Main} />
         </Stack.Navigator>
@@ -76,7 +76,7 @@ const App = (): JSX.Element => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Main} />
       </Stack.Navigator>

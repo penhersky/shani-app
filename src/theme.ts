@@ -61,3 +61,15 @@ export const getTheme = (() => {
 export const useTheme = () => {
   return get(theme, store.getState().settings.theme);
 };
+
+export const navigationTheme = {
+  dark: false,
+  colors: {
+    primary: getTheme.colors.primary,
+    background: getTheme.colors.background,
+    card: getTheme.colors.surface,
+    text: getTheme.colors.text,
+    border: getTheme.colors.backdrop,
+    notification: 'rgb(255, 69, 58)',
+  },
+};

@@ -6,8 +6,11 @@ export enum ThemeType {
   dark = 'dark',
   white = 'white',
 }
+
 export enum Lng {
   en = 'en-US',
   ru = 'ru-RU',
   ua = 'ua-UA',
 }
+
+export const languages = ['en-US', 'ru-RU', 'ua-UA'];
