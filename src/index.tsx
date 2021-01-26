@@ -1,6 +1,5 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {get} from 'lodash';
+import {useDispatch, useSelector} from 'react-redux';
 import {View, Text} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
@@ -16,6 +15,8 @@ import {NetworkError, Loading} from './screen';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
+import {saveUser} from './wrappers/authUser';
+
 const Stack = createStackNavigator();
 
 const Main = () => (
@@ -25,7 +26,7 @@ const Main = () => (
 );
 
 const App = (): JSX.Element => {
-  const [user, setUser] = React.useState();
+  const {user, admin} = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
@@ -38,22 +39,16 @@ const App = (): JSX.Element => {
       lng: languages.includes(deviceLng) ? deviceLng : Lng.en,
     });
   }, [dispatch]);
-  /*
-      data.getAccount.result
-      data.getAccount.userToken
-      data.getAccount.adminToken
-      data.getAccount.user.id
-    */
 
   React.useEffect(() => {
     if (data) {
-      setUser(get(data?.getAccount, 'user') || get(data?.getAccount, 'admin'));
+      saveUser(data, dispatch);
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   const reFetchResult = (err: any, info: any) => {
     if (!err) {
-      setUser(get(info?.getAccount, 'user') || get(info?.getAccount, 'admin'));
+      saveUser(info, dispatch);
     }
   };
 
@@ -65,7 +60,7 @@ const App = (): JSX.Element => {
     return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
 
-  if (error || !user) {
+  if (error || (!user?.id && !admin?.id)) {
     return (
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator initialRouteName="Landing">

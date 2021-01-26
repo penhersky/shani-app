@@ -7,7 +7,9 @@ export const shortAccount = gql`
       admin {
         id
         name
+        email
         imageUrl
+        state
       }
       user {
         id

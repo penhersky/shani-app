@@ -4,7 +4,7 @@ import {setContext} from '@apollo/client/link/context';
 import {mainApiUrl, authApiUrl} from '../src/config';
 
 const httpAuthLink = createHttpLink({
-  uri: authApiUrl, // 'https://977196d0f7b8.ngrok.io/graphql',
+  uri: authApiUrl, //'https://3e825811a14f.ngrok.io/graphql',
 });
 
 const httpMainLink = createHttpLink({
