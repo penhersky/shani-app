@@ -22,6 +22,7 @@ export const shortAccount = gql`
       }
       userToken
       adminToken
+      expiresIn
     }
   }
 `;

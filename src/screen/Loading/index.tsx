@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 
 const Loading = () => {
-  const img = require('../../assets/emblem.svg');
+  const img = require('../../../assets/emblem.svg');
   return (
     <View style={style.content}>
       <Image source={img} />

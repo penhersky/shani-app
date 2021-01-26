@@ -8,6 +8,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {navigationTheme} from './theme';
 import device from './lib/detectDevice';
 
+import {useDataBase} from './wrappers/db';
+
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
@@ -24,13 +26,34 @@ const Main = () => (
     <Text>Test</Text>
   </View>
 );
-
 const App = (): JSX.Element => {
   const {user, admin} = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
+  const db = useDataBase();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
   });
+
+  React.useEffect(() => {
+    db.transaction(function (txn: any) {
+      txn.executeSql(
+        `
+        CREATE TABLE IF NOT EXISTS tokens (
+          id        INTEGER PRIMARY KEY AUTOINCREMENT,
+          token     STRING  NOT NULL,
+          expiresIn INTEGER
+      );
+      `,
+        [],
+        function (tx: any, res: any) {
+          console.log(res.rows.raw());
+        },
+        function (error: any) {
+          console.log(error);
+        },
+      );
+    });
+  }, [db]);
 
   React.useEffect(() => {
     const deviceLng = String(device.getLng()).split('_').join('-');
