@@ -13,7 +13,7 @@ import {useDataBase} from './wrappers/db';
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
-import {NetworkError, Loading} from './screen';
+import {NetworkError, Loading, Landing, Login} from './screen';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
@@ -72,7 +72,16 @@ const App = (): JSX.Element => {
     return (
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator initialRouteName="Landing">
-          <Stack.Screen name="Landing" component={Main} />
+          <Stack.Screen
+            name="Landing"
+            component={Landing}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

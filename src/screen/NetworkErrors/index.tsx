@@ -26,7 +26,7 @@ const ERROR = ({
         onPress={() => {
           setLoading(true);
           refetch({})
-            .then((data: any) => {
+            ?.then((data: any) => {
               setLoading(false);
               onResult(undefined, data);
             })
