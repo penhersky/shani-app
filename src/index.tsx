@@ -18,6 +18,7 @@ import {NetworkError, Loading} from './screen';
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
 import {saveUser} from './wrappers/authUser';
+import {create, tokenSchemas} from './wrappers/db';
 
 const Stack = createStackNavigator();
 
@@ -34,25 +35,9 @@ const App = (): JSX.Element => {
     client: authClient,
   });
 
+  // create tables
   React.useEffect(() => {
-    db.transaction(function (txn: any) {
-      txn.executeSql(
-        `
-        CREATE TABLE IF NOT EXISTS tokens (
-          id        INTEGER PRIMARY KEY AUTOINCREMENT,
-          token     STRING  NOT NULL,
-          expiresIn INTEGER
-      );
-      `,
-        [],
-        function (tx: any, res: any) {
-          console.log(res.rows.raw());
-        },
-        function (error: any) {
-          console.log(error);
-        },
-      );
-    });
+    create(db, tokenSchemas.tokenTable);
   }, [db]);
 
   React.useEffect(() => {
