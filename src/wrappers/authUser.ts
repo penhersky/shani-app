@@ -1,9 +1,19 @@
 import {get, pick, find} from 'lodash';
 
 import {SET_ADMIN, SET_SHORT_USER} from '../../redux/types/user';
+import {insert, tokenSchemas} from './db';
 
-export const saveUser = (data: any, dispatch: any) => {
+export const saveUser = (data: any, dispatch: any, db: any) => {
   if (get(data?.getAccount, 'user')) {
+    insert(
+      db,
+      tokenSchemas.deleteByType('service'),
+      tokenSchemas.insert(
+        get(data?.getAccount, 'userToken'),
+        'service',
+        get(data?.getAccount, 'expiresIn'),
+      ),
+    );
     dispatch({
       type: SET_SHORT_USER,
       user: {
@@ -16,6 +26,15 @@ export const saveUser = (data: any, dispatch: any) => {
     });
   }
   if (get(data?.getAccount, 'admin')) {
+    insert(
+      db,
+      tokenSchemas.deleteByType('service'),
+      tokenSchemas.insert(
+        get(data?.getAccount, 'adminToken'),
+        'service',
+        get(data?.getAccount, 'expiresIn'),
+      ),
+    );
     dispatch({
       type: SET_ADMIN,
       admin: {

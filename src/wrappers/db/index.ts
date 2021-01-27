@@ -1,3 +1,5 @@
 export {DBProvider, useDataBase} from './Provider';
-export {default as create} from './create';
+export {default as connect} from './connect';
+export {default as query} from './query';
+export {default as insert} from './insert';
 export {default as tokenSchemas} from './schemas/token';

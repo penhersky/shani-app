@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 
 const Loading = () => {
-  const img = require('../../../assets/emblem.svg');
+  const img = require('../../assets/logo.png');
   return (
     <View style={style.content}>
       <Image source={img} />
@@ -16,9 +16,6 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  img: {
-    width: '50vh',
   },
 });
 

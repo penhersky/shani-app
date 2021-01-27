@@ -18,7 +18,7 @@ import {NetworkError, Loading} from './screen';
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
 import {saveUser} from './wrappers/authUser';
-import {create, tokenSchemas} from './wrappers/db';
+import {query, tokenSchemas} from './wrappers/db';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +37,7 @@ const App = (): JSX.Element => {
 
   // create tables
   React.useEffect(() => {
-    create(db, tokenSchemas.tokenTable);
+    query(db, tokenSchemas.table);
   }, [db]);
 
   React.useEffect(() => {
@@ -50,13 +50,13 @@ const App = (): JSX.Element => {
 
   React.useEffect(() => {
     if (data) {
-      saveUser(data, dispatch);
+      saveUser(data, dispatch, db);
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, db]);
 
   const reFetchResult = (err: any, info: any) => {
     if (!err) {
-      saveUser(info, dispatch);
+      saveUser(info, dispatch, db);
     }
   };
 

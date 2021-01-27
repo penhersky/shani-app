@@ -1,4 +1,4 @@
-const tokenTable = `
+const table = `
 CREATE TABLE IF NOT EXISTS tokens (
   id        INTEGER PRIMARY KEY AUTOINCREMENT,
   token     STRING,
@@ -8,27 +8,35 @@ CREATE TABLE IF NOT EXISTS tokens (
 );
 `;
 
-const insertToken = (token: string, type: string, expiresIn: string) => {
+const insert = (token: string, type: string, expiresIn?: string) => {
   return `
   INSERT INTO tokens (
     token,
-    ${expiresIn && 'expiresIn,'}
+    ${expiresIn ? 'expiresIn,' : ''}
     type
   )
   VALUES (
     '${token}',
-    ${expiresIn && `${expiresIn},`}
+    ${expiresIn ? `${expiresIn},` : ''}
     '${type}'
   );
 
   `;
 };
+const select = `
+  SELECT id,
+      token,
+      expiresIn,
+      type
+  FROM tokens;
+`;
 
 const deleteByType = (type: string) =>
   `DELETE FROM tokens WHERE type = '${type}';`;
 
 export default {
   deleteByType,
-  insertToken,
-  tokenTable,
+  insert,
+  select,
+  table,
 };
