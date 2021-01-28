@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ImageBackground, StyleSheet} from 'react-native';
+import {View, ImageBackground, StyleSheet, Image} from 'react-native';
 import {Title, IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,20 +17,21 @@ const Wrapp = ({
 }) => {
   const navigation = useNavigation();
   const img = require('../../assets/fon.png');
+  const logo = require('../../assets/logo.png');
   return (
     <View>
       <ImageBackground style={style.img} source={img}>
         <IconButton
           icon={'arrow-left'}
           size={30}
-          color={getTheme.colors.text}
+          color={'#000000'}
           onPress={() => navigation.navigate(toBack)}
           style={style.back}
         />
-
+        <Image source={logo} style={style.logo} />
         <LinearGradient
           style={style.container}
-          colors={['#C4E0E575', '#BBD6DBFF']}>
+          colors={['#C4E0E575', '#4CA1AFDA']}>
           <Title style={style.title}>{title}</Title>
           <View style={style.content}>{children}</View>
         </LinearGradient>
@@ -49,22 +50,36 @@ const style = StyleSheet.create({
     width: '100%',
     height: 800,
     top: -10,
-    alignSelf: 'center',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  logo: {
+    position: 'absolute',
+    top: 100,
+    transform: [{scale: 0.8}],
   },
   container: {
-    minWidth: 380,
-    minHeight: 100,
+    minWidth: 350,
+    height: 340,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
+    paddingVertical: 20,
+    borderRadius: getTheme.borderRadius,
   },
-  content: {},
+  content: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+    padding: 20,
+    flexDirection: 'column',
+  },
   title: {
     fontSize: 30,
-    color: getTheme.colors.surface,
+    alignSelf: 'center',
+    color: getTheme.colors.primary,
   },
 });
 

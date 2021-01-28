@@ -53,7 +53,7 @@ const Landing = ({navigation}: any) => {
         style={style.login}
         mode="contained"
         onPress={() => navigation.navigate('Login')}>
-        {tr(global, 'login')}
+        {tr(global, 'accountExist')}
       </Button>
     </LinearGradient>
   );
