@@ -1,14 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Title, Button} from 'react-native-paper';
+import {} from 'react-native';
+import {Title} from 'react-native-paper';
 
-const Login = ({navigation}: any) => {
-  return (
-    <View>
-      <Title>Login</Title>
-      <Button onPress={() => navigation.navigate('Landing')}>Landing</Button>
-    </View>
-  );
+import {} from '../../../theme';
+
+import Wrapp from '../Wrapp';
+
+const Login = () => {
+  return <Wrapp title={'Login'}></Wrapp>;
 };
 
 export default Login;

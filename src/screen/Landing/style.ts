@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {getTheme} from '../../theme';
+import {getTheme, theme} from '../../theme';
 
 const style = StyleSheet.create({
   container: {
@@ -26,6 +26,7 @@ const style = StyleSheet.create({
   card: {
     flex: 1,
     marginHorizontal: 5,
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   content: {
     flex: 1,
@@ -45,6 +46,7 @@ const style = StyleSheet.create({
   text: {
     textAlign: 'center',
     textTransform: 'uppercase',
+    color: theme.white.colors.text,
   },
 });
 

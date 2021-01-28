@@ -1,11 +1,19 @@
 import {get} from 'lodash';
 
-import {SET_SHORT_USER, SET_USER, SET_ADMIN, User, Admin} from '../types/user';
+import {
+  SET_SHORT_USER,
+  SET_USER,
+  SET_ADMIN,
+  User,
+  Admin,
+  SET_USER_TYPE,
+} from '../types/user';
 
 type Action = {
   type: string;
   user?: User;
   admin?: Admin;
+  userType?: string;
 };
 
 export type StateType = {
@@ -31,6 +39,11 @@ const user = (state: StateType = initialState, action: Action): StateType => {
           image: get(action.user, 'image'),
         },
         type: get(action.user, 'type'),
+      };
+    case SET_USER_TYPE:
+      return {
+        ...state,
+        type: action.userType,
       };
     case SET_USER:
       return {
