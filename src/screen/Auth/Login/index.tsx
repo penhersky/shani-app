@@ -8,15 +8,31 @@ import {useTranslation, global} from '../../../translate';
 import Wrapp from '../Wrapp';
 
 const Login = () => {
+  const [email, setEmail] = React.useState('');
+  const [pass, setPass] = React.useState('');
+  const [err, setErr] = React.useState('');
   const {tr} = useTranslation();
 
+  const onChangeEmail = (text: string) => setEmail(text);
+  const onChangePass = (text: string) => setPass(text);
+
   const onPressHandler = () => {
-    alert(1);
+    alert(email + ' ' + pass);
   };
   return (
     <Wrapp title={tr(global, 'login')}>
-      <TextInput style={style.input} label="email" />
-      <TextInput style={style.input} label="password" />
+      <TextInput
+        style={style.input}
+        label="email"
+        onChangeText={onChangeEmail}
+        error={err === 'email'}
+      />
+      <TextInput
+        style={style.input}
+        label="password"
+        onChangeText={onChangePass}
+        error={err === 'pass'}
+      />
       <Button mode="outlined" style={style.button} onPress={onPressHandler}>
         {tr(global, 'login')}
       </Button>
