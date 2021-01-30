@@ -8,12 +8,10 @@ import {getTheme} from '../../theme';
 
 const Wrapp = ({
   children,
-  toBack = 'Landing',
   title,
   height = 360,
 }: {
   children: any;
-  toBack?: string;
   title: string;
   height?: number;
 }) => {
@@ -27,7 +25,7 @@ const Wrapp = ({
           icon={'arrow-left'}
           size={30}
           color={'#000000'}
-          onPress={() => navigation.navigate(toBack)}
+          onPress={() => navigation.goBack()}
           style={style.back}
         />
         <Image source={logo} style={style.logo} />

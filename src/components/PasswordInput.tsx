@@ -1,24 +1,29 @@
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 
+import {auth, useTranslation} from '../translate';
+
 const Input = ({
   value,
   onChangePass,
   style = {},
   err = false,
+  label,
 }: {
   value: string;
   onChangePass: any;
+  label?: string;
   style?: any;
   err?: boolean;
 }) => {
-  const [show, setShow] = React.useState(false);
+  const {tr} = useTranslation();
+  const [show, setShow] = React.useState(true);
   return (
     <TextInput
       style={style}
-      label="password"
       mode="outlined"
       onChangeText={onChangePass}
+      label={label || tr(auth, 'password')}
       error={err}
       value={value}
       secureTextEntry={show}

@@ -1,11 +1,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
+import {useLazyQuery} from '@apollo/client';
 
 import {getTheme} from '../../../theme';
 import {useTranslation, global, auth} from '../../../translate';
+import {authClient} from '../../../clients';
 
 import validation from '../../../lib/validation';
+import {login} from '../../../schemas/auth';
+
+import {useDataBase, query, tokenSchemas} from '../../../wrappers/db';
 
 import {PassInput} from '../../../components';
 import Wrapp from '../Wrapp';
@@ -15,6 +20,10 @@ const Login = () => {
   const [pass, setPass] = React.useState('');
   const [err, setErr] = React.useState(false);
   const {tr} = useTranslation();
+  const db = useDataBase();
+  const [loadGreeting, {loading, data, error}] = useLazyQuery(login, {
+    client: authClient,
+  });
 
   const onChangeEmail = (text: string) => setEmail(text);
   const onChangePass = (text: string) => setPass(text);
@@ -28,16 +37,29 @@ const Login = () => {
       return setErr(true);
     }
     setErr(false);
-    alert('ok');
+    loadGreeting({variables: {email, password: pass}});
   };
+
+  React.useEffect(() => {
+    if (data) {
+      if (data.login?.result === 'SUCCESS') {
+        query(db, tokenSchemas.insert(data.login.token, 'user'));
+        return;
+      }
+      setErr(true);
+    }
+  }, [data, db]);
+
   return (
     <Wrapp title={tr(global, 'login')}>
-      <Text style={style.errText}>{err ? tr(auth, 'error') : ''}</Text>
+      <Text style={style.errText}>
+        {err || Boolean(error) ? tr(auth, 'error') : ''}
+      </Text>
       <TextInput
         style={style.input}
-        label="email"
+        label={tr(auth, 'email')}
         onChangeText={onChangeEmail}
-        error={err}
+        error={err || Boolean(error)}
         mode="outlined"
         value={email}
         left={<TextInput.Icon name="email" />}
@@ -46,10 +68,15 @@ const Login = () => {
       <PassInput
         style={style.input}
         onChangePass={onChangePass}
-        err={err}
+        err={err || Boolean(error)}
         value={pass}
       />
-      <Button mode="outlined" style={style.button} onPress={onPressHandler}>
+      <Button
+        mode="outlined"
+        style={style.button}
+        onPress={onPressHandler}
+        loading={loading}
+        disabled={loading}>
         {tr(global, 'login')}
       </Button>
     </Wrapp>
