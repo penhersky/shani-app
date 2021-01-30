@@ -67,7 +67,6 @@ const App = (): JSX.Element => {
   if (error && error.message !== 'Access denied') {
     return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
-
   if (error || (!user?.id && !admin?.id)) {
     return (
       <NavigationContainer theme={navigationTheme}>

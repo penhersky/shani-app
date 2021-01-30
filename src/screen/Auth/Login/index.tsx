@@ -1,4 +1,5 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useLazyQuery} from '@apollo/client';
@@ -10,30 +11,31 @@ import {authClient} from '../../../clients';
 import validation from '../../../lib/validation';
 import {login} from '../../../schemas/auth';
 
-import {useDataBase, query, tokenSchemas} from '../../../wrappers/db';
+import {useDataBase, insert, tokenSchemas} from '../../../wrappers/db';
 
 import {PassInput} from '../../../components';
 import Wrapp from '../Wrapp';
 
-const Login = () => {
+const Login = ({route}: any) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [err, setErr] = React.useState(false);
   const {tr} = useTranslation();
   const db = useDataBase();
+  const dispatch = useDispatch();
   const [loadGreeting, {loading, data, error}] = useLazyQuery(login, {
     client: authClient,
   });
 
   const onChangeEmail = (text: string) => setEmail(text);
   const onChangePass = (text: string) => setPass(text);
-
   const onPressHandler = () => {
     const validEmail = validation.email(email);
     if (validEmail) {
       return setErr(true);
     }
     if (pass.length < 6) {
+      route.params.loginSuccess();
       return setErr(true);
     }
     setErr(false);
@@ -43,12 +45,16 @@ const Login = () => {
   React.useEffect(() => {
     if (data) {
       if (data.login?.result === 'SUCCESS') {
-        query(db, tokenSchemas.insert(data.login.token, 'user'));
+        insert(
+          db,
+          tokenSchemas.deleteByType('user'),
+          tokenSchemas.insert(data.login.token, 'user'),
+        );
         return;
       }
       setErr(true);
     }
-  }, [data, db]);
+  }, [data, db, dispatch]);
 
   return (
     <Wrapp title={tr(global, 'login')}>
