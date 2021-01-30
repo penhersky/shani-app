@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 
 export {default as collapsed} from './text/collapsed';
 export {default as landing} from './text/landing';
+export {default as auth} from './text/auth';
 
 export {default as global} from './text/global';
 

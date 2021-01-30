@@ -10,10 +10,12 @@ const Wrapp = ({
   children,
   toBack = 'Landing',
   title,
+  height = 360,
 }: {
   children: any;
   toBack?: string;
   title: string;
+  height?: number;
 }) => {
   const navigation = useNavigation();
   const img = require('../../assets/fon.png');
@@ -30,7 +32,7 @@ const Wrapp = ({
         />
         <Image source={logo} style={style.logo} />
         <LinearGradient
-          style={style.container}
+          style={{...style.container, height}}
           colors={['#C4E0E575', '#4CA1AFDA']}>
           <Title style={style.title}>{title}</Title>
           <View style={style.content}>{children}</View>
@@ -61,7 +63,6 @@ const style = StyleSheet.create({
   },
   container: {
     minWidth: 350,
-    height: 340,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'stretch',
