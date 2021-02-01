@@ -8,3 +8,16 @@ export const login = gql`
     }
   }
 `;
+
+export const singUp = (type: string) => gql`
+  mutation singUp${
+    type.charAt(0).toUpperCase() + type.slice(1)
+  }($email: String!, $name: String!) {
+    login(email: $email, name: $name) {
+      result
+      status
+      fields
+      token
+    }
+  }
+`;

@@ -13,12 +13,11 @@ import {useDataBase} from './wrappers/db';
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
-import {NetworkError, Loading, Landing, Login} from './screen';
+import {NetworkError, Loading, Landing, Login, SingUp} from './screen';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
 import {saveUser} from './wrappers/authUser';
-import {query, tokenSchemas} from './wrappers/db';
 
 const Stack = createStackNavigator();
 
@@ -34,11 +33,6 @@ const App = (): JSX.Element => {
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
   });
-
-  // create tables
-  React.useEffect(() => {
-    query(db, tokenSchemas.table);
-  }, [db]);
 
   React.useEffect(() => {
     const deviceLng = String(device.getLng()).split('_').join('-');
@@ -79,6 +73,11 @@ const App = (): JSX.Element => {
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SingUp"
+            component={SingUp}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

@@ -19,7 +19,7 @@ const Landing = ({navigation}: any) => {
   const performer = require('../../assets/performer.png');
 
   const onAuthHandler = (type: string) => {
-    navigation.navigate('SingUp');
+    navigation.navigate('SingUp', {type});
     dispatch({
       type: SET_USER_TYPE,
       userType: type,
@@ -41,7 +41,7 @@ const Landing = ({navigation}: any) => {
         </TouchableHighlight>
         <TouchableHighlight
           style={style.card}
-          onPress={() => () => onAuthHandler('customer')}>
+          onPress={() => onAuthHandler('performer')}>
           <Card.Content style={style.content}>
             <Title style={style.text}>{tr(landing, 'performer')}</Title>
             <Image source={performer} style={style.img} />
