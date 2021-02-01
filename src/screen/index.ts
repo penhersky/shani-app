@@ -3,4 +3,4 @@ export {default as Loading} from './Loading';
 
 export {default as Landing} from './Landing';
 
-export {Login, SingUp} from './Auth';
+export {Login, SingUp, CodeInput} from './Auth';

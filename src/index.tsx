@@ -13,7 +13,14 @@ import {useDataBase} from './wrappers/db';
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
 
-import {NetworkError, Loading, Landing, Login, SingUp} from './screen';
+import {
+  NetworkError,
+  Loading,
+  Landing,
+  Login,
+  SingUp,
+  CodeInput,
+} from './screen';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
@@ -78,6 +85,11 @@ const App = (): JSX.Element => {
           <Stack.Screen
             name="SingUp"
             component={SingUp}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="CodeInput"
+            component={CodeInput}
             options={{headerShown: false}}
           />
           <Stack.Screen

@@ -63,27 +63,26 @@ const SingUp = ({route, navigation}: any) => {
   React.useEffect(() => {
     if (data) {
       const result = get(data, `singUp${capitalize(route.params.type)}`);
-      const field = nth([...get(result, 'fields')]) || 'email';
-      setErr(field);
-      if (Number(get(result, 'status')) === 45) {
-        return setMsg(
-          field === 'email'
-            ? tr(auth, 'errors.email')
-            : tr(auth, 'errors.namePattern'),
-        );
-      }
-      if (Number(get(result, 'status')) === 44) {
-        setMsg(tr(auth, 'errors.userExist'));
+      if (get(result, 'result') === 'ERROR') {
+        const field = nth([...get(result, 'fields')]) || 'email';
+        setErr(field);
+        if (Number(get(result, 'status')) === 45) {
+          return setMsg(
+            field === 'email'
+              ? tr(auth, 'errors.email')
+              : tr(auth, 'errors.namePattern'),
+          );
+        }
+        if (Number(get(result, 'status')) === 44) {
+          setMsg(tr(auth, 'errors.userExist'));
+        }
       }
     }
   }, [data, route.params.type, tr]);
 
   React.useEffect(() => {
     if (error) {
-      navigation.navigate('NetworkError', {
-        type: route.params.type,
-        to: 'SingUp',
-      });
+      navigation.navigate('NetworkError');
     }
   }, [error, navigation, route.params.type]);
 

@@ -11,6 +11,16 @@ export const login = gql`
   }
 `;
 
+export const code = gql`
+  query verifyCode($token: String!, $code: String!) {
+    verifyCode(token: $token, code: $code) {
+      token
+      result
+      status
+    }
+  }
+`;
+
 export const singUp = (type: string) => gql`
   mutation singUp${capitalize(type)}($email: String!, $name: String!) {
     singUp${capitalize(type)}(email: $email, name: $name) {

@@ -10,10 +10,12 @@ const Wrapp = ({
   children,
   title,
   height = 360,
+  titleSize = 30,
 }: {
   children: any;
   title: string;
   height?: number;
+  titleSize?: number;
 }) => {
   const navigation = useNavigation();
   const img = require('../../assets/fon.png');
@@ -32,7 +34,7 @@ const Wrapp = ({
         <LinearGradient
           style={{...style.container, height}}
           colors={['#C4E0E575', '#4CA1AFDA']}>
-          <Title style={style.title}>{title}</Title>
+          <Title style={{...style.title, fontSize: titleSize}}>{title}</Title>
           <View style={style.content}>{children}</View>
         </LinearGradient>
       </ImageBackground>
@@ -76,9 +78,11 @@ const style = StyleSheet.create({
     flexDirection: 'column',
   },
   title: {
-    fontSize: 30,
+    width: 350,
     alignSelf: 'center',
     color: getTheme.colors.primary,
+    textAlign: 'center',
+    marginHorizontal: 10,
   },
 });
 

@@ -10,6 +10,7 @@ export default {
       shortName: 'The name must be at least three characters long',
       namePattern:
         'The name can contain Cyrillic or Latin letters, numbers and symbols "-" "_".',
+      code: 'Incorrect code',
     },
     password: 'password',
     email: 'Email',
@@ -17,6 +18,7 @@ export default {
     login: 'Login',
     SingUpTitle: (type: string) =>
       `Sing Up ${type === 'customer' ? 'Employer' : 'Employee'}`,
+    codeTitle: 'Enter the verification code we sent to your email address',
     SingUp: 'Sing Up',
   },
   ua: {
@@ -30,6 +32,7 @@ export default {
       shortName: "Ім'я має містити принаймні три символи",
       namePattern:
         'Ім`я може містити кириличні або латинські літери, цифри та символи "-"  "_"',
+      code: 'Некоректний код',
     },
     password: 'Пароль',
     email: 'Email',
@@ -37,6 +40,8 @@ export default {
     login: 'Увійти',
     SingUpTitle: (type: string) =>
       `Зареєстрація ${type === 'customer' ? 'роботодавеця' : 'працівника'}`,
+    codeTitle:
+      'Введіть код підтвердження, який ми надіслали на вашу електронну адресу',
     SingUp: 'Зареєструватися',
   },
   ru: {
@@ -50,6 +55,7 @@ export default {
       shortName: 'Имя должно состоять не менее чем из трех символов',
       namePattern:
         'Имя может содержать кириллические или латинские буквы, цифры и символы "-" "_".',
+      code: 'Некорректный код',
     },
     password: 'Пароль',
     email: 'Email',
@@ -57,6 +63,8 @@ export default {
     login: 'Войти',
     SingUpTitle: (type: string) =>
       `Sing Up ${type === 'customer' ? 'работодателиля' : 'работника'}`,
+    codeTitle:
+      'Введите код подтверждения, который мы направили на ваш электронный адрес',
     SingUp: 'Зарегистрироваться',
   },
 };
