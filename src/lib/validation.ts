@@ -9,7 +9,17 @@ const emailValid = (email: string) => {
   ) {
     return 'pattern';
   }
-  return undefined;
+  return;
+};
+
+const name = (Name: string) => {
+  if (Name.length < 3) {
+    return 'len';
+  }
+  if (!new RegExp(/^[А-ЯЄЇа-яєїa-zA-Z0-9_-]*$/).test(Name)) {
+    return 'pattern';
+  }
+  return;
 };
 
 const password = (pass: string) => {
@@ -23,10 +33,11 @@ const password = (pass: string) => {
   ) {
     return 'pattern';
   }
-  return undefined;
+  return;
 };
 
 export default {
   email: emailValid,
+  name,
   password,
 };

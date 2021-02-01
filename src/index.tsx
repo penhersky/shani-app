@@ -80,6 +80,11 @@ const App = (): JSX.Element => {
             component={SingUp}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="NetworkError"
+            component={NetworkError}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

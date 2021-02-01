@@ -6,6 +6,7 @@ const style = StyleSheet.create({
   errText: {
     color: getTheme.colors.error,
     textAlign: 'center',
+    width: 300,
   },
   input: {
     backgroundColor: getTheme.colors.accent,
