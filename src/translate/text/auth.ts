@@ -5,6 +5,7 @@ export default {
       shortPass: 'The password must not be shorter than 6 characters',
       passPattern:
         'The password must consist of uppercase and lowercase characters of the Latin alphabet, numbers and symbols',
+      passIdentity: 'Passwords do not match',
       email: 'Not a valid email',
       userExist: 'Such a user already exists',
       shortName: 'The name must be at least three characters long',
@@ -13,12 +14,14 @@ export default {
       code: 'Incorrect code',
     },
     password: 'password',
+    repassword: 'Repeat the password',
     email: 'Email',
     name: 'Name',
     login: 'Login',
     SingUpTitle: (type: string) =>
       `Sing Up ${type === 'customer' ? 'Employer' : 'Employee'}`,
     codeTitle: 'Enter the verification code we sent to your email address',
+    passTitle: 'Enter your password',
     SingUp: 'Sing Up',
   },
   ua: {
@@ -27,6 +30,7 @@ export default {
       shortPass: 'Пародь не повинен бути корочший 6 символів',
       passPattern:
         'Пароль повинен складатися із великих та малих символів латинського алфавіту, цифр та символів',
+      passIdentity: 'Паролі не збігаються',
       email: 'Некоректний email',
       userExist: 'Такий користувач уже існує',
       shortName: "Ім'я має містити принаймні три символи",
@@ -35,6 +39,7 @@ export default {
       code: 'Некоректний код',
     },
     password: 'Пароль',
+    repassword: 'Повторіть пароль',
     email: 'Email',
     name: "Iм'я",
     login: 'Увійти',
@@ -42,6 +47,7 @@ export default {
       `Зареєстрація ${type === 'customer' ? 'роботодавеця' : 'працівника'}`,
     codeTitle:
       'Введіть код підтвердження, який ми надіслали на вашу електронну адресу',
+    passTitle: 'Введіть ваш пароль',
     SingUp: 'Зареєструватися',
   },
   ru: {
@@ -50,6 +56,7 @@ export default {
       shortPass: 'The password must not be shorter than 6 characters',
       passPattern:
         'Пароль должен состоять из больших и малых символов латинского алфавита, цифр и символов',
+      passIdentity: 'Пароли не совпадают',
       email: 'Некорректный email',
       userExist: 'Такой пользователь уже существует',
       shortName: 'Имя должно состоять не менее чем из трех символов',
@@ -58,6 +65,7 @@ export default {
       code: 'Некорректный код',
     },
     password: 'Пароль',
+    repassword: 'Повторите пароль',
     email: 'Email',
     name: 'Имя',
     login: 'Войти',
@@ -65,6 +73,7 @@ export default {
       `Sing Up ${type === 'customer' ? 'работодателиля' : 'работника'}`,
     codeTitle:
       'Введите код подтверждения, который мы направили на ваш электронный адрес',
+    passTitle: 'Введите свой пароль',
     SingUp: 'Зарегистрироваться',
   },
 };

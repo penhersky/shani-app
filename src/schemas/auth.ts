@@ -31,3 +31,11 @@ export const singUp = (type: string) => gql`
     }
   }
 `;
+
+export const confirmPass = gql`
+  mutation confirmRegistration($token: String!, $password: String!) {
+    confirmRegistration(token: $token, password: $password) {
+      result
+    }
+  }
+`;

@@ -20,6 +20,7 @@ import {
   Login,
   SingUp,
   CodeInput,
+  CreatePass,
 } from './screen';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
@@ -90,6 +91,11 @@ const App = (): JSX.Element => {
           <Stack.Screen
             name="CodeInput"
             component={CodeInput}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="CreatePass"
+            component={CreatePass}
             options={{headerShown: false}}
           />
           <Stack.Screen
