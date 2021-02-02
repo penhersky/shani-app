@@ -22,7 +22,7 @@ import {
   CodeInput,
   CreatePass,
 } from './screen';
-import {HeaderRightUser, LeftHeader} from './components';
+import {HeaderRightUser, LeftHeaderHome} from './components';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
@@ -127,7 +127,11 @@ const App = ({navigation}: any): JSX.Element => {
         <Stack.Screen
           name="Home"
           component={Main}
-          options={{headerRight: HeaderRightUser, headerLeft: LeftHeader}}
+          options={{
+            headerRight: HeaderRightUser,
+            headerLeft: LeftHeaderHome,
+            title: '',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

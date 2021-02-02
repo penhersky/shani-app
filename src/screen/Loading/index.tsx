@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
+import {getTheme} from '../../theme';
+
 const Loading = () => {
   const img = require('../../assets/logo.png');
   return (
@@ -22,6 +24,7 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: getTheme.colors.background,
   },
 });
 
