@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import {View, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {Avatar, IconButton, Badge} from 'react-native-paper';
 
-import {avatarText} from '../lib/format';
+import {avatarText} from '../../lib/format';
 
 const Header = ({navigation}: any) => {
   const {user, admin, type} = useSelector((state: any) => state.user);

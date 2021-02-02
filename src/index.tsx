@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {View, Text} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
@@ -22,7 +22,7 @@ import {
   CodeInput,
   CreatePass,
 } from './screen';
-import {HeaderRightUser} from './components';
+import {HeaderRightUser, LeftHeader} from './components';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
@@ -36,7 +36,6 @@ const Main = () => (
   </View>
 );
 const App = ({navigation}: any): JSX.Element => {
-  const {user, admin} = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const db = useDataBase();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
@@ -128,7 +127,7 @@ const App = ({navigation}: any): JSX.Element => {
         <Stack.Screen
           name="Home"
           component={Main}
-          options={{headerRight: HeaderRightUser}}
+          options={{headerRight: HeaderRightUser, headerLeft: LeftHeader}}
         />
       </Stack.Navigator>
     </NavigationContainer>
