@@ -7,7 +7,7 @@ import {connect, query, tokenSchemas} from './wrappers/db';
 import {mainApiUrl, authApiUrl} from '../src/config';
 
 const httpAuthLink = createHttpLink({
-  uri: 'https://6748e096de81.ngrok.io/graphql',
+  uri: 'https://1125d8278eb3.ngrok.io/graphql',
 });
 
 const httpMainLink = createHttpLink({
@@ -20,12 +20,13 @@ const authLink = setContext(async (_, {headers}) => {
     const service = find(row, {type: 'service'});
     const expiresIn = get(service, 'expiresIn');
     const date = new Date();
-
     return {
       headers: {
         ...headers,
-        'X-user-security-token-X': get(find(row, {type: 'user'}), 'token'),
-        'X-admin-security-token-X': get(find(row, {type: 'admin'}), 'token'),
+        'X-user-security-token-X':
+          get(find(row, {type: 'user'}), 'token') ?? '',
+        'X-admin-security-token-X':
+          get(find(row, {type: 'admin'}), 'token') ?? '',
         'x-service-security-token-x':
           service && expiresIn > Number(date) ? get(service, 'token') : '',
       },

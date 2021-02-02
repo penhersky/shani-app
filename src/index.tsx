@@ -22,6 +22,7 @@ import {
   CodeInput,
   CreatePass,
 } from './screen';
+import {HeaderRightUser} from './components';
 
 import {SET_LNG, languages, Lng} from '../redux/types/settings';
 
@@ -34,12 +35,13 @@ const Main = () => (
     <Text>Test</Text>
   </View>
 );
-const App = (): JSX.Element => {
+const App = ({navigation}: any): JSX.Element => {
   const {user, admin} = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const db = useDataBase();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
+    fetchPolicy: 'no-cache',
   });
 
   React.useEffect(() => {
@@ -61,6 +63,17 @@ const App = (): JSX.Element => {
       saveUser(info, dispatch, db);
     }
   };
+  const authorized = () => {
+    refetch()
+      ?.then((info: any) => {
+        saveUser(info, dispatch, db);
+      })
+      .catch((err: any) => {
+        if (err.message !== 'Access denied') {
+          navigation.navigate('NetworkError');
+        }
+      });
+  };
 
   if (loading) {
     return <Loading />;
@@ -69,7 +82,7 @@ const App = (): JSX.Element => {
   if (error && error.message !== 'Access denied') {
     return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
-  if (error || (!user?.id && !admin?.id)) {
+  if (error || data?.getAccount?.result !== 'SUCCESS') {
     return (
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator initialRouteName="Landing">
@@ -82,6 +95,7 @@ const App = (): JSX.Element => {
             name="Login"
             component={Login}
             options={{headerShown: false}}
+            initialParams={{authorized}}
           />
           <Stack.Screen
             name="SingUp"
@@ -111,7 +125,11 @@ const App = (): JSX.Element => {
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Main} />
+        <Stack.Screen
+          name="Home"
+          component={Main}
+          options={{headerRight: HeaderRightUser}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

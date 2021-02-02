@@ -40,7 +40,9 @@ const style = StyleSheet.create({
   },
   login: {
     padding: 10,
+    marginTop: 10,
     borderRadius: getTheme.borderRadius,
+    backgroundColor: '#56B6C500',
     width: '100%',
   },
   text: {

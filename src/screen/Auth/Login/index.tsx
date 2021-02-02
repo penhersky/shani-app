@@ -16,7 +16,7 @@ import Wrapp from '../Wrapp';
 
 import style from '../style';
 
-const Login = () => {
+const Login = ({route}: any) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [err, setErr] = React.useState(false);
@@ -49,11 +49,12 @@ const Login = () => {
           tokenSchemas.deleteByType('user'),
           tokenSchemas.insert(data.login.token, 'user'),
         );
+        route.params?.authorized();
         return;
       }
       setErr(true);
     }
-  }, [data, db, dispatch]);
+  }, [data, db, dispatch, route.params]);
 
   return (
     <Wrapp title={tr(auth, 'login')}>

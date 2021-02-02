@@ -17,6 +17,7 @@ const Landing = ({navigation}: any) => {
   const logo = require('../../assets/logo.png');
   const customer = require('../../assets/customer.png');
   const performer = require('../../assets/performer.png');
+  const fon = require('../../assets/landing.png');
 
   const onAuthHandler = (type: string) => {
     navigation.navigate('SingUp', {type});
@@ -34,18 +35,26 @@ const Landing = ({navigation}: any) => {
         <TouchableHighlight
           style={style.card}
           onPress={() => onAuthHandler('customer')}>
-          <Card.Content style={style.content}>
+          <LinearGradient
+            colors={getTheme.colors.gradient}
+            style={style.content}>
+            {/* <Card.Content style={style.content}> */}
             <Title style={style.text}>{tr(landing, 'customer')}</Title>
             <Image source={customer} style={style.img} />
-          </Card.Content>
+            {/* </Card.Content> */}
+          </LinearGradient>
         </TouchableHighlight>
         <TouchableHighlight
           style={style.card}
           onPress={() => onAuthHandler('performer')}>
-          <Card.Content style={style.content}>
+          <LinearGradient
+            colors={getTheme.colors.gradientRevers}
+            style={style.content}>
+            {/* <Card.Content style={style.content}> */}
             <Title style={style.text}>{tr(landing, 'performer')}</Title>
             <Image source={performer} style={style.img} />
-          </Card.Content>
+            {/* </Card.Content> */}
+          </LinearGradient>
         </TouchableHighlight>
       </View>
 

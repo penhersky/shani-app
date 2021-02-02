@@ -4,8 +4,8 @@ export const SET_USER_TYPE = 'SET_USER_TYPE';
 export const SET_ADMIN = 'SET_ADMIN';
 
 export type User = {
-  id?: string;
-  name?: string;
+  id: string;
+  name: string;
   email?: string;
   provider?: string;
   type?: string;
@@ -16,7 +16,7 @@ export type User = {
   description?: string;
   birthday?: string;
   categoriesId?: [string];
-  image?: string;
+  image: string;
 };
 
 export type Admin = {

@@ -23,7 +23,11 @@ export type StateType = {
 };
 
 export const initialState = {
-  user: {},
+  user: {
+    id: '',
+    name: '',
+    image: '',
+  },
   type: 'customer',
 };
 
@@ -56,6 +60,7 @@ const user = (state: StateType = initialState, action: Action): StateType => {
       return {
         ...state,
         admin: action.admin,
+        type: 'admin',
       };
     default:
       return state;
