@@ -1,7 +1,9 @@
 import React from 'react';
 import {IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
-const Header = ({navigation}: any) => {
+const Header = () => {
+  const navigation = useNavigation();
   const onPressBack = () => {
     navigation.goBack();
   };

@@ -15,6 +15,7 @@ export const shortAccount = gql`
         id
         name
         type
+        email
         images {
           Location
           active

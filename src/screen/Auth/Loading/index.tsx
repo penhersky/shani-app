@@ -5,7 +5,7 @@ import {ActivityIndicator} from 'react-native-paper';
 import {getTheme} from '../../../theme';
 
 const Loading = () => {
-  const img = require('../../assets/logo.png');
+  const img = require('../../../assets/logo.png');
   return (
     <View style={style.content}>
       <Image source={img} />

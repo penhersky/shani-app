@@ -1,33 +1,34 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {View, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Avatar, IconButton, Badge} from 'react-native-paper';
 
 import {avatarText} from '../../lib/format';
 import screens from '../../lib/screens';
 
-const Header = ({navigation}: any) => {
+const Header = () => {
+  const navigation = useNavigation();
   const {user, admin, type} = useSelector((state: any) => state.user);
   const notifications = 3;
 
   const uri = type === 'admin' ? admin?.imageUrl : user.image;
 
   const onPressBell = () => {
-    navigation.navigate(screens.notifications);
+    navigation.navigate(screens.userPanel);
   };
   const onPressUser = () => {
     navigation.navigate(screens.notifications);
   };
-
   return (
     <View style={style.container}>
       <View style={style.bell}>
         <Badge visible={Boolean(notifications)} style={style.badge}>
           {notifications}
         </Badge>
-        <IconButton icon="bell" size={35} onPress={onPressBell} />
+        <IconButton icon="bell" size={35} onPress={onPressUser} />
       </View>
-      <TouchableNativeFeedback onPress={onPressUser}>
+      <TouchableNativeFeedback onPress={onPressBell}>
         {uri ? (
           <Avatar.Image size={40} source={{uri}} />
         ) : (

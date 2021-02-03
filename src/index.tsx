@@ -1,9 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {useQuery} from '@apollo/client';
-import {NavigationContainer} from '@react-navigation/native';
 
-import {navigationTheme} from './theme';
 import device from './lib/detectDevice';
 
 import {useDataBase} from './wrappers/db';
@@ -24,6 +22,12 @@ const App = (): JSX.Element => {
     client: authClient,
     fetchPolicy: 'no-cache',
   });
+
+  React.useEffect(() => {
+    if (data) {
+      saveUser(data, dispatch, db);
+    }
+  }, [data, dispatch, db]);
 
   React.useEffect(() => {
     const deviceLng = String(device.getLng()).split('_').join('-');
@@ -52,18 +56,10 @@ const App = (): JSX.Element => {
   }
 
   if (error || data?.getAccount?.result !== 'SUCCESS') {
-    return (
-      <NavigationContainer theme={navigationTheme}>
-        <Auth data={data} refetch={refetch} />
-      </NavigationContainer>
-    );
+    return <Auth refetch={refetch} />;
   }
 
-  return (
-    <NavigationContainer theme={navigationTheme}>
-      <Main />
-    </NavigationContainer>
-  );
+  return <Main />;
 };
 
 export default App;

@@ -17,7 +17,7 @@ export const saveUser = (data: any, dispatch: any, db: any) => {
     dispatch({
       type: SET_SHORT_USER,
       user: {
-        ...pick(get(data?.getAccount, 'user'), ['id', 'name', 'type']),
+        ...pick(get(data?.getAccount, 'user'), ['id', 'name', 'type', 'email']),
         image: get(
           find(get(data?.getAccount, 'user')?.images, {active: true}),
           'Location',

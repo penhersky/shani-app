@@ -1,12 +1,12 @@
 const text = {
   en: {
-    customer: 'Account',
+    account: 'Account',
   },
   ua: {
-    customer: 'Обліковий запис',
+    account: 'Обліковий запис',
   },
   ru: {
-    customer: 'Аккаунт',
+    account: 'Аккаунт',
   },
 };
 
