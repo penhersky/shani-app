@@ -4,6 +4,7 @@ import {View, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {Avatar, IconButton, Badge} from 'react-native-paper';
 
 import {avatarText} from '../../lib/format';
+import screens from '../../lib/screens';
 
 const Header = ({navigation}: any) => {
   const {user, admin, type} = useSelector((state: any) => state.user);
@@ -12,10 +13,10 @@ const Header = ({navigation}: any) => {
   const uri = type === 'admin' ? admin?.imageUrl : user.image;
 
   const onPressBell = () => {
-    navigation.navigate('Notification');
+    navigation.navigate(screens.notifications);
   };
   const onPressUser = () => {
-    navigation.navigate('UserPanel');
+    navigation.navigate(screens.notifications);
   };
 
   return (

@@ -1,5 +1,5 @@
 import {get, nth} from 'lodash';
-import {NativeModules} from 'react-native';
+import {NativeModules, Appearance} from 'react-native';
 
 const getLng = () => {
   const ios =
@@ -11,7 +11,11 @@ const getLng = () => {
   const android = get(NativeModules?.I18nManager, 'localeIdentifier');
   return android || ios;
 };
+const theme = () => {
+  return Appearance.getColorScheme() === 'dark' ? 'dark' : 'white';
+};
 
 export default {
   getLng,
+  theme,
 };

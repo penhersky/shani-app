@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {navigationTheme} from './theme';
 import device from './lib/detectDevice';
+import screens from './lib/screens';
 
 import {useDataBase} from './wrappers/db';
 
@@ -24,7 +25,7 @@ import {
 } from './screen';
 import {HeaderRightUser, LeftHeaderHome} from './components';
 
-import {SET_LNG, languages, Lng} from '../redux/types/settings';
+import {SET_LNG, SET_THEME, languages, Lng} from '../redux/types/settings';
 
 import {saveUser} from './wrappers/authUser';
 
@@ -49,8 +50,12 @@ const App = ({navigation}: any): JSX.Element => {
       type: SET_LNG,
       lng: languages.includes(deviceLng) ? deviceLng : Lng.en,
     });
+    dispatch({
+      type: SET_THEME,
+      theme: device.theme(),
+    });
   }, [dispatch]);
-
+  console.log(1);
   React.useEffect(() => {
     if (data) {
       saveUser(data, dispatch, db);
@@ -69,7 +74,7 @@ const App = ({navigation}: any): JSX.Element => {
       })
       .catch((err: any) => {
         if (err.message !== 'Access denied') {
-          navigation.navigate('NetworkError');
+          navigation.navigate(screens.networkError);
         }
       });
   };
@@ -86,33 +91,33 @@ const App = ({navigation}: any): JSX.Element => {
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator initialRouteName="Landing">
           <Stack.Screen
-            name="Landing"
+            name={screens.landing}
             component={Landing}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Login"
+            name={screens.landing}
             component={Login}
             options={{headerShown: false}}
             initialParams={{authorized}}
           />
           <Stack.Screen
-            name="SingUp"
+            name={screens.singUp}
             component={SingUp}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="CodeInput"
+            name={screens.codeInput}
             component={CodeInput}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="CreatePass"
+            name={screens.createPass}
             component={CreatePass}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="NetworkError"
+            name={screens.networkError}
             component={NetworkError}
             options={{headerShown: false}}
           />
@@ -123,9 +128,9 @@ const App = ({navigation}: any): JSX.Element => {
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName={screens.home}>
         <Stack.Screen
-          name="Home"
+          name={screens.home}
           component={Main}
           options={{
             headerRight: HeaderRightUser,
