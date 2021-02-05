@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {useQuery} from '@apollo/client';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 import device from './lib/detectDevice';
 
@@ -8,6 +9,7 @@ import {useDataBase} from './wrappers/db';
 
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
+import {useTheme} from './theme';
 
 import {NetworkError, Loading, Auth, Main} from './screen';
 
@@ -17,6 +19,7 @@ import {saveUser} from './wrappers/authUser';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const db = useDataBase();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
@@ -59,7 +62,11 @@ const App = (): JSX.Element => {
     return <Auth refetch={refetch} />;
   }
 
-  return <Main />;
+  return (
+    <PaperProvider theme={theme}>
+      <Main />
+    </PaperProvider>
+  );
 };
 
 export default App;

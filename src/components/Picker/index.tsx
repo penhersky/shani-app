@@ -5,6 +5,8 @@ import {Subheading, Dialog, Portal, List} from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import {useTheme} from '../../theme';
+
 import style from './style';
 
 const Picker = ({
@@ -21,6 +23,7 @@ const Picker = ({
   onChange: (value: string) => void;
 }) => {
   const [visible, setVisible] = React.useState(false);
+  const theme = useTheme();
 
   const hideDialog = () => setVisible(false);
   const showDialog = () => setVisible(true);
@@ -29,7 +32,14 @@ const Picker = ({
     <>
       <TouchableOpacity style={[style.trigger, styles]} onPress={showDialog}>
         <>
-          {icon ? <Icon name={icon} style={style.icon} size={25} /> : null}
+          {icon ? (
+            <Icon
+              name={icon}
+              style={style.icon}
+              size={25}
+              color={theme.colors.text}
+            />
+          ) : null}
           <Subheading style={style.title}>
             {_.find(list, {value})?.label}
           </Subheading>

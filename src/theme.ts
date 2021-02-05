@@ -1,4 +1,5 @@
 import {get} from 'lodash';
+import {useSelector} from 'react-redux';
 import {DefaultTheme} from 'react-native-paper';
 
 import store from '../redux/store';
@@ -63,7 +64,8 @@ export const getTheme = (() => {
 })();
 
 export const useTheme = () => {
-  return get(theme, store.getState().settings.theme);
+  const {theme: mode} = useSelector((state: any) => state.settings);
+  return get(theme, mode);
 };
 
 export const navigationTheme = (gtheme: any) => ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {View} from 'react-native';
-import {List, Switch} from 'react-native-paper';
+import {List, Switch, Button} from 'react-native-paper';
 
 import {Picker} from '../../components';
 

@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {LogBox} from 'react-native';
 import {Provider} from 'react-redux';
-import {Provider as PaperProvider} from 'react-native-paper';
 import {ApolloProvider} from '@apollo/client';
 
 import {mainClient} from './src/clients';
@@ -12,7 +11,6 @@ import {
   query,
   tokenSchemas,
 } from './src/wrappers/db';
-import {useTheme} from './src/theme';
 import store from './redux/store';
 import App from './src';
 
@@ -21,22 +19,16 @@ LogBox.ignoreLogs([
 ]);
 
 const Root = () => {
-  const theme = useTheme();
-
   React.useEffect(() => {
     query(db, tokenSchemas.table);
   }, []);
-
-  console.log(store.getState().settings);
 
   return (
     <>
       <DBProvider database={db}>
         <ApolloProvider client={mainClient}>
           <Provider store={store}>
-            <PaperProvider theme={theme}>
-              <App />
-            </PaperProvider>
+            <App />
           </Provider>
         </ApolloProvider>
       </DBProvider>

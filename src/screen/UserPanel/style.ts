@@ -24,6 +24,5 @@ export default StyleSheet.create({
   },
   icon: {
     marginHorizontal: 15,
-    alignSelf: 'center',
   },
 });

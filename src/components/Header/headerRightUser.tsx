@@ -15,30 +15,32 @@ const Header = () => {
   const uri = type === 'admin' ? admin?.imageUrl : user.image;
 
   const onPressBell = () => {
-    navigation.navigate(screens.userPanel);
-  };
-  const onPressUser = () => {
     navigation.navigate(screens.notifications);
   };
+  const onPressUser = () => {
+    navigation.navigate(screens.userPanel);
+  };
   return (
-    <View style={style.container}>
-      <View style={style.bell}>
-        <Badge visible={Boolean(notifications)} style={style.badge}>
-          {notifications}
-        </Badge>
-        <IconButton icon="bell" size={35} onPress={onPressUser} />
+    <>
+      <View style={style.container}>
+        <View style={style.bell}>
+          <Badge visible={Boolean(notifications)} style={style.badge}>
+            {notifications}
+          </Badge>
+          <IconButton icon="bell" size={35} onPress={onPressBell} />
+        </View>
+        <TouchableNativeFeedback onPress={onPressUser}>
+          {uri ? (
+            <Avatar.Image size={40} source={{uri}} />
+          ) : (
+            <Avatar.Text
+              size={40}
+              label={avatarText(type === 'admin' ? admin.name : user.name)}
+            />
+          )}
+        </TouchableNativeFeedback>
       </View>
-      <TouchableNativeFeedback onPress={onPressBell}>
-        {uri ? (
-          <Avatar.Image size={40} source={{uri}} />
-        ) : (
-          <Avatar.Text
-            size={40}
-            label={avatarText(type === 'admin' ? admin.name : user.name)}
-          />
-        )}
-      </TouchableNativeFeedback>
-    </View>
+    </>
   );
 };
 

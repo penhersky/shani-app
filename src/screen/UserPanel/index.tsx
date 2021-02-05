@@ -15,13 +15,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Link} from '../../components';
 
 import {avatarText} from '../../lib/format';
+import openUrl from '../../lib/openUrl';
 import {useTranslation, user as text, screenTitle} from '../../translate';
 import screens from '../../lib/screens';
 import style from './style';
-import {getTheme} from '../../theme';
+import {useTheme} from '../../theme';
 
 const Panel = (): JSX.Element => {
   const {tr} = useTranslation();
+  const theme = useTheme();
   const navigation = useNavigation();
   const {user, admin, type} = useSelector((state: any) => state.user);
 
@@ -31,6 +33,11 @@ const Panel = (): JSX.Element => {
   const onPressSettings = () => {
     navigation.navigate(screens.settings);
   };
+
+  const onPressLogOut = () => {};
+
+  const onPressAbout = () => openUrl('WebUrl');
+  const onPressFAQ = () => openUrl('WebUrl');
 
   return (
     <ScrollView style={style.container}>
@@ -48,7 +55,7 @@ const Panel = (): JSX.Element => {
           </View>
           <View style={style.toAcc}>
             <Paragraph>{tr(text, 'toAccount')}</Paragraph>
-            <Icon name="arrow-forward" size={14} color={getTheme.colors.text} />
+            <Icon name="arrow-forward" size={14} color={theme.colors.text} />
           </View>
         </View>
       </Link>
@@ -58,10 +65,51 @@ const Panel = (): JSX.Element => {
           title={tr(screenTitle, 'settings')}
           onPress={onPressSettings}
           left={() => (
-            <Icon name="settings-sharp" size={25} style={style.icon} />
+            <Icon
+              name="settings-sharp"
+              size={25}
+              style={style.icon}
+              color={theme.colors.text}
+            />
+          )}
+        />
+        <List.Item
+          title={tr(text, 'logout')}
+          onPress={onPressLogOut}
+          left={() => (
+            <Icon
+              name="exit-outline"
+              size={25}
+              style={style.icon}
+              color={theme.colors.text}
+            />
           )}
         />
         <Divider />
+        <List.Item
+          title={'FAQ'}
+          onPress={onPressFAQ}
+          left={() => (
+            <Icon
+              name="help-circle"
+              size={25}
+              style={style.icon}
+              color={theme.colors.text}
+            />
+          )}
+        />
+        <List.Item
+          title={tr(text, 'about')}
+          onPress={onPressAbout}
+          left={() => (
+            <Icon
+              name="information-circle"
+              size={25}
+              style={style.icon}
+              color={theme.colors.text}
+            />
+          )}
+        />
       </List.Section>
     </ScrollView>
   );
