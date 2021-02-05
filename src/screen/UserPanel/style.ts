@@ -18,15 +18,12 @@ export default StyleSheet.create({
   toAcc: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
-    width: 150,
+    width: 210,
   },
   icon: {
     marginHorizontal: 15,
     alignSelf: 'center',
-  },
-  switch: {
-    marginHorizontal: 5,
   },
 });

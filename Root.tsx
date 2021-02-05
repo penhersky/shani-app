@@ -27,6 +27,8 @@ const Root = () => {
     query(db, tokenSchemas.table);
   }, []);
 
+  console.log(store.getState().settings);
+
   return (
     <>
       <DBProvider database={db}>
