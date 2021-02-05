@@ -2,6 +2,7 @@ export default {
   home: 'Home',
   userPanel: 'UserPanel',
   userProfile: 'UserProfile',
+  settings: 'Settings',
   notifications: 'Notifications',
   networkError: 'NetworkError',
   landing: 'Landing',

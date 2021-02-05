@@ -7,9 +7,10 @@ import screens from '../lib/screens';
 import {useTranslation, screenTitle} from '../translate';
 
 import UserPanel from './UserPanel';
+import Settings from './Settings';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
-import {navigationTheme} from '../theme';
+import {navigationTheme, useTheme} from '../theme';
 
 const Stack = createStackNavigator();
 
@@ -19,9 +20,10 @@ const Home = () => (
   </View>
 );
 const Main = (): JSX.Element => {
+  const theme = useTheme();
   const {tr} = useTranslation();
   return (
-    <NavigationContainer theme={navigationTheme}>
+    <NavigationContainer theme={navigationTheme(theme)}>
       <Stack.Navigator initialRouteName={screens.home}>
         <Stack.Screen
           name={screens.home}
@@ -38,6 +40,15 @@ const Main = (): JSX.Element => {
           options={{
             headerLeft: LeftHeader,
             title: tr(screenTitle, 'account'),
+          }}
+        />
+        <Stack.Screen
+          name={screens.settings}
+          component={Settings}
+          options={{
+            headerLeft: LeftHeader,
+            headerRight: HeaderRightUser,
+            title: tr(screenTitle, 'settings'),
           }}
         />
       </Stack.Navigator>

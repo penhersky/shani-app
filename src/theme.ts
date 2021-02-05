@@ -66,14 +66,14 @@ export const useTheme = () => {
   return get(theme, store.getState().settings.theme);
 };
 
-export const navigationTheme = {
+export const navigationTheme = (gtheme: any) => ({
   dark: false,
   colors: {
-    primary: getTheme.colors.primary,
-    background: getTheme.colors.background,
-    card: getTheme.colors.surface,
-    text: getTheme.colors.text,
-    border: getTheme.colors.backdrop,
+    primary: gtheme.colors.primary,
+    background: gtheme.colors.background,
+    card: gtheme.colors.surface,
+    text: gtheme.colors.text,
+    border: gtheme.colors.backdrop,
     notification: 'rgb(255, 69, 58)',
   },
-};
+});

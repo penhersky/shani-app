@@ -7,6 +7,8 @@ export {default as auth} from './text/auth';
 
 export {default as global} from './text/global';
 export {default as screenTitle} from './text/title';
+export {default as user} from './text/user';
+export {default as settings} from './text/settings';
 
 export const useTranslation = () => {
   const {lng} = useSelector((state: any) => state.settings);

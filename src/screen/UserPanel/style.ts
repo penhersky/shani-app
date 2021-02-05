@@ -22,4 +22,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 150,
   },
+  icon: {
+    marginHorizontal: 15,
+    alignSelf: 'center',
+  },
+  switch: {
+    marginHorizontal: 5,
+  },
 });
