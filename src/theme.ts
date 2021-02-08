@@ -78,3 +78,35 @@ export const navigationTheme = (gtheme: any) => ({
     notification: 'rgb(255, 69, 58)',
   },
 });
+
+export interface Theme {
+  white: WhiteOrDark;
+  dark: WhiteOrDark;
+}
+export interface WhiteOrDark {
+  myOwnProperty: boolean;
+  colors: Colors;
+  margin: number;
+  padding: number;
+  borderRadius: number;
+  animation: Animation;
+}
+export interface Colors {
+  accent: string;
+  backdrop: string;
+  background: string;
+  disabled: string;
+  error: string;
+  notification: string;
+  onBackground: string;
+  onSurface: string;
+  placeholder: string;
+  primary: string;
+  surface: string;
+  text: string;
+  gradient?: string[] | null;
+  gradientRevers?: string[] | null;
+}
+export interface Animation {
+  scale: number;
+}

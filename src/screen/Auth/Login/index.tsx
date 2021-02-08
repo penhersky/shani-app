@@ -50,8 +50,8 @@ const Login = ({route, navigation}: any) => {
       if (data.login?.result === 'SUCCESS') {
         insert(
           db,
-          tokenSchemas.deleteByType('user'),
-          tokenSchemas.insert(data.login.token, 'user'),
+          tokenSchemas.deleteByType('user', data.login?.user.id),
+          tokenSchemas.insert(data.login?.user.id, data.login.token, 'user'),
         );
         route.params?.authorized();
         dispatch({type: SET_AUTH, isAuthorized: true});

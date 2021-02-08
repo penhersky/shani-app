@@ -8,6 +8,7 @@ import {useTranslation, screenTitle} from '../translate';
 
 import UserPanel from './UserPanel';
 import Settings from './Settings';
+import User, {HeaderRight as UserHeader} from './User';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
 import {navigationTheme, useTheme} from '../theme';
@@ -31,6 +32,15 @@ const Main = (): JSX.Element => {
           options={{
             headerRight: HeaderRightUser,
             headerLeft: LeftHeaderHome,
+            title: '',
+          }}
+        />
+        <Stack.Screen
+          name={screens.userProfile}
+          component={User}
+          options={{
+            headerRight: UserHeader,
+            headerLeft: LeftHeader,
             title: '',
           }}
         />

@@ -7,6 +7,9 @@ export const login = gql`
     login(email: $email, password: $password) {
       result
       token
+      user {
+        id
+      }
     }
   }
 `;

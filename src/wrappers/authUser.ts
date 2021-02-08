@@ -7,8 +7,9 @@ export const saveUser = (data: any, dispatch: any, db: any) => {
   if (get(data?.getAccount, 'user')) {
     insert(
       db,
-      tokenSchemas.deleteByType('service'),
+      tokenSchemas.deleteByType('service', get(data?.getAccount, 'user').id),
       tokenSchemas.insert(
+        get(data?.getAccount, 'user').id,
         get(data?.getAccount, 'userToken'),
         'service',
         get(data?.getAccount, 'expiresIn'),
@@ -28,8 +29,9 @@ export const saveUser = (data: any, dispatch: any, db: any) => {
   if (get(data?.getAccount, 'admin')) {
     insert(
       db,
-      tokenSchemas.deleteByType('service'),
+      tokenSchemas.deleteByType('service', get(data?.getAccount, 'admin').id),
       tokenSchemas.insert(
+        get(data?.getAccount, 'user').id,
         get(data?.getAccount, 'adminToken'),
         'service',
         get(data?.getAccount, 'expiresIn'),
