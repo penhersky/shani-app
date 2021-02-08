@@ -14,6 +14,8 @@ import useStyle from './style';
 
 import {useTheme} from '../../theme';
 
+import {Message} from '../../modules';
+
 export {default as HeaderRight} from './rightHeader';
 
 const Panel = ({route}: any): JSX.Element => {
@@ -26,6 +28,15 @@ const Panel = ({route}: any): JSX.Element => {
   const {user, admin, type} = useSelector((state: any) => state.user);
 
   const [account, setAccount] = React.useState();
+
+  if (!userId) {
+    return (
+      <Message
+        title="Screen Error"
+        body="Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide."
+      />
+    );
+  }
 
   return (
     <ScrollView>

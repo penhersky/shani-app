@@ -50,7 +50,7 @@ const Panel = (): JSX.Element => {
 
   return (
     <ScrollView style={style.container}>
-      <Link to={screens.userProfile}>
+      <Link to={screens.userProfile} params={{userId: account.id, type}}>
         <View style={style.userContainer}>
           <View style={style.user}>
             {uri ? (

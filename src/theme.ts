@@ -63,7 +63,7 @@ export const getTheme = (() => {
   return theme[store.getState().settings.theme];
 })();
 
-export const useTheme = () => {
+export const useTheme = (): WhiteOrDark => {
   const {theme: mode} = useSelector((state: any) => state.settings);
   return get(theme, mode);
 };
