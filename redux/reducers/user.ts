@@ -7,6 +7,7 @@ import {
   User,
   Admin,
   SET_USER_TYPE,
+  SET_AUTH,
 } from '../types/user';
 
 type Action = {
@@ -14,12 +15,14 @@ type Action = {
   user?: User;
   admin?: Admin;
   userType?: string;
+  isAuthorized?: boolean;
 };
 
 export type StateType = {
   user: User | {};
   type?: string;
   admin?: Admin;
+  isAuthorized: boolean;
 };
 
 export const initialState = {
@@ -29,6 +32,7 @@ export const initialState = {
     image: '',
   },
   type: 'customer',
+  isAuthorized: false,
 };
 
 const user = (state: StateType = initialState, action: Action): StateType => {
@@ -48,6 +52,11 @@ const user = (state: StateType = initialState, action: Action): StateType => {
       return {
         ...state,
         type: action.userType,
+      };
+    case SET_AUTH:
+      return {
+        ...state,
+        isAuthorized: action.isAuthorized as boolean,
       };
     case SET_USER:
       return {

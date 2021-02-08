@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {View, ScrollView} from 'react-native';
 import {
@@ -21,9 +21,12 @@ import screens from '../../lib/screens';
 import style from './style';
 import {useTheme} from '../../theme';
 
+import {SET_AUTH} from '../../../redux/types/user';
+
 const Panel = (): JSX.Element => {
   const {tr} = useTranslation();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {user, admin, type} = useSelector((state: any) => state.user);
 
@@ -34,7 +37,9 @@ const Panel = (): JSX.Element => {
     navigation.navigate(screens.settings);
   };
 
-  const onPressLogOut = () => {};
+  const onPressLogOut = () => {
+    dispatch({type: SET_AUTH, isAuthorized: false});
+  };
 
   const onPressAbout = () => openUrl('WebUrl');
   const onPressFAQ = () => openUrl('WebUrl');

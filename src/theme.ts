@@ -69,7 +69,6 @@ export const useTheme = () => {
 };
 
 export const navigationTheme = (gtheme: any) => ({
-  dark: false,
   colors: {
     primary: gtheme.colors.primary,
     background: gtheme.colors.background,

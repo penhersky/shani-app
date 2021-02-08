@@ -6,7 +6,7 @@ import {Title, Caption, Button} from 'react-native-paper';
 
 import {collapsed, useTranslation} from '../../translate';
 
-import {getTheme} from '../../theme';
+import {getTheme, useTheme} from '../../theme';
 
 const ERROR = ({
   refetch,
@@ -17,10 +17,14 @@ const ERROR = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const {tr} = useTranslation();
+  const theme = useTheme();
+
   return (
-    <View style={style.container}>
+    <View style={[style.container, {backgroundColor: theme.colors.background}]}>
       <Icon name="disconnect" size={100} color={getTheme.colors.primary} />
-      <Title style={style.title}>{tr(collapsed, 'title')}</Title>
+      <Title style={{color: theme.colors.primary}}>
+        {tr(collapsed, 'title')}
+      </Title>
       <Caption>{tr(collapsed, 'caption')}</Caption>
       <Button
         onPress={() => {
@@ -47,14 +51,10 @@ const ERROR = ({
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: getTheme.colors.background,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    color: getTheme.colors.primary,
   },
   btn: {
     margin: 5,

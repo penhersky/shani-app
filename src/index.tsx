@@ -1,7 +1,6 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from '@apollo/client';
-import {Provider as PaperProvider} from 'react-native-paper';
 
 import device from './lib/detectDevice';
 
@@ -9,17 +8,17 @@ import {useDataBase} from './wrappers/db';
 
 import {authClient} from './clients';
 import {shortAccount} from './schemas';
-import {useTheme} from './theme';
 
 import {NetworkError, Loading, Auth, Main} from './screen';
 
 import {SET_LNG, SET_THEME, languages, Lng} from '../redux/types/settings';
+import {SET_AUTH} from '../redux/types/user';
 
 import {saveUser} from './wrappers/authUser';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
-  const theme = useTheme();
+  const {isAuthorized} = useSelector((state: any) => state.user);
   const db = useDataBase();
   const {data, error, loading, refetch} = useQuery(shortAccount, {
     client: authClient,
@@ -29,6 +28,7 @@ const App = (): JSX.Element => {
   React.useEffect(() => {
     if (data) {
       saveUser(data, dispatch, db);
+      dispatch({type: SET_AUTH, isAuthorized: true});
     }
   }, [data, dispatch, db]);
 
@@ -47,6 +47,7 @@ const App = (): JSX.Element => {
   const reFetchResult = (err: any, info: any) => {
     if (!err) {
       saveUser(info, dispatch, db);
+      dispatch({type: SET_AUTH, isAuthorized: true});
     }
   };
 
@@ -58,15 +59,11 @@ const App = (): JSX.Element => {
     return <NetworkError refetch={refetch} onResult={reFetchResult} />;
   }
 
-  if (error || data?.getAccount?.result !== 'SUCCESS') {
+  if (error || data?.getAccount?.result !== 'SUCCESS' || !isAuthorized) {
     return <Auth refetch={refetch} />;
   }
 
-  return (
-    <PaperProvider theme={theme}>
-      <Main />
-    </PaperProvider>
-  );
+  return <Main />;
 };
 
 export default App;

@@ -6,12 +6,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import screens from '../../lib/screens';
 
 import {useDataBase} from '../../wrappers/db';
-import {navigationTheme} from '../../theme';
+import {navigationTheme, useTheme} from '../../theme';
 
 import NetworkError from '../NetworkErrors';
 import CodeInput from './CodeInput';
 import CreatePass from './CreatePass';
-import Loading from './Loading';
+import Landing from '../Landing';
 import Login from './Login';
 import SingUp from './SingUp';
 
@@ -21,6 +21,7 @@ const Stack = createStackNavigator();
 
 const Auth = ({navigation, refetch}: any): JSX.Element => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const db = useDataBase();
 
   const authorized = () => {
@@ -36,15 +37,15 @@ const Auth = ({navigation, refetch}: any): JSX.Element => {
   };
 
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <Stack.Navigator initialRouteName="Landing">
+    <NavigationContainer theme={navigationTheme(theme) as any}>
+      <Stack.Navigator initialRouteName={screens.landing}>
         <Stack.Screen
           name={screens.landing}
-          component={Loading}
+          component={Landing}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name={screens.landing}
+          name={screens.login}
           component={Login}
           options={{headerShown: false}}
           initialParams={{authorized}}

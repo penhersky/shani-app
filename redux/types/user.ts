@@ -2,6 +2,7 @@ export const SET_SHORT_USER = 'SET_SHORT_USER';
 export const SET_USER = 'SET_USER';
 export const SET_USER_TYPE = 'SET_USER_TYPE';
 export const SET_ADMIN = 'SET_ADMIN';
+export const SET_AUTH = 'SET_AUTH';
 
 export type User = {
   id: string;

@@ -23,7 +23,7 @@ const Main = (): JSX.Element => {
   const theme = useTheme();
   const {tr} = useTranslation();
   return (
-    <NavigationContainer theme={navigationTheme(theme)}>
+    <NavigationContainer theme={navigationTheme(theme) as any}>
       <Stack.Navigator initialRouteName={screens.home}>
         <Stack.Screen
           name={screens.home}

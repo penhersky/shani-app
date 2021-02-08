@@ -9,14 +9,17 @@ import {authClient} from '../../../clients';
 import validation from '../../../lib/validation';
 import {login} from '../../../schemas/auth';
 
+import {SET_AUTH} from '../../../../redux/types/user';
+
 import {useDataBase, insert, tokenSchemas} from '../../../wrappers/db';
 
 import {PassInput} from '../../../components';
 import Wrapp from '../Wrapp';
 
 import style from '../style';
+import screens from '../../../lib/screens';
 
-const Login = ({route}: any) => {
+const Login = ({route, navigation}: any) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [err, setErr] = React.useState(false);
@@ -25,6 +28,7 @@ const Login = ({route}: any) => {
   const dispatch = useDispatch();
   const [loadGreeting, {loading, data, error}] = useLazyQuery(login, {
     client: authClient,
+    fetchPolicy: 'no-cache',
   });
 
   const onChangeEmail = (text: string) => setEmail(text);
@@ -50,11 +54,13 @@ const Login = ({route}: any) => {
           tokenSchemas.insert(data.login.token, 'user'),
         );
         route.params?.authorized();
+        dispatch({type: SET_AUTH, isAuthorized: true});
+        navigation.navigate(screens.landing);
         return;
       }
       setErr(true);
     }
-  }, [data, db, dispatch, route.params]);
+  }, [data, db, dispatch, route.params, navigation]);
 
   return (
     <Wrapp title={tr(auth, 'login')}>
