@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client';
 
 export const fullAccount = gql`
-  query getAccount($id: String!) {
+  query getAccount($id: ID!) {
     getUser(id: $id) {
       result
       status

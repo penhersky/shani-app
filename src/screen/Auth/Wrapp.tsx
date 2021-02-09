@@ -2,7 +2,6 @@ import React from 'react';
 import {View, ImageBackground, StyleSheet, Image} from 'react-native';
 import {Title, IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
 
 import {getTheme} from '../../theme';
 
@@ -18,7 +17,7 @@ const Wrapp = ({
   titleSize?: number;
 }) => {
   const navigation = useNavigation();
-  const img = require('../../assets/fon.png');
+  const img = require(`../../assets/fon/white.png`);
   const logo = require('../../assets/logo.png');
   return (
     <View>
@@ -31,12 +30,10 @@ const Wrapp = ({
           style={style.back}
         />
         <Image source={logo} style={style.logo} />
-        <LinearGradient
-          style={{...style.container, height}}
-          colors={['#C4E0E575', '#4CA1AFDA']}>
+        <View style={{...style.container, height}}>
           <Title style={{...style.title, fontSize: titleSize}}>{title}</Title>
           <View style={style.content}>{children}</View>
-        </LinearGradient>
+        </View>
       </ImageBackground>
     </View>
   );
