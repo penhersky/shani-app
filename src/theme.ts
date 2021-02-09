@@ -8,6 +8,7 @@ export const theme = {
   white: {
     ...DefaultTheme,
     myOwnProperty: true,
+    name: 'white',
     colors: {
       accent: '#c4e0e5',
       backdrop: 'rgba(0, 0, 0, 0.5)',
@@ -34,6 +35,7 @@ export const theme = {
   dark: {
     ...DefaultTheme,
     myOwnProperty: true,
+    name: 'dark',
     colors: {
       accent: '#c4e0e5',
       backdrop: 'rgba(0, 0, 0, 0.5)',
@@ -85,6 +87,7 @@ export interface Theme {
 }
 export interface WhiteOrDark {
   myOwnProperty: boolean;
+  name: string;
   colors: Colors;
   margin: number;
   padding: number;

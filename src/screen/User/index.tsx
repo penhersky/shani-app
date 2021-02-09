@@ -3,13 +3,11 @@ import _ from 'lodash';
 import {useSelector, useDispatch} from 'react-redux';
 import {useQuery} from '@apollo/client';
 import {useNavigation} from '@react-navigation/native';
-import {View, ScrollView} from 'react-native';
-import {Text, Title, Avatar, Divider} from 'react-native-paper';
+import {ScrollView} from 'react-native';
+import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import {avatarText} from '../../lib/format';
 import {useTranslation, user as text} from '../../translate';
-import screens from '../../lib/screens';
 
 import {fullAccount} from '../../schemas';
 
@@ -20,24 +18,30 @@ import {useTheme} from '../../theme';
 import {Message, NetworkError} from '../../modules';
 import {authClient} from '../../clients';
 
-export {default as HeaderRight} from './rightHeader';
+import Header from './Header';
+import Hat from './Hat';
+import Description from './Description';
 
 const Panel = ({route}: any): JSX.Element => {
   const userId = _.get(route?.params, 'userId');
+  const [status, setStatus] = React.useState();
   const {tr} = useTranslation();
   const theme = useTheme();
   const style = useStyle(theme);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {user, admin, type} = useSelector((state: any) => state.user);
+  const {user, type} = useSelector((state: any) => state.user);
 
   const {data, error, loading, refetch} = useQuery(fullAccount, {
     client: authClient,
     variables: {id: userId},
   });
 
-  const [account, setAccount] = React.useState();
-  const [status, setStatus] = React.useState();
+  const [account, setAccount] = React.useState<any>(
+    _.get(data, 'getUser')?.user,
+  );
+
+  const allowed = user.id === account?.id || type === 'admin';
 
   React.useEffect(() => {
     if (data) {
@@ -58,6 +62,10 @@ const Panel = ({route}: any): JSX.Element => {
       }
     }
   };
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
 
   if (!userId) {
     return (
@@ -85,20 +93,14 @@ const Panel = ({route}: any): JSX.Element => {
 
   return (
     <ScrollView>
-      {/* <View>
-        <View>
-          {uri ? (
-            <Avatar.Image size={120} source={{uri}} />
-          ) : (
-            <Avatar.Text size={120} label={avatarText(account.name)} />
-          )}
-
-          <Title>{account.name}</Title>
-          <Text>{account.email}</Text>
-        </View>
-      </View>
-      <Divider /> */}
-      <Text>User</Text>
+      <Hat
+        header={<Header />}
+        name={String(account?.name)}
+        images={account?.images}
+      />
+      {_.get(account, 'description') && (
+        <Description allowed={allowed} description={account.description} />
+      )}
     </ScrollView>
   );
 };

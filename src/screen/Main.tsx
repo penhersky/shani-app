@@ -39,9 +39,7 @@ const Main = (): JSX.Element => {
           name={screens.userProfile}
           component={User}
           options={{
-            headerRight: UserHeader,
-            headerLeft: LeftHeader,
-            title: '',
+            headerShown: false,
           }}
         />
         <Stack.Screen
