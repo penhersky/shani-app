@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import _ from 'lodash';
 import {StyleSheet, View, ImageBackground} from 'react-native';
 import {Avatar, Title, Card} from 'react-native-paper';
+import Skeleton from 'react-native-skeleton-placeholder';
 
 import {useTheme, WhiteOrDark} from '../../theme';
 
@@ -12,10 +13,12 @@ const Hat = ({
   header,
   name,
   images,
+  loading,
 }: {
   header: any;
   name: string;
   images: any[];
+  loading: boolean;
 }) => {
   const theme = useTheme();
   const style = useStyle(theme);
@@ -23,6 +26,14 @@ const Hat = ({
   const dark = require('../../assets/fon/user-dark.png');
   const white = require('../../assets/fon/user-white.png');
   const uri = _.get(_.find(images ?? [], {active: true}), 'Location');
+
+  if (loading && !name) {
+    return (
+      <Skeleton>
+        <Skeleton.Item width="100%" height={220} />
+      </Skeleton>
+    );
+  }
 
   return (
     <Card style={style.hat}>

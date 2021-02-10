@@ -99,6 +99,7 @@ const Panel = ({route}: any): JSX.Element => {
   return (
     <ScrollView>
       <Hat
+        loading={loading}
         header={<Header />}
         name={String(account?.name)}
         images={account?.images}

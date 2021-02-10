@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -8,18 +7,14 @@ import {useTranslation, screenTitle} from '../translate';
 
 import UserPanel from './UserPanel';
 import Settings from './Settings';
-import User, {HeaderRight as UserHeader} from './User';
+import User from './User';
+import Home from './Home';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
 import {navigationTheme, useTheme} from '../theme';
 
 const Stack = createStackNavigator();
 
-const Home = () => (
-  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-    <Text>Test</Text>
-  </View>
-);
 const Main = (): JSX.Element => {
   const theme = useTheme();
   const {tr} = useTranslation();
