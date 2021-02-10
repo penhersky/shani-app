@@ -35,6 +35,7 @@ const Panel = ({route}: any): JSX.Element => {
   const {data, error, loading, refetch} = useQuery(fullAccount, {
     client: authClient,
     variables: {id: userId},
+    fetchPolicy: 'cache-and-network',
   });
 
   const [account, setAccount] = React.useState<any>(
@@ -63,9 +64,13 @@ const Panel = ({route}: any): JSX.Element => {
     }
   };
 
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
+  // update
+  const descriptionHandler = (value: string) => {
+    setAccount({
+      ...account,
+      description: value,
+    });
+  };
 
   if (!userId) {
     return (
@@ -98,9 +103,13 @@ const Panel = ({route}: any): JSX.Element => {
         name={String(account?.name)}
         images={account?.images}
       />
-      {_.get(account, 'description') && (
-        <Description allowed={allowed} description={account.description} />
-      )}
+
+      <Description
+        allowed={allowed}
+        loaded={!loading}
+        description={account?.description}
+        newDescription={descriptionHandler}
+      />
     </ScrollView>
   );
 };
