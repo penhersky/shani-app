@@ -2,7 +2,9 @@ const text = {
   en: {
     toAccount: 'Go to my account',
     logout: 'Logout',
-    about: 'about as',
+    aboutAs: 'About as',
+    about: 'About',
+    contacts: 'Contacts',
     error: {
       notFond: 'User not found',
       notFondBody:
@@ -13,7 +15,9 @@ const text = {
   ua: {
     toAccount: 'зайти на мій обліковий запис',
     logout: 'Вийти',
-    about: 'Про нас',
+    aboutAs: 'Про нас',
+    about: 'Про мене',
+    contacts: 'Контакти',
     error: {
       notFond: 'Користувач не знайдений',
       notFondBody:
@@ -24,7 +28,9 @@ const text = {
   ru: {
     toAccount: 'зайти на мой аккаунт',
     logout: 'Выйти',
-    about: 'о нас',
+    aboutAs: 'О нас',
+    about: 'Обо мне',
+    contacts: 'Контакты',
     error: {
       notFond: 'Пользователь не найден',
       notFondBody:

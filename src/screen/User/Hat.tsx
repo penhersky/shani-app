@@ -39,7 +39,7 @@ const Hat = ({
     <Card style={style.hat}>
       <ImageBackground
         style={style.back}
-        imageStyle={{resizeMode: 'cover', alignSelf: 'center'}}
+        imageStyle={style.img}
         source={mode === 'white' ? white : dark}>
         {header}
       </ImageBackground>
@@ -63,6 +63,11 @@ const useStyle = (theme: WhiteOrDark) =>
       display: 'flex',
       flexDirection: 'column',
       borderBottomColor: theme.colors.primary,
+    },
+    img: {
+      resizeMode: 'cover',
+      alignSelf: 'center',
+      borderRadius: 20,
     },
     back: {
       height: 160,

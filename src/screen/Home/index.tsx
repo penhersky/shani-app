@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Text} from 'react-native-paper';
 import {useSelector, useDispatch} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -26,7 +25,7 @@ const Home = () => {
   const {tr} = useTranslation();
   const {type} = useSelector((state: any) => state.user);
 
-  if (type !== 'customer') {
+  if (type === 'customer') {
     return (
       <Tab.Navigator initialRouteName="MyTasks">
         <Tab.Screen
@@ -68,7 +67,7 @@ const Home = () => {
     );
   }
 
-  if (type !== 'performer') {
+  if (type === 'performer') {
     return (
       <Tab.Navigator initialRouteName="Tasks">
         <Tab.Screen
@@ -120,7 +119,7 @@ const Home = () => {
 
 const style = StyleSheet.create({
   add: {
-    margin: 15,
+    marginTop: 15,
   },
 });
 

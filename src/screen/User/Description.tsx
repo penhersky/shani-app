@@ -12,7 +12,7 @@ import {
 import {useMutation} from '@apollo/client';
 import Skeleton from 'react-native-skeleton-placeholder';
 
-import {useTranslation, global} from '../../translate';
+import {useTranslation, global, user} from '../../translate';
 
 import {useTheme, WhiteOrDark} from '../../theme';
 
@@ -73,6 +73,7 @@ const Description = ({
 
   return (
     <Card style={[style.des]}>
+      <Card.Title title={tr(user, 'about')} />
       <Card.Content>
         <Text>{more ? description : `${description.slice(0, 360)}...`}</Text>
       </Card.Content>

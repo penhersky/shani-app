@@ -108,7 +108,7 @@ const Panel = (): JSX.Element => {
           )}
         />
         <List.Item
-          title={tr(text, 'about')}
+          title={tr(text, 'aboutAs')}
           onPress={onPressAbout}
           left={() => (
             <Icon

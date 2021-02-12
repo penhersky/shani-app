@@ -1,11 +1,14 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {View} from 'react-native';
-import {List, Switch, Button} from 'react-native-paper';
+import {List, Switch} from 'react-native-paper';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {Picker} from '../../components';
 
 import {useTranslation, settings as text} from '../../translate';
+import {useTheme} from '../../theme';
 import {SET_LNG, Lng, SET_THEME} from '../../../redux/types/settings';
 
 import style from './style';
@@ -28,6 +31,7 @@ const languages = [
 const Settings = () => {
   const {lng, theme} = useSelector((state: any) => state.settings);
   const dispatch = useDispatch();
+  const mode = useTheme();
   const {tr} = useTranslation();
 
   const onChangeLng = (value: string) => {
@@ -59,7 +63,14 @@ const Settings = () => {
           )}
         />
         <Picker
-          icon="language"
+          icon={
+            <Icon
+              name="language"
+              style={{marginHorizontal: 10}}
+              size={25}
+              color={mode.colors.text}
+            />
+          }
           list={languages}
           value={lng}
           onChange={onChangeLng}

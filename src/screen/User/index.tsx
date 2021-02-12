@@ -1,35 +1,26 @@
 import React from 'react';
 import _ from 'lodash';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useQuery} from '@apollo/client';
-import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native';
-import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {useTranslation, user as text} from '../../translate';
 
 import {fullAccount} from '../../schemas';
 
-import useStyle from './style';
-
-import {useTheme} from '../../theme';
-
 import {Message, NetworkError} from '../../modules';
 import {authClient} from '../../clients';
 
 import Header from './Header';
 import Hat from './Hat';
+import Contacts from './Contacts';
 import Description from './Description';
 
 const Panel = ({route}: any): JSX.Element => {
   const userId = _.get(route?.params, 'userId');
   const [status, setStatus] = React.useState();
   const {tr} = useTranslation();
-  const theme = useTheme();
-  const style = useStyle(theme);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
   const {user, type} = useSelector((state: any) => state.user);
 
   const {data, error, loading, refetch} = useQuery(fullAccount, {
@@ -104,6 +95,8 @@ const Panel = ({route}: any): JSX.Element => {
         name={String(account?.name)}
         images={account?.images}
       />
+
+      <Contacts allowed={allowed} contacts={account?.contacts} />
 
       <Description
         allowed={allowed}
