@@ -2,8 +2,8 @@ import React from 'react';
 import {} from 'react-native';
 import {Text} from 'react-native-paper';
 
-const More = () => {
+const Add = () => {
   return <Text>Add</Text>;
 };
 
-export default More;
+export default Add;
