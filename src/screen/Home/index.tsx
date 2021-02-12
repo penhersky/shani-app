@@ -6,11 +6,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {SET_AUTH} from '../../../redux/types/user';
 
 import More from './More';
 import MyOrders from './MyOrders';
+import AddOrder from './AddOrder';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +29,21 @@ const Home = () => {
           options={{
             tabBarIcon: ({size, color}) => (
               <Icon name="solution1" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Add"
+          component={AddOrder}
+          options={{
+            title: '',
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons
+                name="add-circle-outline"
+                size={size + 12}
+                style={{marginTop: 15}}
+                color={color}
+              />
             ),
           }}
         />
