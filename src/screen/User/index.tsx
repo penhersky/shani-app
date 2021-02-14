@@ -63,6 +63,13 @@ const Panel = ({route}: any): JSX.Element => {
     });
   };
 
+  const setContactsHandler = (cb: (any: []) => any[]) => {
+    setAccount((state: any) => ({
+      ...state,
+      contacts: cb(state.contacts),
+    }));
+  };
+
   if (!userId) {
     return (
       <Message
@@ -96,10 +103,14 @@ const Panel = ({route}: any): JSX.Element => {
         images={account?.images}
       />
 
-      <Contacts allowed={allowed} contacts={account?.contacts} />
+      <Contacts
+        allowed={allowed && !loading}
+        contacts={account?.contacts}
+        setContacts={setContactsHandler}
+      />
 
       <Description
-        allowed={allowed}
+        allowed={allowed && !loading}
         loaded={!loading}
         description={account?.description}
         newDescription={descriptionHandler}

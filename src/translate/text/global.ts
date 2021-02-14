@@ -7,6 +7,7 @@ const text = {
     edit: 'Edit',
     more: 'More',
     save: 'Save',
+    add: 'Add',
     less: 'Less',
   },
   ua: {
@@ -17,6 +18,7 @@ const text = {
     edit: 'Редагувати',
     more: 'Більше',
     save: 'Зберегти',
+    add: 'Додати',
     less: 'Mенше',
   },
   ru: {
@@ -27,6 +29,7 @@ const text = {
     edit: 'Редактировать',
     more: 'Больше',
     save: 'Сохранять',
+    add: 'Добавить',
     less: 'Mеньше',
   },
 };

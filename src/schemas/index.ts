@@ -1,2 +1,8 @@
-export {shortAccount, fullAccount, updateDescription, addContact} from './user';
+export {
+  shortAccount,
+  fullAccount,
+  updateDescription,
+  addContact,
+  deleteContact,
+} from './user';
 export {login} from './auth';

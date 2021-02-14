@@ -23,7 +23,7 @@ const Main = (): JSX.Element => {
       <Stack.Navigator initialRouteName={screens.home}>
         <Stack.Screen
           name={screens.home}
-          component={Home}
+          component={Home as any}
           options={{
             headerRight: HeaderRightUser,
             headerLeft: LeftHeaderHome,
