@@ -1,4 +1,6 @@
 import React from 'react';
+import {get, find} from 'lodash';
+import {io} from 'socket.io-client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -11,13 +13,37 @@ import User from './User';
 import Home from './Home';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
+import {query, useDataBase, tokenSchemas} from '../wrappers/db';
+import eventListener from '../io';
+
 import {navigationTheme, useTheme} from '../theme';
+
+import {mainApiUrl} from '../config';
 
 const Stack = createStackNavigator();
 
 const Main = (): JSX.Element => {
   const theme = useTheme();
+  const db = useDataBase();
   const {tr} = useTranslation();
+
+  React.useEffect(() => {
+    query(db, tokenSchemas.select).then(({row}) => {
+      const service = find(row, {type: 'service'});
+      const socket = io(mainApiUrl, {
+        transports: ['websocket'],
+        auth: {
+          token: get(service, 'token'),
+        },
+        path: '/notification',
+      });
+      eventListener(socket);
+      socket.on('connect', () => {
+        console.log('connection!');
+      });
+    });
+  }, [db]);
+
   return (
     <NavigationContainer theme={navigationTheme(theme) as any}>
       <Stack.Navigator initialRouteName={screens.home}>

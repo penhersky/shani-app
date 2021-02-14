@@ -7,7 +7,7 @@ import {connect, query, tokenSchemas} from './wrappers/db';
 import {mainApiUrl, authApiUrl} from '../src/config';
 
 const httpAuthLink = createHttpLink({
-  uri: 'https://5c2840ce2c44.ngrok.io/graphql',
+  uri: authApiUrl,
 });
 
 const httpMainLink = createHttpLink({
