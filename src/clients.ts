@@ -11,7 +11,7 @@ const httpAuthLink = createHttpLink({
 });
 
 const httpMainLink = createHttpLink({
-  uri: mainApiUrl,
+  uri: `${mainApiUrl}/graphql`,
 });
 
 const authLink = setContext(async (_, {headers}) => {

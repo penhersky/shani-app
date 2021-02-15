@@ -9,6 +9,7 @@ const text = {
     save: 'Save',
     add: 'Add',
     less: 'Less',
+    image: 'Image',
   },
   ua: {
     login: 'Увійти',
@@ -20,6 +21,7 @@ const text = {
     save: 'Зберегти',
     add: 'Додати',
     less: 'Mенше',
+    image: 'Зображення',
   },
   ru: {
     login: 'Войти',
@@ -31,6 +33,7 @@ const text = {
     save: 'Сохранять',
     add: 'Добавить',
     less: 'Mеньше',
+    image: 'Изображение',
   },
 };
 
