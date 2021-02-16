@@ -7,6 +7,7 @@ import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
 
 import ImageArea from './imageList';
+import Location from './location';
 
 import useStyle from './style';
 
@@ -26,6 +27,12 @@ const Add = () => {
   const [images, setImages] = React.useState<string[]>([]);
   const [title, setTitle] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
+  const [locationType, setType] = React.useState<string>('other');
+  const [location, setLocation] = React.useState<{
+    lng?: number;
+    lat?: string;
+    name: string;
+  }>({name: 'other'});
   const [err, setError] = React.useState<string>('');
 
   const addImage = () => {
@@ -40,6 +47,8 @@ const Add = () => {
   const onCreateHandler = () => {
     alert('crete....');
   };
+
+  console.log(location);
 
   return (
     <ScrollView style={style.container}>
@@ -65,6 +74,11 @@ const Add = () => {
             label={tr(task, 'description')}
             multiline={true}
             onChangeText={setDescription}
+          />
+          <Location
+            type={locationType}
+            setType={setType}
+            onChangeValue={(value: any) => setLocation(value)}
           />
         </Card.Content>
       </Card>

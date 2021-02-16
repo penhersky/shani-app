@@ -54,7 +54,7 @@ export const theme = {
     },
     margin: 1,
     padding: 3,
-    borderRadius: 3,
+    borderRadius: 7,
     animation: {
       scale: 1,
     },
