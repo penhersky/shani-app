@@ -67,7 +67,7 @@ const useStyle = (theme: WhiteOrDark) =>
       height: 100,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 3,
+      marginVertical: 5,
     },
     inputImage: {
       display: 'flex',

@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import {ScrollView} from 'react-native';
-import {} from 'react-native-paper';
+import {Card, TextInput, Divider, Button} from 'react-native-paper';
 
-import {useTranslation} from '../../../translate';
+import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
 
 import ImageArea from './imageList';
@@ -24,6 +24,9 @@ const Add = () => {
   const {tr} = useTranslation();
 
   const [images, setImages] = React.useState<string[]>([]);
+  const [title, setTitle] = React.useState<string>('');
+  const [description, setDescription] = React.useState<string>('');
+  const [err, setError] = React.useState<string>('');
 
   const addImage = () => {
     setImages((state) => [...state, list[state.length + 1]]);
@@ -34,13 +37,46 @@ const Add = () => {
     );
   };
 
+  const onCreateHandler = () => {
+    alert('crete....');
+  };
+
   return (
     <ScrollView style={style.container}>
+      <Card>
+        <Card.Title
+          title={tr(task, 'mainData')}
+          subtitle={tr(global, 'reqFields')}
+        />
+        <Card.Content>
+          <TextInput
+            value={title}
+            onChangeText={setTitle}
+            label={tr(task, 'title')}
+            error={err === 'title'}
+            mode="outlined"
+            style={style.input}
+          />
+          <TextInput
+            value={description}
+            error={err === 'description'}
+            mode="outlined"
+            style={[style.input]}
+            label={tr(task, 'description')}
+            multiline={true}
+            onChangeText={setDescription}
+          />
+        </Card.Content>
+      </Card>
+      <Divider />
       <ImageArea
         addImage={addImage}
         deleteImage={deleteImage}
         images={images}
       />
+      <Button onPress={onCreateHandler} style={style.button} mode="contained">
+        {tr(global, 'create')}
+      </Button>
     </ScrollView>
   );
 };

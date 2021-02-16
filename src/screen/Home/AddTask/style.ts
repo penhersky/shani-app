@@ -8,4 +8,10 @@ export default (theme: WhiteOrDark) =>
       padding: 3,
       marginVertical: 3,
     },
+    button: {
+      margin: 5,
+    },
+    input: {
+      backgroundColor: theme.colors.surface,
+    },
   });
