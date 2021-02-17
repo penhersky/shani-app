@@ -6,3 +6,5 @@ export {
   deleteContact,
 } from './user';
 export {login} from './auth';
+
+export {default as categories} from './Category';

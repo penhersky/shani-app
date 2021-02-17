@@ -1,6 +1,8 @@
 import React from 'react';
 import {get, find} from 'lodash';
+import {useDispatch} from 'react-redux';
 import {io} from 'socket.io-client';
+import {useQuery} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -19,13 +21,21 @@ import eventListener from '../io';
 import {navigationTheme, useTheme} from '../theme';
 
 import {mainApiUrl} from '../config';
+import {SET_CATEGORIES} from '../../redux/types/categories';
 
 const Stack = createStackNavigator();
 
+import {categories} from '../schemas';
+
+// temp
+import {categories as list} from '../temp';
+
 const Main = (): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const db = useDataBase();
   const {tr} = useTranslation();
+  const {data} = useQuery(categories.getAll);
 
   React.useEffect(() => {
     query(db, tokenSchemas.select).then(({row}) => {
@@ -43,6 +53,21 @@ const Main = (): JSX.Element => {
       });
     });
   }, [db]);
+
+  React.useEffect(() => {
+    if (get(data, 'getCategories')?.length) {
+      dispatch({
+        type: SET_CATEGORIES,
+        categories: get(data, 'getCategories'),
+      });
+    } else {
+      // temp
+      dispatch({
+        type: SET_CATEGORIES,
+        categories: list,
+      });
+    }
+  }, [data, dispatch]);
 
   return (
     <NavigationContainer theme={navigationTheme(theme) as any}>

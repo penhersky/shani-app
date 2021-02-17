@@ -6,6 +6,7 @@ import {Card, TextInput, Divider, Button} from 'react-native-paper';
 import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
 
+import {CategoryPiker} from '../../../modules';
 import ImageArea from './imageList';
 import Location from './location';
 
@@ -33,6 +34,7 @@ const Add = () => {
     lat?: string;
     name: string;
   }>({name: 'other'});
+  const [categories, setCategories] = React.useState<any[]>([]);
   const [err, setError] = React.useState<string>('');
 
   const addImage = () => {
@@ -47,8 +49,6 @@ const Add = () => {
   const onCreateHandler = () => {
     alert('crete....');
   };
-
-  console.log(location);
 
   return (
     <ScrollView style={style.container}>
@@ -82,6 +82,8 @@ const Add = () => {
           />
         </Card.Content>
       </Card>
+      <Divider />
+      <CategoryPiker value={categories} onChange={setCategories} />
       <Divider />
       <ImageArea
         addImage={addImage}
