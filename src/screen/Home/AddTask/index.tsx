@@ -5,6 +5,7 @@ import {Card, TextInput, Divider, Button} from 'react-native-paper';
 
 import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
+import screens from '../../../lib/screens';
 
 import {CategoryPiker} from '../../../modules';
 import ImageArea from './imageList';
@@ -20,7 +21,7 @@ const list = [
   'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
 ];
 
-const Add = () => {
+const Add = ({navigation}) => {
   const theme = useTheme();
   const style = useStyle(theme);
   const {tr} = useTranslation();
@@ -50,6 +51,7 @@ const Add = () => {
 
   const onCreateHandler = () => {
     alert('crete....');
+    navigation.navigate(screens.TABS.myTasks);
   };
 
   return (
@@ -85,7 +87,12 @@ const Add = () => {
         </Card.Content>
       </Card>
       <Divider />
-      <CategoryPiker value={categories} onChange={setCategories} />
+      <CategoryPiker
+        value={categories}
+        onChange={setCategories}
+        title={tr(task, 'categoriesTitle')}
+        description={tr(task, 'categoriesDescription')}
+      />
       <Divider />
       <ImageArea
         addImage={addImage}

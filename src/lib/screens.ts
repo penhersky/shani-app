@@ -10,4 +10,11 @@ export default {
   singUp: 'SingUp',
   codeInput: 'CodeInput',
   createPass: 'CreatePass',
+  TABS: {
+    add: 'Add',
+    myTasks: 'MyTasks',
+    more: 'More',
+    tasks: 'Tasks',
+    recommendation: 'Recommendation',
+  },
 };

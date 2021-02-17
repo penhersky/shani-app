@@ -8,6 +8,7 @@ import Fontisto from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {SET_AUTH} from '../../../redux/types/user';
+import screens from '../../lib/screens';
 
 import {useTranslation, screenTitle} from '../../translate';
 
@@ -27,9 +28,9 @@ const Home = () => {
 
   if (type === 'customer') {
     return (
-      <Tab.Navigator initialRouteName="MyTasks">
+      <Tab.Navigator initialRouteName={screens.TABS.myTasks}>
         <Tab.Screen
-          name="MyTasks"
+          name={screens.TABS.myTasks}
           component={MyTasks}
           options={{
             title: tr(screenTitle, 'myTasks'),
@@ -39,7 +40,7 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="Add"
+          name={screens.TABS.add}
           component={AddTask}
           options={{
             title: '',
@@ -54,7 +55,7 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="More"
+          name={screens.TABS.more}
           component={More}
           options={{
             title: tr(screenTitle, 'More'),
@@ -71,7 +72,7 @@ const Home = () => {
     return (
       <Tab.Navigator initialRouteName="Tasks">
         <Tab.Screen
-          name="Tasks"
+          name={screens.TABS.tasks}
           component={Tasks}
           options={{
             title: tr(screenTitle, 'tasks'),
@@ -81,7 +82,7 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="Recommendation"
+          name={screens.TABS.recommendation}
           component={Recommendation}
           options={{
             title: tr(screenTitle, 'recommendation'),
@@ -91,7 +92,7 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="MyTasks"
+          name={screens.TABS.myTasks}
           component={MyTasks}
           options={{
             title: tr(screenTitle, 'myTasks'),
@@ -101,7 +102,7 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="More"
+          name={screens.TABS.more}
           component={More}
           options={{
             title: tr(screenTitle, 'More'),

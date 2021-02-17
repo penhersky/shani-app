@@ -10,6 +10,9 @@ const text = {
       third: 'My profile location',
       other: 'Other',
     },
+    categoriesTitle: 'List of categories to which the task belongs',
+    categoriesDescription:
+      'For more efficient performer search, you need to add categories to which the task belongs. But no more than three!',
   },
   ua: {
     mainData: 'Основні дані',
@@ -22,6 +25,9 @@ const text = {
       third: 'Місцезнаходження мого профілю',
       other: 'Інше',
     },
+    categoriesTitle: 'Список категорій до яких належить завдання',
+    categoriesDescription:
+      'Для більшої ефективності пошуку виконавця вам необхідно додати категорії до яких належить завдання. Але не більше трьох!',
   },
   ru: {
     mainData: 'Основные данные',
@@ -34,6 +40,9 @@ const text = {
       third: 'Расположение моего профиля',
       other: 'Другое',
     },
+    categoriesTitle: 'Список категорий к которым относится задача',
+    categoriesDescription:
+      'Для большей эффективности поиска исполнителя вам необходимо добавить категории к которым относится задание. Но не более трех',
   },
 };
 

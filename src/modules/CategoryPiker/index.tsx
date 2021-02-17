@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {useSelector} from 'react-redux';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {
   Subheading,
   Dialog,
@@ -9,6 +9,7 @@ import {
   List,
   TouchableRipple,
   Card,
+  Caption,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,9 +21,13 @@ import {useTheme, WhiteOrDark} from '../../theme';
 const Picker = ({
   onChange,
   value,
+  title,
+  description,
 }: {
   value: Category[];
   onChange: (categories: Category[]) => void;
+  title: string;
+  description?: string;
 }) => {
   const theme = useTheme();
   const style = useStyle(theme);
@@ -48,6 +53,10 @@ const Picker = ({
     <>
       <Card>
         <Card.Content style={style.container}>
+          <View style={style.title}>
+            <Subheading>{title}</Subheading>
+            <Caption>{description}</Caption>
+          </View>
           {_.map(value, (item: Category, i: number) => (
             <TouchableRipple
               key={i}
@@ -101,6 +110,9 @@ const useStyle = (theme: WhiteOrDark) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'stretch',
+    },
+    title: {
+      paddingBottom: 10,
     },
     item: {
       height: 40,
