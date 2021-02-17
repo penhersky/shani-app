@@ -34,7 +34,9 @@ const Add = () => {
     lat?: string;
     name: string;
   }>({name: 'other'});
-  const [categories, setCategories] = React.useState<any[]>([]);
+  const [categories, setCategories] = React.useState<any[]>(
+    _.fill(Array(3), undefined),
+  );
   const [err, setError] = React.useState<string>('');
 
   const addImage = () => {
