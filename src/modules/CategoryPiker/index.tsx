@@ -14,9 +14,10 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {Category} from '../../../redux/types/categories';
+import {Category as CategoryType} from '../../../redux/types/categories';
 
 import {useTheme, WhiteOrDark} from '../../theme';
+import {Category} from '../../components';
 
 const Picker = ({
   onChange,
@@ -24,8 +25,8 @@ const Picker = ({
   title,
   description,
 }: {
-  value: Category[];
-  onChange: (categories: Category[]) => void;
+  value: CategoryType[];
+  onChange: (categories: CategoryType[]) => void;
   title: string;
   description?: string;
 }) => {
@@ -57,7 +58,7 @@ const Picker = ({
             <Subheading>{title}</Subheading>
             <Caption>{description}</Caption>
           </View>
-          {_.map(value, (item: Category, i: number) => (
+          {_.map(value, (item: CategoryType, i: number) => (
             <TouchableRipple
               key={i}
               style={[
@@ -87,12 +88,12 @@ const Picker = ({
           <Dialog.Content>
             <ScrollView>
               <List.Section>
-                {_.map(mainCategories, (category: Category) => (
-                  <TouchableRipple
+                {_.map(mainCategories, (category: CategoryType) => (
+                  <Category
                     key={category.id}
-                    onPress={() => onPressCategoryHandler(category)}>
-                    <Subheading>{category.name}</Subheading>
-                  </TouchableRipple>
+                    category={category}
+                    onChange={onPressCategoryHandler}
+                  />
                 ))}
               </List.Section>
             </ScrollView>

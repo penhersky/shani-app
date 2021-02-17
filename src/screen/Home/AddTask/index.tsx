@@ -21,7 +21,7 @@ const list = [
   'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
 ];
 
-const Add = ({navigation}) => {
+const Add = ({navigation}: any) => {
   const theme = useTheme();
   const style = useStyle(theme);
   const {tr} = useTranslation();
