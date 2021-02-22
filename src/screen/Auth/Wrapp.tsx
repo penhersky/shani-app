@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, ImageBackground, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {Title, IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 
@@ -20,7 +26,7 @@ const Wrapp = ({
   const img = require(`../../assets/fon/white.png`);
   const logo = require('../../assets/logo.png');
   return (
-    <View>
+    <KeyboardAvoidingView>
       <ImageBackground style={style.img} source={img}>
         <IconButton
           icon={'arrow-left'}
@@ -35,7 +41,7 @@ const Wrapp = ({
           <View style={style.content}>{children}</View>
         </View>
       </ImageBackground>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -47,15 +53,13 @@ const style = StyleSheet.create({
   },
   img: {
     width: '100%',
-    height: 800,
+    height: '100%',
     top: -10,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   logo: {
-    position: 'absolute',
-    top: 100,
     transform: [{scale: 0.8}],
   },
   container: {
@@ -64,7 +68,6 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
     paddingVertical: 20,
-    borderRadius: getTheme.borderRadius,
   },
   content: {
     flex: 1,

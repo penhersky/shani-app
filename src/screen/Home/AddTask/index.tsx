@@ -10,6 +10,7 @@ import screens from '../../../lib/screens';
 import {CategoryPiker} from '../../../modules';
 import ImageArea from './imageList';
 import Location from './location';
+import MoreSettings from './MoreSettings';
 
 import useStyle from './style';
 
@@ -102,6 +103,7 @@ const Add = ({navigation}: any) => {
       <Button onPress={onCreateHandler} style={style.button} mode="contained">
         {tr(global, 'create')}
       </Button>
+      <MoreSettings />
     </ScrollView>
   );
 };
