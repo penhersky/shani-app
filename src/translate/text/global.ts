@@ -12,6 +12,9 @@ const text = {
     save: 'Save',
     add: 'Add',
     less: 'Less',
+    // device
+    camera: 'Camera',
+    library: 'Library',
     // field
     reqField: 'Required field!',
     reqFields: 'Required fields!',
@@ -30,6 +33,9 @@ const text = {
     save: 'Зберегти',
     add: 'Додати',
     less: 'Mенше',
+    // device
+    camera: 'Камера',
+    library: 'Бібліотека',
     // field
     reqField: "Поле, обов'язкове для заповнення!",
     reqFields: "Поля, обов'язкові для заповнення!",
@@ -48,6 +54,9 @@ const text = {
     save: 'Сохранять',
     add: 'Добавить',
     less: 'Mеньше',
+    // device
+    camera: 'Камера',
+    library: 'Библиотека',
     // field
     reqField: 'Поле, обязательное для заполнения!',
     reqFields: 'Поля, обязательние для заполнения!',

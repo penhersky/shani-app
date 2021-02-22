@@ -66,7 +66,7 @@ const Settings = () => {
           icon={
             <Icon
               name="language"
-              style={{marginHorizontal: 10}}
+              style={{margin: 10, marginHorizontal: 20}}
               size={25}
               color={mode.colors.text}
             />

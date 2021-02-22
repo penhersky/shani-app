@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   trigger: {
-    margin: 15,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',

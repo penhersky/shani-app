@@ -1,7 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
-import {TouchableOpacity, ScrollView} from 'react-native';
-import {Subheading, Dialog, Portal, List} from 'react-native-paper';
+import {ScrollView} from 'react-native';
+import {
+  Subheading,
+  Dialog,
+  Portal,
+  List,
+  TouchableRipple,
+  Modal,
+} from 'react-native-paper';
 
 import style from './style';
 
@@ -11,12 +18,14 @@ const Picker = ({
   value,
   list,
   onChange,
+  children,
 }: {
   styles?: any;
   icon?: any;
-  value: string;
+  value?: string;
   list: {label: string; value: string}[];
   onChange: (value: string) => void;
+  children?: any;
 }) => {
   const [visible, setVisible] = React.useState(false);
 
@@ -25,14 +34,20 @@ const Picker = ({
 
   return (
     <>
-      <TouchableOpacity style={[style.trigger, styles]} onPress={showDialog}>
+      <TouchableRipple style={[style.trigger, styles]} onPress={showDialog}>
         <>
-          {icon ? icon : null}
-          <Subheading style={style.title}>
-            {_.find(list, {value})?.label}
-          </Subheading>
+          {children ? (
+            children
+          ) : (
+            <>
+              {icon ? icon : null}
+              <Subheading style={style.title}>
+                {_.find(list, {value})?.label}
+              </Subheading>
+            </>
+          )}
         </>
-      </TouchableOpacity>
+      </TouchableRipple>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Content>

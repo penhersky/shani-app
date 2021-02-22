@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {Text, TouchableRipple, IconButton, Card} from 'react-native-paper';
+import {Text, IconButton, Card} from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -15,6 +15,7 @@ import {useTranslation, global} from '../../../translate';
 import {useTheme, WhiteOrDark} from '../../../theme';
 
 import {ImageView} from '../../../modules';
+import {Picker} from '../../../components';
 
 import {Image as TImage} from '../../../types/image';
 
@@ -24,7 +25,7 @@ const Images = ({
   deleteImage,
 }: {
   images: TImage[];
-  addImage: () => void;
+  addImage: (from: string) => void;
   deleteImage: (index: number) => void;
 }) => {
   const [image, setImg] = React.useState<any>(_.nth(images, 0));
@@ -39,6 +40,21 @@ const Images = ({
     setShow(true);
   };
 
+  const onAddImageHandler = (value: string) => {
+    addImage(value);
+  };
+
+  const list = [
+    {
+      label: tr(global, 'camera'),
+      value: 'camera',
+    },
+    {
+      label: tr(global, 'library'),
+      value: 'library',
+    },
+  ];
+
   return (
     <>
       <Card>
@@ -47,14 +63,16 @@ const Images = ({
             horizontal={true}
             contentContainerStyle={style.list}
             style={style.scroll}>
-            <TouchableRipple onPress={addImage} style={{...style.inputImage}}>
-              <>
-                <Icon name="plus" size={30} color={theme.colors.primary} />
-                <Text style={style.primaryText}>
-                  {tr(global, 'add')} {tr(global, 'image').toLowerCase()}
-                </Text>
-              </>
-            </TouchableRipple>
+            <Picker
+              list={list}
+              onChange={onAddImageHandler}
+              styles={style.inputImage}>
+              <Icon name="plus" size={30} color={theme.colors.primary} />
+              <Text style={style.primaryText}>
+                {tr(global, 'add')} {tr(global, 'image').toLowerCase()}
+              </Text>
+            </Picker>
+
             {_.map(images, (img: TImage, index: number) => (
               <View key={index} style={style.imgContainer}>
                 <TouchableOpacity onPress={() => onPressImageHandler(index)}>

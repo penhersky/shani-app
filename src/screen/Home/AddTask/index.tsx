@@ -6,6 +6,7 @@ import {Card, TextInput, Divider, Button} from 'react-native-paper';
 import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
 import screens from '../../../lib/screens';
+import {photoFromCamera, photoFromLibrary} from '../../../lib/inputMedia';
 
 import {CategoryPiker} from '../../../modules';
 import ImageArea from './imageList';
@@ -13,34 +14,6 @@ import Location from './location';
 import MoreSettings from './MoreSettings';
 
 import useStyle from './style';
-
-// temp
-const list = [
-  {
-    id: Math.random().toString(),
-    Location:
-      'https://images.wallpaperscraft.ru/image/ezhevika_malina_yagody_104785_240x320.jpg',
-  },
-  {
-    id: Math.random().toString(),
-    Location:
-      'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
-  },
-  {
-    id: Math.random().toString(),
-    Location:
-      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
-  },
-  {
-    Location:
-      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
-  },
-  {
-    id: Math.random().toString(),
-    Location:
-      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
-  },
-];
 
 const Add = ({navigation}: any) => {
   const theme = useTheme();
@@ -61,8 +34,21 @@ const Add = ({navigation}: any) => {
   );
   const [err, setError] = React.useState<string>('');
 
-  const addImage = () => {
-    setImages((state: any) => [...state, list[state.length]]);
+  const addImage = (value: string) => {
+    const add = ({uri, name, type}: any) => {
+      setImages((state: any) => [
+        ...state,
+        {
+          Location: uri,
+          type,
+          id: name,
+        },
+      ]);
+    };
+    if (value === 'camera') {
+      return photoFromCamera(add);
+    }
+    photoFromLibrary(add);
   };
   const deleteImage = (index: number) => {
     setImages((state) =>
