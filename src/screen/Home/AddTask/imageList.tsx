@@ -1,70 +1,96 @@
 import React from 'react';
 import _ from 'lodash';
-import {ScrollView, View, Image, StyleSheet} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {Text, TouchableRipple, IconButton, Card} from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import {useTranslation, global} from '../../../translate';
-import {useTheme} from '../../../theme';
+import {useTheme, WhiteOrDark} from '../../../theme';
 
-import {WhiteOrDark} from './../../../theme';
+import {ImageView} from '../../../modules';
+
+import {Image as TImage} from '../../../types/image';
 
 const Images = ({
   images,
   addImage,
   deleteImage,
 }: {
-  images: string[];
+  images: TImage[];
   addImage: () => void;
   deleteImage: (index: number) => void;
 }) => {
+  const [image, setImg] = React.useState<any>(_.nth(images, 0));
+  const [show, setShow] = React.useState(false);
+
   const theme = useTheme();
   const style = useStyle(theme);
   const {tr} = useTranslation();
 
+  const onPressImageHandler = (index: number) => {
+    setImg(index);
+    setShow(true);
+  };
+
   return (
-    <Card>
-      <Card.Content style={style.imageArea}>
-        <ScrollView
-          horizontal={true}
-          contentContainerStyle={style.list}
-          style={style.scroll}>
-          <TouchableRipple onPress={addImage} style={{...style.inputImage}}>
-            <>
-              <Icon name="plus" size={30} color={theme.colors.primary} />
-              <Text style={style.primaryText}>
-                {tr(global, 'add')} {tr(global, 'image').toLowerCase()}
-              </Text>
-            </>
-          </TouchableRipple>
-          {_.map(images, (img: string, index: number) => (
-            <View key={index} style={style.imgContainer}>
-              <Image
-                style={style.image}
-                source={{
-                  uri: img,
-                }}
-              />
-              <IconButton
-                icon="close-circle"
-                color={theme.colors.surface}
-                style={style.del}
-                size={30}
-                onPress={() => deleteImage(index)}
-              />
-            </View>
-          ))}
-        </ScrollView>
-      </Card.Content>
-    </Card>
+    <>
+      <Card>
+        <Card.Content style={style.imageArea}>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={style.list}
+            style={style.scroll}>
+            <TouchableRipple onPress={addImage} style={{...style.inputImage}}>
+              <>
+                <Icon name="plus" size={30} color={theme.colors.primary} />
+                <Text style={style.primaryText}>
+                  {tr(global, 'add')} {tr(global, 'image').toLowerCase()}
+                </Text>
+              </>
+            </TouchableRipple>
+            {_.map(images, (img: TImage, index: number) => (
+              <View key={index} style={style.imgContainer}>
+                <TouchableOpacity onPress={() => onPressImageHandler(index)}>
+                  <Image
+                    style={style.image}
+                    source={{
+                      uri: img.Location,
+                    }}
+                  />
+                </TouchableOpacity>
+                <IconButton
+                  icon="close-circle"
+                  color={theme.colors.accent}
+                  style={style.del}
+                  size={30}
+                  onPress={() => deleteImage(index)}
+                />
+              </View>
+            ))}
+          </ScrollView>
+        </Card.Content>
+        <ImageView
+          images={images}
+          show={show}
+          value={image}
+          onHidden={() => setShow(false)}
+        />
+      </Card>
+    </>
   );
 };
 
 const useStyle = (theme: WhiteOrDark) =>
   StyleSheet.create({
     imageArea: {
-      height: 100,
+      height: 120,
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: 5,

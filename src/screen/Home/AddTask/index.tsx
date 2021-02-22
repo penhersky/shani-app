@@ -16,10 +16,30 @@ import useStyle from './style';
 
 // temp
 const list = [
-  'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
-  'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
-  'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
-  'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
+  {
+    id: Math.random().toString(),
+    Location:
+      'https://images.wallpaperscraft.ru/image/ezhevika_malina_yagody_104785_240x320.jpg',
+  },
+  {
+    id: Math.random().toString(),
+    Location:
+      'https://cdn.pixabay.com/photo/2020/06/01/13/02/mountains-5246545_960_720.jpg',
+  },
+  {
+    id: Math.random().toString(),
+    Location:
+      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
+  },
+  {
+    Location:
+      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
+  },
+  {
+    id: Math.random().toString(),
+    Location:
+      'https://cdn.pixabay.com/photo/2020/06/15/15/16/the-caucasus-5302236__340.jpg',
+  },
 ];
 
 const Add = ({navigation}: any) => {
@@ -27,7 +47,7 @@ const Add = ({navigation}: any) => {
   const style = useStyle(theme);
   const {tr} = useTranslation();
 
-  const [images, setImages] = React.useState<string[]>([]);
+  const [images, setImages] = React.useState<any[]>([]);
   const [title, setTitle] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
   const [locationType, setType] = React.useState<string>('other');
@@ -42,7 +62,7 @@ const Add = ({navigation}: any) => {
   const [err, setError] = React.useState<string>('');
 
   const addImage = () => {
-    setImages((state) => [...state, list[state.length + 1]]);
+    setImages((state: any) => [...state, list[state.length]]);
   };
   const deleteImage = (index: number) => {
     setImages((state) =>
