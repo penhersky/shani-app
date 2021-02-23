@@ -83,7 +83,6 @@ const Scroll = ({
     <View>
       <ScrollView
         onScroll={handleScroll}
-        style={{height: 600}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
@@ -91,7 +90,7 @@ const Scroll = ({
           item ? (
             <Item key={item?.id + i} value={item} />
           ) : (
-            <ItemSkeleton key={i} />
+            <View key={i}>{ItemSkeleton}</View>
           ),
         )}
       </ScrollView>

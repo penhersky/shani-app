@@ -3,6 +3,8 @@ const text = {
     mainData: 'Main data',
     title: 'Title',
     description: 'Description',
+    contractual: 'by agreement',
+    payment: 'Payment',
     type: {
       title: 'Task type',
       first: 'My location',
@@ -18,6 +20,8 @@ const text = {
     mainData: 'Основні дані',
     title: 'Заголовок',
     description: 'Опис',
+    contractual: 'за домовленістю',
+    payment: 'Оплата',
     type: {
       title: 'Тип завдання',
       first: 'Мое местонахождение',
@@ -33,6 +37,8 @@ const text = {
     mainData: 'Основные данные',
     title: 'Заглавие',
     description: 'Описание',
+    contractual: 'по соглашению',
+    payment: 'Оплата',
     type: {
       title: 'Тип задачи',
       first: 'Моє розташування',

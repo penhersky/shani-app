@@ -5,7 +5,7 @@ import {Text} from 'react-native-paper';
 import {task} from '../../../schemas';
 import {mainClient} from '../../../clients';
 
-import {InfinityScroll} from '../../../modules';
+import {InfinityScroll, Task} from '../../../modules';
 
 const MyOrders = () => {
   return (
@@ -15,8 +15,8 @@ const MyOrders = () => {
         listName="orders"
         method="getMyOrders"
         client={mainClient}
-        Item={Text}
-        ItemSkeleton={Text}
+        Item={Task}
+        ItemSkeleton={<Text>Loading...</Text>}
       />
     </View>
   );

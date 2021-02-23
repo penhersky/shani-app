@@ -4,6 +4,7 @@ export default {
   userProfile: 'UserProfile',
   settings: 'Settings',
   notifications: 'Notifications',
+  task: 'Task',
   networkError: 'NetworkError',
   landing: 'Landing',
   login: 'Login',

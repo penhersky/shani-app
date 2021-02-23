@@ -15,6 +15,8 @@ export const theme = {
       background: '#f6f6f6',
       disabled: 'rgba(0, 0, 0, 0.26)',
       error: '#B00020',
+      success: '#23D18BFF',
+      gold: '#FFD700FF',
       notification: '#f50057',
       onBackground: '#000000',
       onSurface: '#000000',
@@ -42,6 +44,8 @@ export const theme = {
       background: '#2F3340',
       disabled: 'rgba(0, 0, 0, 0.26)',
       error: '#B00020',
+      success: '#23D18BFF',
+      gold: '#FFD700FF',
       notification: '#f50057',
       onBackground: '#000000',
       onSurface: '#000000',
@@ -100,6 +104,8 @@ export interface Colors {
   background: string;
   disabled: string;
   error: string;
+  success: string;
+  gold: string;
   notification: string;
   onBackground: string;
   onSurface: string;

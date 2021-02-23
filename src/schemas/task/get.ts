@@ -5,11 +5,16 @@ export const getMy = gql`
     getMyOrders(pagination: $pagination) {
       result
       page
+      totalPages
       orders {
         id
         name
         price
         visible
+        locationType
+        status
+        price
+        createdAt
         categories {
           name
         }
@@ -17,6 +22,11 @@ export const getMy = gql`
           name
         }
         performer {
+          id
+          name
+          image
+        }
+        customer {
           id
           name
           image
