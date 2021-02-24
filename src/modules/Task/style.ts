@@ -28,7 +28,14 @@ export default (theme: WhiteOrDark) =>
     price: {
       color: theme.colors.primary,
       marginVertical: 10,
+      marginHorizontal: 5,
       fontSize: 20,
+    },
+    location: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 3,
     },
 
     perContainer: {

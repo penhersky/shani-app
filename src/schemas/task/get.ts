@@ -9,12 +9,20 @@ export const getMy = gql`
       orders {
         id
         name
-        price
+        payment {
+          price
+          currency
+        }
         visible
         locationType
         status
-        price
+        payment {
+          price
+          currency
+        }
         createdAt
+        comments
+        requests
         categories {
           name
         }

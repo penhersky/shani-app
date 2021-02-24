@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {View, Image} from 'react-native';
-import {Text, Card, Divider, TouchableRipple} from 'react-native-paper';
+import {Text, Card, TouchableRipple} from 'react-native-paper';
 import Gradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 
@@ -12,19 +12,18 @@ import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
 
 import {useTheme} from '../../theme';
-import {useTranslation, task} from '../../translate';
 
 import useStyle from './style';
 
 const Task = ({value}: {value: any}) => {
   const navigation = useNavigation();
-  const {tr} = useTranslation();
   const theme = useTheme();
   const style = useStyle(theme);
 
   const customer = _.get(value, 'customer');
   const performer = _.get(value, 'performer');
   const location = _.get(value, 'location');
+  const payment = _.get(value, 'payment');
   const categories = _.map(_.get(value, 'categories'), (c) => c.name);
 
   const customerStatus = getCustomerStatus(value.status, theme);
@@ -61,17 +60,26 @@ const Task = ({value}: {value: any}) => {
           </TouchableRipple>
         )}
 
-        {value.price !== 'contractual' ? (
-          <Text style={style.price}>{value.price}</Text>
+        {payment.price ? (
+          <Text style={style.price}>
+            {payment.price} {payment.currency}
+          </Text>
         ) : null}
 
-        {value.locationType === 'online' ? (
-          <Text>online</Text>
-        ) : location ? (
-          <Text>{value.location.name}</Text>
-        ) : null}
+        <View style={style.location}>
+          {value.locationType === 'online' ? (
+            <>
+              <Icon name="circle" color={theme.colors.error} />
+              <Text>online</Text>
+            </>
+          ) : location.name ? (
+            <>
+              <Icon name="location-pin" size={16} />
+              <Text>{value.location.name}</Text>
+            </>
+          ) : null}
+        </View>
 
-        <Divider />
         {performer && (
           <Gradient
             style={style.perContainer}
@@ -89,15 +97,14 @@ const Task = ({value}: {value: any}) => {
             {customerStatus.icon}
           </Gradient>
         )}
-        <Divider />
         <View style={style.footer}>
           <View style={style.section}>
             <AntDesign name="user" size={20} />
-            <Text>4</Text>
+            <Text>{value.requests}</Text>
           </View>
           <View style={style.section}>
             <Icon name="comment" size={20} />
-            <Text>12</Text>
+            <Text>{value.comments}</Text>
           </View>
           <Text>{new Date(Number(value.createdAt)).toLocaleDateString()}</Text>
         </View>
