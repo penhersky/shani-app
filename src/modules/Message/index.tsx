@@ -12,26 +12,23 @@ const Message = ({
   body,
   error,
   Icon,
-  name,
+  styles = {},
 }: {
   children?: any;
   title: string;
   body?: string;
   error?: boolean;
   Icon?: any;
-  name?: string;
+  styles?: any;
 }) => {
   const theme = useTheme();
   const style = useStyle(theme);
+
   return (
-    <View style={style.container}>
+    <View style={[style.container, styles]}>
       <View style={style.msg}>
         {Icon ? (
-          <Icon
-            name={name}
-            size={50}
-            style={[style.icon, error && style.error]}
-          />
+          Icon
         ) : (
           <AntDesign
             size={50}

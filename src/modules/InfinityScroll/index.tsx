@@ -4,6 +4,8 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useQuery, TypedDocumentNode, DocumentNode} from '@apollo/client';
 
+import {NetworkError} from '../';
+
 const Scroll = ({
   schema,
   initialParams = {},
@@ -26,9 +28,10 @@ const Scroll = ({
   const [loaded, setLoaded] = React.useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
   const [list, setList] = React.useState<any[]>([]);
+  const scroll = React.createRef<any>();
 
   const {data, fetchMore, loading, error, refetch} = useQuery(schema, {
-    variables: {...initialParams, pagination: {page: 1, limit: 10}},
+    variables: {...initialParams},
     client,
   });
 
@@ -49,11 +52,22 @@ const Scroll = ({
     refetch({})?.then((res) => {
       setRefreshing(res.loading);
       if (_.get(res, method)) {
+        scroll.current.scrollTo(0);
         setTotal(_.get(data, method)?.totalPages);
         setList(_.get(res, `${method}.${listName}`));
         setPage(_.get(data, method)?.page);
       }
     });
+  };
+
+  const refetchResult = (err?: any | undefined, res?: any) => {
+    if (!err) {
+      if (_.get(res, method)) {
+        setTotal(_.get(data, method)?.totalPages);
+        setList(_.get(res, `${method}.${listName}`));
+        setPage(_.get(data, method)?.page);
+      }
+    }
   };
 
   React.useEffect(() => {
@@ -79,10 +93,15 @@ const Scroll = ({
     }
   }, [data, listName, method]);
 
+  if (error) {
+    return <NetworkError onResult={refetchResult} refetch={refetch} />;
+  }
+
   return (
     <View>
       <ScrollView
         onScroll={handleScroll}
+        ref={scroll}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>

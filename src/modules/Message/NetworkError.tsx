@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useTranslation, collapsed} from '../../translate';
 
 import Message from './';
+import {useTheme} from '../../theme';
 
 const Error = ({
   refetch,
@@ -16,6 +17,7 @@ const Error = ({
   refetch: any;
   onResult: (err?: ApolloError, data?: any) => void;
 }) => {
+  const theme = useTheme();
   const [loading, setLoading] = React.useState(false);
   const {tr} = useTranslation();
 
@@ -23,9 +25,10 @@ const Error = ({
     <Message
       title={tr(collapsed, 'title')}
       body={tr(collapsed, 'caption')}
-      Icon={AntDesign}
-      name="disconnect">
-      <View style={style.container}>
+      Icon={
+        <AntDesign name="disconnect" size={50} color={theme.colors.primary} />
+      }>
+      <View>
         <Button
           onPress={() => {
             setLoading(true);
@@ -51,7 +54,6 @@ const Error = ({
 };
 
 const style = StyleSheet.create({
-  container: {},
   btn: {
     margin: 5,
   },

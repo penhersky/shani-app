@@ -9,6 +9,7 @@ export const getMy = gql`
       orders {
         id
         name
+        premium
         payment {
           price
           currency
@@ -16,10 +17,6 @@ export const getMy = gql`
         visible
         locationType
         status
-        payment {
-          price
-          currency
-        }
         createdAt
         comments
         requests

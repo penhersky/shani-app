@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import _ from 'lodash';
 import {View, Image} from 'react-native';
 import {Text, Card, TouchableRipple} from 'react-native-paper';
@@ -17,6 +18,7 @@ import useStyle from './style';
 
 const Task = ({value}: {value: any}) => {
   const navigation = useNavigation();
+  const {user} = useSelector((state: any) => state.user);
   const theme = useTheme();
   const style = useStyle(theme);
 
@@ -40,7 +42,9 @@ const Task = ({value}: {value: any}) => {
   };
 
   return (
-    <Card style={style.task} onPress={onPressTask}>
+    <Card
+      style={[style.task, value.premium && style.premium]}
+      onPress={onPressTask}>
       <Gradient
         colors={[theme.colors.surface, taskStatus.color]}
         start={{x: 1.44, y: 1.5}}
@@ -49,9 +53,18 @@ const Task = ({value}: {value: any}) => {
         {taskStatus.icon}
       </Gradient>
 
+      {value.premium && (
+        <Icon
+          name="star"
+          style={style.premiumStar}
+          size={14}
+          color={theme.colors.gold}
+        />
+      )}
+
       <Card.Title title={value.name} subtitle={categories.join(' / ')} />
       <Card.Content>
-        {customer && (
+        {customer.id !== user.id && (
           <TouchableRipple style={style.user} onPress={onPressCustomer}>
             <>
               <Image source={{uri: customer.image}} style={style.image} />

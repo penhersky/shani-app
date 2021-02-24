@@ -19,6 +19,16 @@ export default (theme: WhiteOrDark) =>
       borderRadius: theme.borderRadius * 3,
       overflow: 'hidden',
     },
+    premiumStar: {
+      position: 'absolute',
+      top: 1,
+      left: 1,
+    },
+    premium: {
+      borderRadius: theme.borderRadius,
+      borderWidth: 1,
+      borderColor: theme.colors.gold,
+    },
     image: {
       width: 30,
       height: 30,
@@ -63,7 +73,7 @@ export default (theme: WhiteOrDark) =>
       right: 0,
       width: 100,
       height: 70,
-      opacity: 0.5,
+      opacity: 0.4,
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
       padding: 5,
