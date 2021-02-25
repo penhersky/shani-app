@@ -13,6 +13,7 @@ import UserPanel from './UserPanel';
 import Settings from './Settings';
 import User from './User';
 import Home from './Home';
+import Task from './Task';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
 import {query, useDataBase, tokenSchemas} from '../wrappers/db';
@@ -78,6 +79,15 @@ const Main = (): JSX.Element => {
           options={{
             headerRight: HeaderRightUser,
             headerLeft: LeftHeaderHome,
+            title: '',
+          }}
+        />
+        <Stack.Screen
+          name={screens.task}
+          component={Task as any}
+          options={{
+            headerRight: HeaderRightUser,
+            headerLeft: LeftHeader,
             title: '',
           }}
         />

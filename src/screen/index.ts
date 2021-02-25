@@ -3,3 +3,5 @@ export {default as Loading} from './Auth/Loading';
 
 export {default as Auth} from './Auth';
 export {default as Main} from './Main';
+
+export {default as Task} from './Task';

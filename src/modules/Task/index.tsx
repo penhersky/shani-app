@@ -38,7 +38,7 @@ const Task = ({value}: {value: any}) => {
     navigation.navigate(screens.userProfile, {userId: customer.id});
   };
   const onPressTask = () => {
-    navigation.navigate(screens.task, {id: customer.id});
+    navigation.navigate(screens.task, {task: {...value, categories}});
   };
 
   return (
