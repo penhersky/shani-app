@@ -9,3 +9,4 @@ export {login} from './auth';
 
 export {default as categories} from './Category';
 export {default as task} from './task';
+export {default as rating} from './rating';

@@ -29,6 +29,7 @@ const Rating = ({
           <Star
             name="star"
             size={size}
+            key={i}
             onPress={() => onPress && onPress(i + 1)}
             color={color ?? theme.colors.gold}
           />
@@ -36,6 +37,7 @@ const Rating = ({
           <Star
             name="star-border"
             size={size}
+            key={i}
             onPress={() => onPress && onPress(i + 1)}
             color={color ?? theme.colors.gold}
           />

@@ -12,12 +12,16 @@ import {fullAccount} from '../../schemas';
 import {Message, NetworkError} from '../../modules';
 import {authClient} from '../../clients';
 
+import {useTheme} from '../../theme';
+
 import Header from './Header';
 import Hat from './Hat';
+import Rating from './rating';
 import Contacts from './Contacts';
 import Description from './Description';
 
 const Panel = ({route}: any): JSX.Element => {
+  const theme = useTheme();
   const userId = _.get(route?.params, 'userId');
   const [status, setStatus] = React.useState();
   const {tr} = useTranslation();
@@ -86,8 +90,9 @@ const Panel = ({route}: any): JSX.Element => {
   if (status === 44) {
     return (
       <Message
-        Icon={Icon}
-        name="user-alt-slash"
+        Icon={
+          <Icon name="user-alt-slash" size={50} color={theme.colors.primary} />
+        }
         title={tr(text, 'error').notFond}
         body={tr(text, 'error').userDeleted}
       />
@@ -102,6 +107,8 @@ const Panel = ({route}: any): JSX.Element => {
         name={String(account?.name)}
         images={account?.images}
       />
+
+      <Rating owner={user.id === account?.id} id={userId} />
 
       <Contacts
         allowed={allowed && !loading}
