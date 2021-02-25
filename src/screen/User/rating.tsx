@@ -14,12 +14,9 @@ import {rating} from '../../schemas';
 const Info = ({owner, id}: {owner: any; id?: string}) => {
   const theme = useTheme();
   const style = useStyle(theme);
-  const {data, loading, error} = useQuery(
-    owner ? rating.getMy : rating.getUser,
-    {
-      variables: {id: owner ? undefined : id},
-    },
-  );
+  const {data, loading} = useQuery(owner ? rating.getMy : rating.getUser, {
+    variables: {id: owner ? undefined : id},
+  });
 
   const average = get(data, owner ? 'getMyAverage' : 'getUserAverage');
 
@@ -27,17 +24,23 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
     <Card>
       <Card.Content style={style.container}>
         <View />
-        <View style={style.rating}>
-          <Text>{get(average, 'count')}</Text>
-          <Title style={style.score}>
-            {Number(get(average, 'score')).toFixed(1)}
-          </Title>
-          <Rating
-            value={get(average, 'score')}
-            size={16}
-            color={theme.colors.primary}
-          />
-        </View>
+        {loading ? (
+          <Skeleton>
+            <Skeleton.Item width={80} height={90} />
+          </Skeleton>
+        ) : (
+          <View style={style.rating}>
+            <Text>{get(average, 'count')}</Text>
+            <Title style={style.score}>
+              {Number(get(average, 'score')).toFixed(1)}
+            </Title>
+            <Rating
+              value={get(average, 'score')}
+              size={16}
+              color={theme.colors.primary}
+            />
+          </View>
+        )}
       </Card.Content>
     </Card>
   );
