@@ -5,6 +5,10 @@ const getUser = gql`
     getUserAverage(id: $id) {
       score
       count
+      group {
+        score
+        count
+      }
     }
   }
 `;
@@ -14,6 +18,10 @@ const getMy = gql`
     getMyAverage {
       score
       count
+      group {
+        score
+        count
+      }
     }
   }
 `;

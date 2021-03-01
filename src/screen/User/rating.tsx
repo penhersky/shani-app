@@ -1,8 +1,8 @@
 import React from 'react';
-import {get} from 'lodash';
+import {get, map, find} from 'lodash';
 import {useQuery} from '@apollo/client';
-import {StyleSheet, View, Text as Title} from 'react-native';
-import {Card, Text} from 'react-native-paper';
+import {StyleSheet, View, Text as Title, Dimensions} from 'react-native';
+import {Card, Text, ProgressBar, Caption} from 'react-native-paper';
 import Skeleton from 'react-native-skeleton-placeholder';
 
 import {useTheme, WhiteOrDark} from '../../theme';
@@ -23,23 +23,50 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
   return (
     <Card>
       <Card.Content style={style.container}>
-        <View />
         {loading ? (
-          <Skeleton>
-            <Skeleton.Item width={80} height={90} />
-          </Skeleton>
+          <>
+            <Skeleton>
+              <Skeleton.Item
+                display="flex"
+                flexDirection="row"
+                flexWrap="nowrap">
+                <Skeleton.Item width={90} height={90} marginHorizontal={10} />
+                <Skeleton.Item
+                  width={Dimensions.get('window').width - 150}
+                  height={90}
+                />
+              </Skeleton.Item>
+            </Skeleton>
+          </>
         ) : (
-          <View style={style.rating}>
-            <Text>{get(average, 'count')}</Text>
-            <Title style={style.score}>
-              {Number(get(average, 'score')).toFixed(1)}
-            </Title>
-            <Rating
-              value={get(average, 'score')}
-              size={16}
-              color={theme.colors.primary}
-            />
-          </View>
+          <>
+            <View style={style.rating}>
+              <Text>{get(average, 'count')}</Text>
+              <Title style={style.score}>
+                {Number(get(average, 'score') ?? 0).toFixed(1)}
+              </Title>
+              <Rating
+                value={get(average, 'score')}
+                size={16}
+                color={theme.colors.primary}
+              />
+            </View>
+            <View style={style.progressBlock}>
+              {map(Array(5), (_v, i: number) => (
+                <View style={style.count} key={i}>
+                  <Caption style={style.countText}>{i + 1}</Caption>
+                  <ProgressBar
+                    progress={
+                      find(average.group, {score: i + 1})?.count /
+                      average?.count
+                    }
+                    color={theme.colors.primary}
+                    style={style.progress}
+                  />
+                </View>
+              ))}
+            </View>
+          </>
         )}
       </Card.Content>
     </Card>
@@ -62,6 +89,28 @@ const useStyle = (theme: WhiteOrDark) =>
     },
     score: {
       fontSize: 40,
+    },
+    progressBlock: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+    count: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      height: 7,
+    },
+    countText: {
+      marginHorizontal: 10,
+    },
+    progress: {
+      width: Dimensions.get('window').width - 170,
+      height: 7,
+      backgroundColor: theme.colors.background,
     },
   });
 
