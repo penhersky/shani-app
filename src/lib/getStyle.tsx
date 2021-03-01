@@ -34,7 +34,7 @@ export const getTaskStatus = (name: string, theme: any) => {
     default:
       return {
         icon: null,
-        color: theme.colors.background,
+        color: theme.colors.surface,
       };
   }
 };

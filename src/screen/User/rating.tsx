@@ -24,9 +24,11 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
   return (
     <Card>
       <Card.Content style={style.container}>
-        {loading || !average ? (
+        {!loading || !average ? (
           <>
-            <Skeleton>
+            <Skeleton
+              backgroundColor={theme.colors.background}
+              highlightColor={theme.colors.accent}>
               <Skeleton.Item
                 display="flex"
                 flexDirection="row"

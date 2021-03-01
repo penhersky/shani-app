@@ -41,7 +41,7 @@ export const theme = {
     colors: {
       accent: '#c4e0e5',
       backdrop: '#E3E3E3FF',
-      background: '#2F3340',
+      background: '#3C4152',
       disabled: 'rgba(0, 0, 0, 0.26)',
       error: '#B00020',
       success: '#23D18BFF',

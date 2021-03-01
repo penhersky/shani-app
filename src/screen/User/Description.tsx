@@ -61,7 +61,9 @@ const Description = ({
 
   if (!loaded && !description) {
     return (
-      <Skeleton>
+      <Skeleton
+        backgroundColor={theme.colors.background}
+        highlightColor={theme.colors.accent}>
         <Skeleton.Item width={Dimensions.get('window').width} height={210} />
       </Skeleton>
     );

@@ -29,7 +29,9 @@ const Hat = ({
 
   if (loading && !name) {
     return (
-      <Skeleton>
+      <Skeleton
+        backgroundColor={theme.colors.background}
+        highlightColor={theme.colors.accent}>
         <Skeleton.Item width="100%" height={220} />
       </Skeleton>
     );

@@ -4,6 +4,7 @@ export {default as Picker} from './Picker';
 export {default as IconButton} from './IconButton';
 export {default as Category} from './Category';
 export {default as Rating} from './Rating';
+export {default as Snackbar} from './Snackbar';
 
 export {default as HeaderRightUser} from './Header/headerRightUser';
 export {default as LeftHeader} from './Header/LeftHeader';

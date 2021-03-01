@@ -11,6 +11,7 @@ import {photoFromCamera, photoFromLibrary} from '../../../lib/inputMedia';
 import {task as schema} from '../../../schemas';
 
 import {CategoryPiker} from '../../../modules';
+import {Snackbar} from '../../../components';
 import ImageArea from './imageList';
 import Location from './location';
 import MoreSettings from './MoreSettings';
@@ -21,6 +22,7 @@ const Add = ({navigation}: any) => {
   const theme = useTheme();
   const style = useStyle(theme);
   const {tr} = useTranslation();
+  const [visible, setVisible] = React.useState(false);
 
   const [request, {loading, error, data}] = useMutation(schema.create);
 
@@ -95,11 +97,19 @@ const Add = ({navigation}: any) => {
         navigation.navigate(screens.TABS.myTasks, {
           task: _.get(data, 'createOrder').order,
         });
+      } else {
+        setVisible(true);
       }
     }
   }, [data, navigation]);
 
-  console.log(error, data);
+  React.useEffect(() => {
+    if (error) {
+      setVisible(true);
+    }
+  }, [error]);
+
+  const onDismissSnackBar = () => setVisible(false);
 
   return (
     <ScrollView style={style.container}>
@@ -155,6 +165,9 @@ const Add = ({navigation}: any) => {
         {tr(global, 'create')}
       </Button>
       <MoreSettings />
+      <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
+        {tr(task, 'failed')}
+      </Snackbar>
     </ScrollView>
   );
 };

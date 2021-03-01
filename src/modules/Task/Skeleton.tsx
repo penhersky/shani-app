@@ -11,7 +11,9 @@ const Task = () => {
 
   return (
     <Card style={style.task}>
-      <Skeleton>
+      <Skeleton
+        backgroundColor={theme.colors.background}
+        highlightColor={theme.colors.accent}>
         <View>
           <Skeleton.Item height={30} width={200} margin={7} />
           <Skeleton.Item height={20} width={170} marginHorizontal={7} />

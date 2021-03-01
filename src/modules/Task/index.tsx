@@ -111,7 +111,7 @@ const Task = ({value}: {value: any}) => {
             </>
           ) : location.name ? (
             <>
-              <Icon name="location-pin" size={16} />
+              <Icon name="location-pin" size={16} style={style.icon} />
               <Text>{value.location.name}</Text>
             </>
           ) : null}
@@ -145,11 +145,11 @@ const Task = ({value}: {value: any}) => {
         )}
         <View style={style.footer}>
           <View style={style.section}>
-            <AntDesign name="user" size={20} />
+            <AntDesign name="user" size={20} style={style.icon} />
             <Text>{value.requests}</Text>
           </View>
           <View style={style.section}>
-            <Icon name="comment" size={20} />
+            <Icon name="comment" size={20} style={style.icon} />
             <Text>{value.comments}</Text>
           </View>
           <Text>{new Date(Number(value.createdAt)).toLocaleDateString()}</Text>

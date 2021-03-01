@@ -103,4 +103,8 @@ export default (theme: WhiteOrDark) =>
       width: 50,
       padding: 5,
     },
+
+    icon: {
+      color: theme.colors.text,
+    },
   });
