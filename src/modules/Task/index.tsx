@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {useMutation} from '@apollo/client';
 import _ from 'lodash';
 import {View, Image} from 'react-native';
 import {Text, Card, TouchableRipple} from 'react-native-paper';
@@ -11,22 +12,32 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
+import {rating as schema} from '../../schemas';
+
+import {Rating} from '../../components';
 
 import {useTheme} from '../../theme';
-
 import useStyle from './style';
 
 const Task = ({value}: {value: any}) => {
   const navigation = useNavigation();
-  const {user} = useSelector((state: any) => state.user);
+  const {user, type} = useSelector((state: any) => state.user);
   const theme = useTheme();
   const style = useStyle(theme);
+  const [request] = useMutation(schema.addRatingFrom(type));
+
+  const [rating, setRating] = React.useState(
+    _.get(value, `${type}Rating`)?.score,
+  );
 
   const customer = _.get(value, 'customer');
   const performer = _.get(value, 'performer');
   const location = _.get(value, 'location');
   const payment = _.get(value, 'payment');
   const categories = _.map(_.get(value, 'categories'), (c) => c.name);
+  const isCostumer = user.id === customer?.id;
+  const isPerformer = user.id === performer?.id;
+  const involved = isCostumer || user.id === isPerformer;
 
   const customerStatus = getCustomerStatus(value.status, theme);
   const taskStatus = getTaskStatus(value.status, theme);
@@ -39,6 +50,11 @@ const Task = ({value}: {value: any}) => {
   };
   const onPressTask = () => {
     navigation.navigate(screens.task, {task: {...value, categories}});
+  };
+
+  const onPressRatingHandler = (newRating: number) => {
+    setRating(newRating);
+    request({variables: {order: value.id, score: newRating}});
   };
 
   return (
@@ -68,7 +84,15 @@ const Task = ({value}: {value: any}) => {
           <TouchableRipple style={style.user} onPress={onPressCustomer}>
             <>
               <Image source={{uri: customer.image}} style={style.image} />
-              <Text style={style.userName}>{customer.name}</Text>
+              <View style={style.userName}>
+                <Text>{customer.name}</Text>
+                {_.get(value, 'customerRating') && (
+                  <Rating
+                    value={_.get(value, 'customerRating')?.score}
+                    size={12}
+                  />
+                )}
+              </View>
             </>
           </TouchableRipple>
         )}
@@ -93,7 +117,7 @@ const Task = ({value}: {value: any}) => {
           ) : null}
         </View>
 
-        {performer && (
+        {performer && performer?.id !== user?.id && involved && (
           <Gradient
             style={style.perContainer}
             colors={[theme.colors.surface, customerStatus.color]}
@@ -104,7 +128,16 @@ const Task = ({value}: {value: any}) => {
               onPress={onPressPerformer}>
               <>
                 <Image source={{uri: performer.image}} style={style.image} />
-                <Text style={style.userName}>{performer.name}</Text>
+
+                <View style={style.userName}>
+                  <Text>{performer.name}</Text>
+                  {_.get(value, 'performerRating') && (
+                    <Rating
+                      value={_.get(value, 'performerRating')?.score}
+                      size={12}
+                    />
+                  )}
+                </View>
               </>
             </TouchableRipple>
             {customerStatus.icon}
@@ -121,6 +154,14 @@ const Task = ({value}: {value: any}) => {
           </View>
           <Text>{new Date(Number(value.createdAt)).toLocaleDateString()}</Text>
         </View>
+        {['done', 'closed'].includes(value.status) && (
+          <Rating
+            size={35}
+            styles={style.rating}
+            value={rating}
+            onPress={onPressRatingHandler}
+          />
+        )}
       </Card.Content>
     </Card>
   );

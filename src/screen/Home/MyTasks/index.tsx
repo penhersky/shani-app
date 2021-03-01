@@ -5,7 +5,7 @@ import {mainClient} from '../../../clients';
 
 import {InfinityScroll, Task, TaskSkeleton, Screen} from '../../../modules';
 
-const MyOrders = () => {
+const MyOrders = ({route: {params}}: any) => {
   return (
     <Screen>
       <InfinityScroll
@@ -13,6 +13,7 @@ const MyOrders = () => {
         listName="orders"
         method="getMyOrders"
         client={mainClient}
+        newItem={params?.task}
         Item={Task}
         initialParams={{
           pagination: {page: 1, limit: 10, sort: 'DESC', sortKey: 'createdAt'},

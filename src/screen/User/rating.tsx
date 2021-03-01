@@ -16,6 +16,7 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
   const style = useStyle(theme);
   const {data, loading} = useQuery(owner ? rating.getMy : rating.getUser, {
     variables: {id: owner ? undefined : id},
+    fetchPolicy: 'cache-and-network',
   });
 
   const average = get(data, owner ? 'getMyAverage' : 'getUserAverage');
@@ -23,7 +24,7 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
   return (
     <Card>
       <Card.Content style={style.container}>
-        {loading ? (
+        {loading || !average ? (
           <>
             <Skeleton>
               <Skeleton.Item
@@ -57,8 +58,10 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
                   <Caption style={style.countText}>{i + 1}</Caption>
                   <ProgressBar
                     progress={
-                      find(average.group, {score: i + 1})?.count /
-                      average?.count
+                      average?.count === 0
+                        ? 0
+                        : Number(find(average.group, {score: i + 1})?.count) /
+                          Number(average?.count)
                     }
                     color={theme.colors.primary}
                     style={style.progress}

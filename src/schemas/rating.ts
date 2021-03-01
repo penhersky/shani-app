@@ -1,5 +1,7 @@
 import {gql} from '@apollo/client';
 
+import {capitalize} from '../lib/format';
+
 const getUser = gql`
   query getUserAverage($id: ID!) {
     getUserAverage(id: $id) {
@@ -26,7 +28,16 @@ const getMy = gql`
   }
 `;
 
+const addRatingFrom = (type: string) => gql`
+  mutation addRatingFrom${capitalize(type)}($score: Float!, $order: ID!) {
+    addRatingFrom${capitalize(type)}(score: $score, order: $order) {
+      result
+    }
+  }
+`;
+
 export default {
   getUser,
   getMy,
+  addRatingFrom,
 };

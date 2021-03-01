@@ -4,6 +4,13 @@ import {WhiteOrDark} from '../../theme';
 
 export default (theme: WhiteOrDark) =>
   StyleSheet.create({
+    rating: {
+      // alignSelf: 'center',
+      paddingVertical: 5,
+      marginHorizontal: 10,
+      marginTop: 10,
+      justifyContent: 'space-between',
+    },
     user: {
       display: 'flex',
       flexDirection: 'row',
@@ -18,6 +25,7 @@ export default (theme: WhiteOrDark) =>
       margin: 3,
       borderRadius: theme.borderRadius * 3,
       overflow: 'hidden',
+      zIndex: 0,
     },
     premiumStar: {
       position: 'absolute',

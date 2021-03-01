@@ -14,6 +14,7 @@ const Scroll = ({
   method,
   listName,
   client,
+  newItem,
 }: {
   schema: DocumentNode | TypedDocumentNode<any, any>;
   initialParams?: any;
@@ -22,6 +23,7 @@ const Scroll = ({
   method: string;
   listName: string;
   client?: any;
+  newItem?: any;
 }) => {
   const [page, setPage] = React.useState(1);
   const [total, setTotal] = React.useState(1);
@@ -92,6 +94,12 @@ const Scroll = ({
       setList(_.get(data, `${method}.${listName}`));
     }
   }, [data, listName, method]);
+
+  React.useEffect(() => {
+    if (newItem) {
+      setList((prev: any) => [newItem, ...prev]);
+    }
+  }, [newItem, data, listName, method]);
 
   if (error) {
     return <NetworkError onResult={refetchResult} refetch={refetch} />;

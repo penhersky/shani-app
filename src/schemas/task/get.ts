@@ -1,10 +1,6 @@
 import {gql} from '@apollo/client';
 
-const shortOrder = `
-   result
-      page
-      totalPages
-      orders {
+export const shortOrder = `
         id
         name
         premium
@@ -34,13 +30,25 @@ const shortOrder = `
           name
           image
         }
-      }
+        customerRating {
+          id
+          score
+        }
+        performerRating {
+          id
+          score
+        }
 `;
 
 export const getMy = gql`
   query getMyOrders($pagination: Paginate!) {
     getMyOrders(pagination: $pagination) {
+      result
+      page
+      totalPages
+      orders {
       ${shortOrder}
+      }
     }
   }
 `;
