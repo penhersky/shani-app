@@ -6,6 +6,7 @@ const text = {
     recommendation: 'Recommendations',
     tasks: 'Tasks',
     More: 'More',
+    notifications: 'Notifications',
   },
   ua: {
     account: 'Обліковий запис',
@@ -14,6 +15,7 @@ const text = {
     recommendation: 'Рекомендації',
     tasks: 'Завдання',
     More: 'Більше',
+    notifications: 'Сповіщення',
   },
   ru: {
     account: 'Аккаунт',
@@ -22,6 +24,7 @@ const text = {
     recommendation: 'Рекомендации',
     tasks: 'Завдання',
     More: 'Больше',
+    notifications: 'Oповещения',
   },
 };
 

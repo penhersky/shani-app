@@ -14,6 +14,7 @@ import Settings from './Settings';
 import User from './User';
 import Home from './Home';
 import Task from './Task';
+import Notifications from './Notifications';
 import {LeftHeader, HeaderRightUser, LeftHeaderHome} from '../components';
 
 import {query, useDataBase, tokenSchemas} from '../wrappers/db';
@@ -89,6 +90,15 @@ const Main = (): JSX.Element => {
             headerRight: HeaderRightUser,
             headerLeft: LeftHeader,
             title: '',
+          }}
+        />
+        <Stack.Screen
+          name={screens.notifications}
+          component={Notifications}
+          options={{
+            headerRight: HeaderRightUser,
+            headerLeft: LeftHeader,
+            title: tr(screenTitle, 'notifications'),
           }}
         />
         <Stack.Screen

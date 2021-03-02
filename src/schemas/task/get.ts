@@ -55,7 +55,7 @@ export const getMy = gql`
 
 export const getOrder = gql`
   query getOrder($id: ID!) {
-    getOrder(id: $ids) {
+    getOrder(id: $id) {
       result
       status
       order {
