@@ -7,7 +7,6 @@ import {
   Portal,
   List,
   TouchableRipple,
-  Modal,
 } from 'react-native-paper';
 
 import style from './style';

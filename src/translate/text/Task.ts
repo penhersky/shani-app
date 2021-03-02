@@ -17,6 +17,8 @@ const text = {
       'For more efficient performer search, you need to add categories to which the task belongs. But no more than three!',
 
     failed: 'Failed to add task',
+    price: 'Execution price',
+    sum: 'Sum',
   },
   ua: {
     mainData: 'Основні дані',
@@ -36,6 +38,8 @@ const text = {
       'Для більшої ефективності пошуку виконавця вам необхідно додати категорії до яких належить завдання. Але не більше трьох!',
 
     failed: 'Не вдалося додати завдання',
+    price: 'Ціна виконання',
+    sum: 'Сума',
   },
   ru: {
     mainData: 'Основные данные',
@@ -55,6 +59,8 @@ const text = {
       'Для большей эффективности поиска исполнителя вам необходимо добавить категории к которым относится задание. Но не более трех',
 
     failed: 'Не удалось добавить задание',
+    price: 'Цена исполнения',
+    sum: 'Cумма',
   },
 };
 

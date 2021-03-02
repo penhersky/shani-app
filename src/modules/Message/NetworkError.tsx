@@ -21,6 +21,21 @@ const Error = ({
   const [loading, setLoading] = React.useState(false);
   const {tr} = useTranslation();
 
+  const onPressHandler = () => {
+    setLoading(true);
+    refetch({})
+      ?.then((data: any) => {
+        setLoading(false);
+        onResult(undefined, data);
+      })
+      .catch((err: any) => {
+        if (err.message === 'Access denied') {
+          onResult(err, undefined);
+        }
+        setLoading(false);
+      });
+  };
+
   return (
     <Message
       title={tr(collapsed, 'title')}
@@ -29,23 +44,7 @@ const Error = ({
         <AntDesign name="disconnect" size={50} color={theme.colors.primary} />
       }>
       <View>
-        <Button
-          onPress={() => {
-            setLoading(true);
-            refetch({})
-              ?.then((data: any) => {
-                setLoading(false);
-                onResult(undefined, data);
-              })
-              .catch((err: any) => {
-                if (err.message === 'Access denied') {
-                  onResult(err, undefined);
-                }
-                setLoading(false);
-              });
-          }}
-          style={style.btn}
-          loading={loading}>
+        <Button onPress={onPressHandler} style={style.btn} loading={loading}>
           {loading || tr(collapsed, 'reply')}
         </Button>
       </View>

@@ -14,6 +14,7 @@ import {CategoryPiker} from '../../../modules';
 import {Snackbar} from '../../../components';
 import ImageArea from './imageList';
 import Location from './location';
+import Payment from './payment';
 import MoreSettings from './MoreSettings';
 
 import useStyle from './style';
@@ -38,6 +39,8 @@ const Add = ({navigation}: any) => {
   const [categories, setCategories] = React.useState<any[]>(
     _.fill(Array(3), undefined),
   );
+  const [price, setPrice] = React.useState<string>();
+  const [curr, setCurr] = React.useState<string>('USD');
   const [err, setError] = React.useState<string>('');
 
   const addImage = (value: string) => {
@@ -76,13 +79,18 @@ const Add = ({navigation}: any) => {
         order: {
           name: title,
           categories: _.map(_.compact(categories), (item) => item.id),
+          locationType,
           location: location.name === 'other' ? undefined : location,
           description,
-          payment: undefined,
+          payment: price
+            ? {
+                price,
+                currency: curr,
+              }
+            : undefined,
           time: undefined,
           from: undefined,
           to: undefined,
-          locationType: undefined,
           visible: true,
           allowComments: true,
         },
@@ -155,6 +163,12 @@ const Add = ({navigation}: any) => {
         addImage={addImage}
         deleteImage={deleteImage}
         images={images}
+      />
+      <Payment
+        value={price as string}
+        onChange={setPrice}
+        curr={curr as string}
+        onChangeCurr={setCurr}
       />
       <Button
         onPress={onCreateHandler}
