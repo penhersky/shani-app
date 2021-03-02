@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {ScrollView} from 'react-native';
-import {Text} from 'react-native-paper';
 
 import {Notification} from '../../components';
 
