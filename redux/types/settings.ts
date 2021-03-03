@@ -1,6 +1,7 @@
 export const SET_APP_STATE = 'SET_APP_STATE';
 export const SET_THEME = 'SET_THEME';
 export const SET_LNG = 'SET_LNG';
+export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 
 export enum ThemeType {
   dark = 'dark',
@@ -14,3 +15,8 @@ export enum Lng {
 }
 
 export const languages = ['en-US', 'ru-RU', 'ua-UA'];
+
+export type EventSettings = {
+  key: String;
+  value: boolean;
+};

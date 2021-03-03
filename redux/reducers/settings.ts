@@ -1,6 +1,8 @@
 import {
   Lng,
   ThemeType,
+  EventSettings,
+  SET_NOTIFICATION,
   SET_APP_STATE,
   SET_LNG,
   SET_THEME,
@@ -12,6 +14,7 @@ type Action = {
   status?: string;
   lng?: Lng;
   theme?: ThemeType;
+  notification?: EventSettings[];
 };
 
 export type StateType = {
@@ -19,6 +22,7 @@ export type StateType = {
   status: string;
   lng: Lng;
   theme: ThemeType;
+  notification: EventSettings[] | [];
 };
 
 export const initialState = {
@@ -26,6 +30,7 @@ export const initialState = {
   status: 'production',
   lng: 'en-US' as Lng,
   theme: 'white' as ThemeType,
+  notification: [],
 };
 
 const settings = (
@@ -48,6 +53,11 @@ const settings = (
       return {
         ...state,
         theme: action.theme as ThemeType,
+      };
+    case SET_NOTIFICATION:
+      return {
+        ...state,
+        notification: action.notification as EventSettings[],
       };
     default:
       return state;
