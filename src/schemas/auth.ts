@@ -25,8 +25,10 @@ export const code = gql`
 `;
 
 export const singUp = (type: string) => gql`
-  mutation singUp${capitalize(type)}($email: String!, $name: String!) {
-    singUp${capitalize(type)}(email: $email, name: $name) {
+  mutation singUp${capitalize(
+    type,
+  )}($email: String!, $name: String!, $birthday: String!) {
+    singUp${capitalize(type)}(email: $email, name: $name, birthday: $birthday) {
       result
       status
       fields

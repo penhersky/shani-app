@@ -2,6 +2,7 @@ import React from 'react';
 import {get, nth} from 'lodash';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useMutation} from '@apollo/client';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {useTranslation, auth} from '../../../translate';
 import {authClient} from '../../../clients';
@@ -17,6 +18,8 @@ import style from '../style';
 const SingUp = ({route, navigation}: any) => {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
+  const [date, setDate] = React.useState<Date>(new Date());
+  const [show, setShow] = React.useState<boolean>(false);
   const [err, setErr] = React.useState('');
   const [msg, setMsg] = React.useState('');
   const {tr} = useTranslation();
@@ -44,9 +47,19 @@ const SingUp = ({route, navigation}: any) => {
       setErr('email');
       return setMsg(tr(auth, 'errors.email'));
     }
+
+    const birthday = new Date(date);
+    const allowed = new Date();
+    allowed.setMonth(allowed.getMonth() - 12 * 16);
+
+    if (Number(birthday) > Number(allowed)) {
+      setErr('date');
+      return setMsg(tr(auth, 'errors.date'));
+    }
+
     setErr('');
     setMsg('');
-    request({variables: {email, name}});
+    request({variables: {email, name, birthday: date}});
   };
 
   React.useEffect(() => {
@@ -107,6 +120,29 @@ const SingUp = ({route, navigation}: any) => {
         value={email}
         left={<TextInput.Icon name="email" />}
       />
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          is24Hour={true}
+          maximumDate={new Date()}
+          display="spinner"
+          onChange={(_: any, selectedDate: any) => {
+            setDate(selectedDate || date);
+            setShow(false);
+          }}
+        />
+      )}
+
+      <Button
+        mode="outlined"
+        style={[style.button, err === 'date' && style.buttonError]}
+        onPress={() => setShow(true)}
+        disabled={loading}>
+        {date.toLocaleDateString()}
+      </Button>
+
       <Button
         mode="outlined"
         style={style.button}

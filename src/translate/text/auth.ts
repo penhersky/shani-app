@@ -9,6 +9,7 @@ export default {
       email: 'Not a valid email',
       userExist: 'Such a user already exists',
       shortName: 'The name must be at least three characters long',
+      date: 'The minimum registration age is 16 years',
       namePattern:
         'The name can contain Cyrillic or Latin letters, numbers and symbols "-" "_".',
       code: 'Incorrect code',
@@ -34,6 +35,7 @@ export default {
       email: 'Некоректний email',
       userExist: 'Такий користувач уже існує',
       shortName: "Ім'я має містити принаймні три символи",
+      date: 'Мінімальний вік реєстрації 16 років',
       namePattern:
         'Ім`я може містити кириличні або латинські літери, цифри та символи "-"  "_"',
       code: 'Некоректний код',
@@ -60,6 +62,7 @@ export default {
       email: 'Некорректный email',
       userExist: 'Такой пользователь уже существует',
       shortName: 'Имя должно состоять не менее чем из трех символов',
+      date: 'Минимальный возраст для регистрации 16 лет',
       namePattern:
         'Имя может содержать кириллические или латинские буквы, цифры и символы "-" "_".',
       code: 'Некорректный код',

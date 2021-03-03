@@ -4,7 +4,7 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useQuery, TypedDocumentNode, DocumentNode} from '@apollo/client';
 
-import {NetworkError} from '../';
+import NetworkError from '../Message/NetworkError';
 
 const Scroll = ({
   schema,

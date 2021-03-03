@@ -19,6 +19,8 @@ const text = {
     failed: 'Failed to add task',
     price: 'Execution price',
     sum: 'Sum',
+    allowComments: 'Allow to comment',
+    visible: 'Visible to all',
   },
   ua: {
     mainData: 'Основні дані',
@@ -40,6 +42,8 @@ const text = {
     failed: 'Не вдалося додати завдання',
     price: 'Ціна виконання',
     sum: 'Сума',
+    allowComments: 'Дозволити коментувати',
+    visible: 'Видимий для всіх',
   },
   ru: {
     mainData: 'Основные данные',
@@ -61,6 +65,8 @@ const text = {
     failed: 'Не удалось добавить задание',
     price: 'Цена исполнения',
     sum: 'Cумма',
+    allowComments: 'Разрешить комментировать',
+    visible: 'разрешить комментировать',
   },
 };
 

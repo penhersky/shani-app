@@ -41,6 +41,8 @@ const Add = ({navigation}: any) => {
   );
   const [price, setPrice] = React.useState<string>();
   const [curr, setCurr] = React.useState<string>('USD');
+  const [visibleTask, setVisibleTask] = React.useState<boolean>(true);
+  const [comments, setComments] = React.useState<boolean>(true);
   const [err, setError] = React.useState<string>('');
 
   const addImage = (value: string) => {
@@ -91,8 +93,8 @@ const Add = ({navigation}: any) => {
           time: undefined,
           from: undefined,
           to: undefined,
-          visible: true,
-          allowComments: true,
+          visible: visibleTask,
+          allowComments: comments,
         },
         images,
       },
@@ -178,7 +180,12 @@ const Add = ({navigation}: any) => {
         disabled={loading}>
         {tr(global, 'create')}
       </Button>
-      <MoreSettings />
+      <MoreSettings
+        comment={comments}
+        visible={visibleTask}
+        onChangeComments={setComments}
+        onChangeVisible={setVisibleTask}
+      />
       <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
         {tr(task, 'failed')}
       </Snackbar>

@@ -16,6 +16,11 @@ const style = StyleSheet.create({
     backgroundColor: getTheme.colors.accent,
     margin: 10,
   },
+
+  buttonError: {
+    borderColor: getTheme.colors.error,
+    borderWidth: 2,
+  },
 });
 
 export default style;

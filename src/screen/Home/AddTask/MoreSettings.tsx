@@ -1,14 +1,23 @@
 import React from 'react';
-import _ from 'lodash';
-import {View, StyleSheet} from 'react-native';
-import {Card, List, Button} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {Card, List, Checkbox} from 'react-native-paper';
 
-import {useTranslation, global} from '../../../translate';
+import {useTranslation, global, task} from '../../../translate';
 import {useTheme} from '../../../theme';
 
 import {WhiteOrDark} from './../../../theme';
 
-const Images = ({}: {}) => {
+const Images = ({
+  comment,
+  visible,
+  onChangeVisible,
+  onChangeComments,
+}: {
+  comment: boolean;
+  visible: boolean;
+  onChangeVisible: (value: boolean) => void;
+  onChangeComments: (value: boolean) => void;
+}) => {
   const theme = useTheme();
   const style = useStyle(theme);
   const {tr} = useTranslation();
@@ -17,10 +26,19 @@ const Images = ({}: {}) => {
     <Card>
       <Card.Content>
         <List.Accordion title={tr(global, 'moreSettings')}>
-          <Button>helo</Button>
-          <Button>helo</Button>
-          <Button>helo</Button>
-          <Button>helo</Button>
+          <Checkbox.Item
+            label={tr(task, 'allowComments')}
+            color={theme.colors.primary}
+            status={comment ? 'checked' : 'unchecked'}
+            onPress={() => onChangeComments(!comment)}
+          />
+
+          <Checkbox.Item
+            label={tr(task, 'visible')}
+            color={theme.colors.primary}
+            status={visible ? 'checked' : 'unchecked'}
+            onPress={() => onChangeVisible(!visible)}
+          />
         </List.Accordion>
       </Card.Content>
     </Card>
