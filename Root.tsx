@@ -11,6 +11,7 @@ import {
   connect as db,
   query,
   tokenSchemas,
+  notificationSchemas,
 } from './src/wrappers/db';
 
 import store from './redux/store';
@@ -24,7 +25,7 @@ LogBox.ignoreLogs([
 const InitialTheme = () => {
   const theme = useTheme();
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={theme as any}>
       <App />
     </PaperProvider>
   );
@@ -33,6 +34,7 @@ const InitialTheme = () => {
 const Root = () => {
   React.useEffect(() => {
     query(db, tokenSchemas.table);
+    query(db, notificationSchemas.table);
   }, []);
 
   return (

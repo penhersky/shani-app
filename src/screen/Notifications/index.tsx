@@ -4,6 +4,8 @@ import {ScrollView} from 'react-native';
 
 import {Notification} from '../../components';
 
+import {useDataBase, query, notificationSchemas} from '../../wrappers/db';
+
 // @temp
 const list = [
   {
@@ -46,6 +48,12 @@ const list = [
 ];
 
 const More = () => {
+  const db = useDataBase();
+
+  React.useEffect(() => {
+    query(db, notificationSchemas.revisedAll);
+  }, [db]);
+
   return (
     <ScrollView>
       {_.map(list, (item) =>
