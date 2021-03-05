@@ -4,3 +4,4 @@ export {default as query} from './query';
 export {default as insert} from './insert';
 export {default as tokenSchemas} from './schemas/token';
 export {default as notificationSchemas} from './schemas/notification';
+export {default as settings} from './schemas/settings';

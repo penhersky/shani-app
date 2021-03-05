@@ -14,7 +14,7 @@ import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
 import {rating as schema} from '../../schemas';
 
-import {Rating} from '../../components';
+import {Rating, Avatar} from '../../components';
 
 import {useTheme} from '../../theme';
 import useStyle from './style';
@@ -83,7 +83,7 @@ const Task = ({value}: {value: any}) => {
         {customer.id !== user.id && (
           <TouchableRipple style={style.user} onPress={onPressCustomer}>
             <>
-              <Image source={{uri: customer.image}} style={style.image} />
+              <Avatar size={30} name={customer.name} image={customer.image} />
               <View style={style.userName}>
                 <Text>{customer.name}</Text>
                 {_.get(value, 'customerRating') && (
@@ -127,7 +127,11 @@ const Task = ({value}: {value: any}) => {
               style={[style.performer]}
               onPress={onPressPerformer}>
               <>
-                <Image source={{uri: performer.image}} style={style.image} />
+                <Avatar
+                  size={30}
+                  name={performer.name}
+                  image={performer.image}
+                />
 
                 <View style={style.userName}>
                   <Text>{performer.name}</Text>

@@ -2,19 +2,11 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {View, ScrollView} from 'react-native';
-import {
-  Text,
-  Title,
-  Avatar,
-  Divider,
-  Paragraph,
-  List,
-} from 'react-native-paper';
+import {Text, Title, Divider, Paragraph, List} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {Link} from '../../components';
+import {Link, Avatar} from '../../components';
 
-import {avatarText} from '../../lib/format';
 import openUrl from '../../lib/openUrl';
 import {useTranslation, user as text, screenTitle} from '../../translate';
 import screens from '../../lib/screens';
@@ -53,11 +45,7 @@ const Panel = (): JSX.Element => {
       <Link to={screens.userProfile} params={{userId: account.id, type}}>
         <View style={style.userContainer}>
           <View style={style.user}>
-            {uri ? (
-              <Avatar.Image size={120} source={{uri}} />
-            ) : (
-              <Avatar.Text size={120} label={avatarText(account.name)} />
-            )}
+            <Avatar name={account.name} size={120} image={uri} />
 
             <Title>{account.name}</Title>
             <Text>{account.email}</Text>

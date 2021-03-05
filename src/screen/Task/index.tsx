@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import {View} from 'react-native';
+import {} from 'react-native';
 import {Text, Card} from 'react-native-paper';
 import {useQuery} from '@apollo/client';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useTranslation} from '../../translate';
 import {useTheme} from '../../theme';
@@ -18,6 +19,7 @@ const Task = ({
   navigation,
 }: any) => {
   const theme = useTheme();
+  const [state, setState] = React.useState(task);
   const style = useStyle(theme);
   const {tr} = useTranslation();
 
@@ -25,20 +27,43 @@ const Task = ({
     variables: {id: task.id},
   });
 
-  React.useEffect(() => navigation.setOptions({title: task.name}), [
-    navigation,
-    task.name,
-  ]);
+  React.useEffect(
+    () =>
+      navigation.setOptions({
+        title:
+          String(task.name).length > 16
+            ? `${String(task.name).slice(0, 16)}...`
+            : task.name,
+      }),
+    [navigation, task.name],
+  );
 
-  console.log(data, error);
+  React.useEffect(() => {
+    if (_.get(data, 'getOrder.order')) {
+      setState(_.get(data, 'getOrder.order'));
+    }
+  }, [data]);
 
   return (
     <Screen>
-      <Card>
+      <Card style={style.taskHat}>
         <Card.Title
           title={task.name}
-          subtitle={_.get(data, 'getOrder.description')}
+          subtitle={[...state.categories]
+            .map((item) => (typeof item === 'string' ? item : item.name))
+            .join(' / ')}
         />
+        {state.premium && (
+          <Icon
+            name="star"
+            style={style.premiumStar}
+            size={14}
+            color={theme.colors.gold}
+          />
+        )}
+        <Card.Content>
+          <Text>{_.get(state, 'description')}</Text>
+        </Card.Content>
       </Card>
     </Screen>
   );

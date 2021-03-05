@@ -37,11 +37,6 @@ export default (theme: WhiteOrDark) =>
       borderWidth: 1,
       borderColor: theme.colors.gold,
     },
-    image: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-    },
 
     price: {
       color: theme.colors.primary,

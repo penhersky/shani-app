@@ -24,7 +24,7 @@ const Info = ({owner, id}: {owner: any; id?: string}) => {
   return (
     <Card>
       <Card.Content style={style.container}>
-        {loading || !average ? (
+        {loading && !average ? (
           <>
             <Skeleton
               backgroundColor={theme.colors.background}

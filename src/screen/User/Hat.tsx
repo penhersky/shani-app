@@ -2,12 +2,11 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import _ from 'lodash';
 import {StyleSheet, View, ImageBackground} from 'react-native';
-import {Avatar, Title, Card} from 'react-native-paper';
+import {Title, Card} from 'react-native-paper';
 import Skeleton from 'react-native-skeleton-placeholder';
 
 import {useTheme, WhiteOrDark} from '../../theme';
-
-import {avatarText} from '../../lib/format';
+import {Avatar} from '../../components';
 
 const Hat = ({
   header,
@@ -45,11 +44,7 @@ const Hat = ({
         source={mode === 'white' ? white : dark}>
         {header}
       </ImageBackground>
-      {uri ? (
-        <Avatar.Image size={150} source={{uri}} style={style.avatar} />
-      ) : (
-        <Avatar.Text size={150} label={avatarText(name)} style={style.avatar} />
-      )}
+      <Avatar name={name} size={150} image={uri} />
       <View style={style.info}>
         <Title>{name}</Title>
       </View>

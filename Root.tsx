@@ -12,6 +12,7 @@ import {
   query,
   tokenSchemas,
   notificationSchemas,
+  settings,
 } from './src/wrappers/db';
 
 import store from './redux/store';
@@ -35,6 +36,7 @@ const Root = () => {
   React.useEffect(() => {
     query(db, tokenSchemas.table);
     query(db, notificationSchemas.table);
+    query(db, settings.table);
   }, []);
 
   return (
