@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {Subheading} from 'react-native-paper';
+import {useMutation} from '@apollo/client';
 
 import {useTranslation, statuses} from '../../translate';
 import {useTheme, WhiteOrDark} from '../../theme';
@@ -27,23 +28,28 @@ const StatusPiker = ({
   const {user} = useSelector((s: any) => s.user);
   const isCostumer = user.id === customer?.id;
 
+  // const [request, {data}] = useMutation();
+
   const onChangeHandler = (value: string) => {
-    console.log(value);
+    setState(value);
   };
 
   const {icon, color} = getTaskStatus(state, theme, size.medium);
 
   return isCostumer ? (
     <Picker
-      list={getList(state, tr, performer)}
+      list={getList(state, tr)}
       onChange={onChangeHandler}
       value={state}
-      styles={[style.performerPicker, {borderColor: color}]}>
+      styles={[
+        style.performerPicker,
+        {borderColor: state === 'created' ? theme.colors.text : color},
+      ]}>
       <>
         {state === 'created' ? (
           <>
             <AntDesign
-              name="verticleleft"
+              name="switcher"
               size={size.medium}
               color={theme.colors.text}
             />
@@ -52,7 +58,6 @@ const StatusPiker = ({
         ) : (
           <>
             {icon}
-            <Subheading>{state}</Subheading>
             <Subheading>{tr(statuses, `statuses.${state}`)}</Subheading>
           </>
         )}

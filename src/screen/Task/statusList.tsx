@@ -1,4 +1,5 @@
 import React from 'react';
+import {compact} from 'lodash';
 import {statuses} from '../../translate';
 
 import {AntDesign, size} from '../../lib/icon';
@@ -20,19 +21,21 @@ export const getList = (
       | undefined;
   }) => React.ReactNode;
 }[] => {
-  return [
-    performer && {
-      value: 'cancelPerformer',
-      label: tr(statuses, 'action.cancelPerformer'),
-      icon: (props) => (
-        <AntDesign
-          name="deleteuser"
-          color={props.color}
-          style={props.style}
-          size={size.medium}
-        />
-      ),
-    },
+  return compact([
+    performer
+      ? {
+          value: 'cancelPerformer',
+          label: tr(statuses, 'action.cancelPerformer'),
+          icon: (props) => (
+            <AntDesign
+              name="deleteuser"
+              color={props.color}
+              style={props.style}
+              size={size.medium}
+            />
+          ),
+        }
+      : undefined,
     {
       value: 'closed',
       label: tr(statuses, 'action.close'),
@@ -57,5 +60,5 @@ export const getList = (
         />
       ),
     },
-  ];
+  ]);
 };
