@@ -12,6 +12,7 @@ import {MaterialIcons, size} from '../../lib/icon';
 
 import {Price, Picker} from '../../components';
 import StatusPiker from './status';
+import User from './user';
 
 import useStyle from './style';
 
@@ -82,14 +83,21 @@ const Task = ({
           {_.get(state, 'payment.price') && (
             <Price payment={state.payment} size={30} />
           )}
-          <Text>{_.get(state, 'description')}</Text>
-
+          <User
+            id={state.id}
+            status={state.status}
+            performer={state.performer}
+            performerRating={state.performerRating}
+            customer={state.customer}
+            customerRating={state.customerRating}
+          />
           <StatusPiker
             id={state.id}
             status={state.status}
             performer={state.performer}
             customer={state.customer}
           />
+          <Text>{_.get(state, 'description')}</Text>
         </Card.Content>
       </View>
       <Card>
