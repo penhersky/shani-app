@@ -3,16 +3,16 @@ import {gql} from '@apollo/client';
 /**
  * @param {String} With_capitalize
  * */
-export const setStatus = (status: string) => gql`
-  mutation setOrderStatusTo${status}($id: ID!) {
-    setOrderStatusToDone(id: $id) {
+export const setStatus = gql`
+  mutation setOrderStatus($id: ID!, $status: String!) {
+    setOrderStatus(id: $id, status: $status) {
       result
     }
   }
 `;
 
 export const cancelPerformer = gql`
-  mutation cancelOrderPerformer$($id: ID!) {
+  mutation cancelOrderPerformer($id: ID!) {
     cancelOrderPerformer(id: $id) {
       result
     }

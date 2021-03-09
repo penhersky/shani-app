@@ -1,6 +1,5 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {useMutation} from '@apollo/client';
 import _ from 'lodash';
 import {View} from 'react-native';
 import {Text, Card, TouchableRipple} from 'react-native-paper';
@@ -12,9 +11,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
-import {rating as schema} from '../../schemas';
 
 import {Rating, Avatar, Price} from '../../components';
+import Vote from '../vote';
 
 import {useTheme} from '../../theme';
 import useStyle from './style';
@@ -24,11 +23,6 @@ const Task = ({value}: {value: any}) => {
   const {user, type} = useSelector((state: any) => state.user);
   const theme = useTheme();
   const style = useStyle(theme);
-  const [request] = useMutation(schema.addRatingFrom(type));
-
-  const [rating, setRating] = React.useState(
-    _.get(value, `${type}Rating`)?.score,
-  );
 
   const customer = _.get(value, 'customer');
   const performer = _.get(value, 'performer');
@@ -50,11 +44,6 @@ const Task = ({value}: {value: any}) => {
   };
   const onPressTask = () => {
     navigation.navigate(screens.task, {task: {...value, categories}});
-  };
-
-  const onPressRatingHandler = (newRating: number) => {
-    setRating(newRating);
-    request({variables: {order: value.id, score: newRating}});
   };
 
   return (
@@ -154,12 +143,11 @@ const Task = ({value}: {value: any}) => {
           </View>
           <Text>{new Date(Number(value.createdAt)).toLocaleDateString()}</Text>
         </View>
-        {['done', 'closed'].includes(value.status) && (
-          <Rating
+        {['done', 'closed'].includes(value.status) && performer && (
+          <Vote
             size={35}
-            styles={style.rating}
-            value={rating}
-            onPress={onPressRatingHandler}
+            score={_.get(value, `${type}Rating`)?.score}
+            id={value.id}
           />
         )}
       </Card.Content>

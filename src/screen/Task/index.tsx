@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import _ from 'lodash';
 import {Text, Card, TouchableRipple, Subheading} from 'react-native-paper';
 import {useQuery} from '@apollo/client';
@@ -10,7 +10,6 @@ import {useTheme} from '../../theme';
 import {task as scheme} from '../../schemas';
 import {MaterialIcons, size} from '../../lib/icon';
 
-import {Screen} from '../../modules';
 import {Price, Picker} from '../../components';
 import StatusPiker from './status';
 
@@ -56,7 +55,7 @@ const Task = ({
   ];
 
   return (
-    <Screen>
+    <ScrollView>
       <View style={style.taskHat}>
         <Picker list={list} onChange={() => {}} styles={style.more}>
           <MaterialIcons
@@ -80,10 +79,13 @@ const Task = ({
           />
         )}
         <Card.Content>
-          <Price payment={state.payment} size={30} />
+          {_.get(state, 'payment.price') && (
+            <Price payment={state.payment} size={30} />
+          )}
           <Text>{_.get(state, 'description')}</Text>
 
           <StatusPiker
+            id={state.id}
             status={state.status}
             performer={state.performer}
             customer={state.customer}
@@ -110,7 +112,7 @@ const Task = ({
           </TouchableRipple>
         </Card.Content>
       </Card>
-    </Screen>
+    </ScrollView>
   );
 };
 

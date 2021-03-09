@@ -7,6 +7,7 @@ const text = {
       canceled: 'Canceled',
     },
     action: {
+      goToDefault: 'To the initial',
       'in processing': 'Get started',
       chosePerformer: 'Choose as a performer',
       refuse: 'Refuse to perform',
@@ -24,6 +25,7 @@ const text = {
       canceled: 'Відмінено',
     },
     action: {
+      goToDefault: 'До початкового',
       'in processing': 'Розпочати',
       chosePerformer: 'Вибирати як виконавця',
       refuse: 'Відмовитися від виконання',
@@ -41,6 +43,7 @@ const text = {
       canceled: 'Отменен',
     },
     action: {
+      goToDefault: 'К начальному',
       'in processing': 'Начать',
       chosePerformer: 'Выбрать в качестве исполнителя',
       refuse: 'Отказаться от исполнения',
