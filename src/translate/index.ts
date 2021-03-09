@@ -6,6 +6,7 @@ export {default as landing} from './text/landing';
 export {default as auth} from './text/auth';
 
 export {default as task} from './text/Task';
+export {default as statuses} from './text/status';
 export {default as global} from './text/global';
 export {default as screenTitle} from './text/title';
 export {default as user} from './text/user';

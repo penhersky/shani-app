@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {useMutation} from '@apollo/client';
 import _ from 'lodash';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
 import {Text, Card, TouchableRipple} from 'react-native-paper';
 import Gradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
@@ -14,7 +14,7 @@ import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
 import {rating as schema} from '../../schemas';
 
-import {Rating, Avatar} from '../../components';
+import {Rating, Avatar, Price} from '../../components';
 
 import {useTheme} from '../../theme';
 import useStyle from './style';
@@ -97,11 +97,7 @@ const Task = ({value}: {value: any}) => {
           </TouchableRipple>
         )}
 
-        {payment.price ? (
-          <Text style={style.price}>
-            {payment.price} {payment.currency}
-          </Text>
-        ) : null}
+        {payment.price ? <Price payment={payment} size={20} /> : null}
 
         <View style={style.location}>
           {value.locationType === 'online' ? (

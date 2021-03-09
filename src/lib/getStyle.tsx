@@ -2,14 +2,14 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export const getTaskStatus = (name: string, theme: any) => {
+export const getTaskStatus = (name: string, theme: any, size = 40) => {
   switch (name) {
     case 'in processing':
       return {
         icon: (
           <Ionicons
             name="time-outline"
-            size={40}
+            size={size}
             color={theme.colors.primary}
           />
         ),
@@ -17,17 +17,19 @@ export const getTaskStatus = (name: string, theme: any) => {
       };
     case 'done':
       return {
-        icon: <Ionicons name="time-outline" size={40} color={'#ffd591'} />,
+        icon: <Ionicons name="time-outline" size={size} color={'#ffd591'} />,
         color: '#ffd591',
       };
     case 'closed':
       return {
-        icon: <AntDesign name="check" size={40} color={theme.colors.success} />,
+        icon: (
+          <AntDesign name="check" size={size} color={theme.colors.success} />
+        ),
         color: theme.colors.success,
       };
     case 'canceled':
       return {
-        icon: <AntDesign name="close" size={40} color={theme.colors.error} />,
+        icon: <AntDesign name="close" size={size} color={theme.colors.error} />,
         color: theme.colors.error,
       };
 

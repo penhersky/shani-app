@@ -22,7 +22,19 @@ const Picker = ({
   styles?: any;
   icon?: any;
   value?: string;
-  list: {label: string; value: string}[];
+  list: {
+    label: string;
+    value: string;
+    icon?: (props: {
+      color: string;
+      style?:
+        | {
+            marginRight: number;
+            marginVertical?: number | undefined;
+          }
+        | undefined;
+    }) => React.ReactNode;
+  }[];
   onChange: (value: string) => void;
   children?: any;
 }) => {
@@ -56,6 +68,7 @@ const Picker = ({
                   <List.Item
                     title={item.label}
                     key={item.value}
+                    left={item.icon}
                     onPress={() => {
                       onChange(item.value);
                       hideDialog();

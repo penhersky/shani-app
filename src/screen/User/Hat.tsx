@@ -44,7 +44,7 @@ const Hat = ({
         source={mode === 'white' ? white : dark}>
         {header}
       </ImageBackground>
-      <Avatar name={name} size={150} image={uri} />
+      <Avatar name={name} size={150} image={uri} styles={style.avatar} />
       <View style={style.info}>
         <Title>{name}</Title>
       </View>

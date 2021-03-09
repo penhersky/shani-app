@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useTheme} from '../../theme';
 
-import Icon from 'react-native-vector-icons/Feather';
+import {AntDesign, MaterialIcons} from '../../lib/icon';
 
 import {IconButton} from '../../components';
 
@@ -24,12 +24,16 @@ const Header = () => {
       <IconButton
         onPress={onPressBack}
         styles={style.icon}
-        icon={<Icon name="arrow-left" size={25} color={theme.colors.text} />}
+        icon={
+          <AntDesign name="arrowleft" size={25} color={theme.colors.text} />
+        }
       />
       <IconButton
         onPress={onPress}
         styles={style.icon}
-        icon={<Icon name="more-vertical" size={25} color={theme.colors.text} />}
+        icon={
+          <MaterialIcons name="more-vert" size={25} color={theme.colors.text} />
+        }
       />
     </View>
   );

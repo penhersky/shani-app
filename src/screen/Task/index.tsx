@@ -1,15 +1,19 @@
 import React from 'react';
+import {View} from 'react-native';
 import _ from 'lodash';
-import {} from 'react-native';
-import {Text, Card} from 'react-native-paper';
+import {Text, Card, TouchableRipple, Subheading} from 'react-native-paper';
 import {useQuery} from '@apollo/client';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {useTranslation} from '../../translate';
 import {useTheme} from '../../theme';
 import {task as scheme} from '../../schemas';
+import {MaterialIcons, size} from '../../lib/icon';
 
 import {Screen} from '../../modules';
+import {Price, Picker} from '../../components';
+import StatusPiker from './status';
+
 import useStyle from './style';
 
 const Task = ({
@@ -44,9 +48,23 @@ const Task = ({
     }
   }, [data]);
 
+  const list = [
+    {
+      label: 'settings',
+      value: '1',
+    },
+  ];
+
   return (
     <Screen>
-      <Card style={style.taskHat}>
+      <View style={style.taskHat}>
+        <Picker list={list} onChange={() => {}} styles={style.more}>
+          <MaterialIcons
+            name="more-vert"
+            size={size.medium}
+            color={theme.colors.text}
+          />
+        </Picker>
         <Card.Title
           title={task.name}
           subtitle={[...state.categories]
@@ -54,7 +72,7 @@ const Task = ({
             .join(' / ')}
         />
         {state.premium && (
-          <Icon
+          <MaterialIcons
             name="star"
             style={style.premiumStar}
             size={14}
@@ -62,7 +80,34 @@ const Task = ({
           />
         )}
         <Card.Content>
+          <Price payment={state.payment} size={30} />
           <Text>{_.get(state, 'description')}</Text>
+
+          <StatusPiker
+            status={state.status}
+            performer={state.performer}
+            customer={state.customer}
+          />
+        </Card.Content>
+      </View>
+      <Card>
+        <Card.Content style={style.actions}>
+          <TouchableRipple style={style.action} onPress={() => {}}>
+            <>
+              <AntDesign name="user" size={size.medium} style={style.margin} />
+              <Subheading>{state.requests}</Subheading>
+            </>
+          </TouchableRipple>
+          <TouchableRipple style={style.action} onPress={() => {}}>
+            <>
+              <MaterialIcons
+                name="comment"
+                size={size.medium}
+                style={style.margin}
+              />
+              <Subheading>{state.comments}</Subheading>
+            </>
+          </TouchableRipple>
         </Card.Content>
       </Card>
     </Screen>
