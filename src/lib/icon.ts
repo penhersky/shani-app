@@ -4,5 +4,5 @@ export {default as MaterialIcons} from 'react-native-vector-icons/MaterialIcons'
 export const size = {
   small: 15,
   medium: 26,
-  large: 30,
+  large: 40,
 };

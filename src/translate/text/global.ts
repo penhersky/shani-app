@@ -12,6 +12,7 @@ const text = {
     save: 'Save',
     add: 'Add',
     less: 'Less',
+    cancel: 'cancel',
     // device
     camera: 'Camera',
     library: 'Library',
@@ -33,6 +34,7 @@ const text = {
     save: 'Зберегти',
     add: 'Додати',
     less: 'Mенше',
+    cancel: 'Скасувати',
     // device
     camera: 'Камера',
     library: 'Бібліотека',
@@ -54,6 +56,7 @@ const text = {
     save: 'Сохранять',
     add: 'Добавить',
     less: 'Mеньше',
+    cancel: 'Отмена',
     // device
     camera: 'Камера',
     library: 'Библиотека',

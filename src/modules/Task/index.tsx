@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import {getCustomerStatus, getTaskStatus} from '../../lib/getStyle';
+import {getPerformerStyles, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
 
 import {Rating, Avatar, Price} from '../../components';
@@ -33,7 +33,7 @@ const Task = ({value}: {value: any}) => {
   const isPerformer = user.id === performer?.id;
   const involved = isCostumer || user.id === isPerformer;
 
-  const customerStatus = getCustomerStatus(value.status, theme);
+  const customerStatus = getPerformerStyles(value.status, theme);
   const taskStatus = getTaskStatus(value.status, theme);
 
   const onPressPerformer = () => {

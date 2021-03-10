@@ -16,6 +16,11 @@ const text = {
       close: 'Complete',
       cancel: 'Cancel',
     },
+    info: {
+      cancelPerformer: (name: string) =>
+        `Are you sure you want to cancel ${name} as a task performer?`,
+      refuse: 'Are you sure you want to drop the task?',
+    },
   },
   ua: {
     status: 'Змінити стаус',
@@ -34,6 +39,11 @@ const text = {
       close: 'Завершити',
       cancel: 'Відмінити',
     },
+    info: {
+      cancelPerformer: (name: string) =>
+        `Ви впевненні що хочете відмінити користувача ${name} як виконавця завдання?`,
+      refuse: 'Ви впевнені, що хочете відмовитись від завдання?',
+    },
   },
   ru: {
     status: 'Изменить стаус',
@@ -51,6 +61,11 @@ const text = {
       done: 'Выполнено',
       close: 'Завершить',
       cancel: 'Отменить',
+    },
+    info: {
+      cancelPerformer: (name: string) =>
+        `Вы уверены, что хотите отменить пользователя ${name} as a task performer?`,
+      refuse: 'Вы уверены, чкак исполнителя задачи?',
     },
   },
 };

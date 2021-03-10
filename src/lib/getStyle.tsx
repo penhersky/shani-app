@@ -41,7 +41,7 @@ export const getTaskStatus = (name: string, theme: any, size = 40) => {
   }
 };
 
-export const getCustomerStatus = (name: string, theme: any) => {
+export const getPerformerStyles = (name: string, theme: any, size = 35) => {
   switch (name) {
     case 'created':
       return {
@@ -50,18 +50,22 @@ export const getCustomerStatus = (name: string, theme: any) => {
       };
     case 'in processing':
       return {
-        icon: <Ionicons name="time-outline" size={35} color={'#ffd591'} />,
+        icon: <Ionicons name="time-outline" size={size} color={'#ffd591'} />,
         color: '#ffd591',
       };
     case 'done':
       return {
-        icon: <AntDesign name="check" size={35} color={theme.colors.success} />,
+        icon: (
+          <AntDesign name="check" size={size} color={theme.colors.success} />
+        ),
         color: theme.colors.success,
       };
 
     default:
       return {
-        icon: <AntDesign name="check" size={35} color={theme.colors.success} />,
+        icon: (
+          <AntDesign name="check" size={size} color={theme.colors.success} />
+        ),
         color: theme.colors.success,
       };
   }

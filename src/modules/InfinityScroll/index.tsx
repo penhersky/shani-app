@@ -35,6 +35,7 @@ const Scroll = ({
   const {data, fetchMore, loading, error, refetch} = useQuery(schema, {
     variables: {...initialParams},
     client,
+    fetchPolicy: 'cache-and-network',
   });
 
   const handleScroll = (event: any) => {

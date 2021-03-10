@@ -29,6 +29,10 @@ const Vote = ({score, id, size}: {score: number; id: string; size: number}) => {
     }
   }, [data, old, rating, error]);
 
+  React.useEffect(() => {
+    setRating(score);
+  }, [score]);
+
   return (
     <Rating
       size={size}
