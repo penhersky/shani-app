@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {useSelector, useDispatch} from 'react-redux';
 import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useQuery, TypedDocumentNode, DocumentNode} from '@apollo/client';
@@ -14,7 +15,8 @@ const Scroll = ({
   method,
   listName,
   client,
-  newItem,
+  storage,
+  Empty,
 }: {
   schema: DocumentNode | TypedDocumentNode<any, any>;
   initialParams?: any;
@@ -23,13 +25,21 @@ const Scroll = ({
   method: string;
   listName: string;
   client?: any;
-  newItem?: any;
+  Empty: any;
+  storage: {
+    key: string;
+    set: string;
+    page: string;
+    add: string;
+  };
 }) => {
-  const [page, setPage] = React.useState(1);
-  const [total, setTotal] = React.useState(1);
+  const dispatch = useDispatch();
+  const {list, page, total} = useSelector((state: any) =>
+    _.get(state, storage.key),
+  );
+
   const [loaded, setLoaded] = React.useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
-  const [list, setList] = React.useState<any[]>([]);
   const scroll = React.createRef<any>();
 
   const {data, fetchMore, loading, error, refetch} = useQuery(schema, {
@@ -46,7 +56,7 @@ const Scroll = ({
     }
 
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 50) {
-      setPage((prev) => prev + 1);
+      dispatch({type: storage.page, page: page + 1});
     }
   };
 
@@ -56,9 +66,12 @@ const Scroll = ({
       setRefreshing(res.loading);
       if (_.get(res, method)) {
         scroll.current.scrollTo(0);
-        setTotal(_.get(data, method)?.totalPages);
-        setList(_.get(res, `${method}.${listName}`));
-        setPage(_.get(data, method)?.page);
+        dispatch({
+          type: storage.set,
+          page: _.get(data, method)?.page,
+          list: _.get(res, `${method}.${listName}`),
+          total: _.get(data, method)?.totalPages,
+        });
       }
     });
   };
@@ -66,9 +79,12 @@ const Scroll = ({
   const refetchResult = (err?: any | undefined, res?: any) => {
     if (!err) {
       if (_.get(res, method)) {
-        setTotal(_.get(data, method)?.totalPages);
-        setList(_.get(res, `${method}.${listName}`));
-        setPage(_.get(data, method)?.page);
+        dispatch({
+          type: storage.set,
+          page: _.get(data, method)?.page,
+          list: _.get(res, `${method}.${listName}`),
+          total: _.get(data, method)?.totalPages,
+        });
       }
     }
   };
@@ -79,31 +95,33 @@ const Scroll = ({
       fetchMore({variables: {page}})?.then((res) => {
         setLoaded(!res.loading);
         if (_.get(res, method)) {
-          setTotal(_.get(res, method)?.totalPages);
-          setList((prev: any) => [
-            ...prev,
-            ..._.get(res, `${method}.${listName}`),
-          ]);
+          dispatch({
+            type: storage.add,
+            total: _.get(res, method)?.totalPages,
+            list: _.get(res, `${method}.${listName}`),
+          });
         }
       });
     }
-  }, [page, listName, method, fetchMore]);
+  }, [page, listName, method, fetchMore, dispatch, storage.add]);
 
   React.useEffect(() => {
     if (_.get(data, method)) {
-      setTotal(_.get(data, method)?.totalPages);
-      setList(_.get(data, `${method}.${listName}`));
+      dispatch({
+        type: storage.set,
+        page: _.get(data, method)?.page,
+        list: _.get(data, `${method}.${listName}`),
+        total: _.get(data, method)?.totalPages,
+      });
     }
-  }, [data, listName, method]);
-
-  React.useEffect(() => {
-    if (newItem) {
-      setList((prev: any) => [newItem, ...prev]);
-    }
-  }, [newItem, data, listName, method]);
+  }, [data, listName, method, dispatch, storage.set]);
 
   if (error) {
     return <NetworkError onResult={refetchResult} refetch={refetch} />;
+  }
+
+  if (!total && !loading) {
+    return Empty;
   }
 
   return (
