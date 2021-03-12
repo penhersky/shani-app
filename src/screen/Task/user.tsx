@@ -1,6 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import _ from 'lodash';
+import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, View} from 'react-native';
+import {useMutation} from '@apollo/client';
 import {Subheading, Card, Button, TouchableRipple} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import Gradient from 'react-native-linear-gradient';
@@ -9,8 +11,10 @@ import {statuses, useTranslation} from '../../translate';
 import {useTheme, WhiteOrDark} from '../../theme';
 import screen from '../../lib/screens';
 import {getPerformerStyles} from '../../lib/getStyle';
+import {PUT_TASK} from '../../../redux/types/task';
+import {task} from '../../schemas';
 
-import {Avatar, Rating, Alert} from '../../components';
+import {Avatar, Rating, Alert, Spinner} from '../../components';
 import {Vote} from '../../modules';
 
 const User = ({
@@ -20,6 +24,7 @@ const User = ({
   involved,
   isPerformer,
   status,
+  onDeletePerformer,
 }: {
   user: any;
   style: any;
@@ -27,15 +32,12 @@ const User = ({
   isPerformer: boolean;
   involved: boolean;
   status: string;
+  onDeletePerformer?: () => void;
 }) => {
   const [visible, setVisible] = React.useState(false);
   const navigate = useNavigation();
   const theme = useTheme();
   const {tr} = useTranslation();
-
-  const onOkHandler = () => {
-    alert('ok');
-  };
 
   const {color, icon} = getPerformerStyles(status, theme, 35);
 
@@ -44,7 +46,7 @@ const User = ({
       style={[style.wrap, {borderColor: color}]}
       colors={[
         theme.colors.surface,
-        involved && icon ? color : theme.colors.accent,
+        !isPerformer && icon ? color : theme.colors.accent,
       ]}
       start={{x: 1.44, y: 1.55}}
       end={{x: 1.69, y: 1.0}}>
@@ -58,7 +60,7 @@ const User = ({
             setVisible={setVisible}
             visible={visible}
             onCancel={() => {}}
-            onOk={onOkHandler}
+            onOk={onDeletePerformer}
             title={isPerformer && tr(statuses, 'info.cancel')}
             subTitle={
               !isPerformer && tr(statuses, 'info.cancelPerformer')(user.name)
@@ -71,10 +73,7 @@ const User = ({
             {rating && <Rating value={rating} size={20} styles={{margin: 2}} />}
             {involved && (
               <Button onPress={() => setVisible(true)} mode="outlined">
-                {tr(
-                  statuses,
-                  `action.${isPerformer ? 'refuse' : 'cancelPerformer'}`,
-                )}
+                {tr(statuses, 'action.cancelPerformer')}
               </Button>
             )}
           </Card.Content>
@@ -99,16 +98,50 @@ const Component = ({
   customerRating?: any;
   status: string;
 }) => {
+  const [worker, setWorker] = React.useState(performer);
   const {user} = useSelector((s: any) => s.user);
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const style = useStyle(theme);
+
+  const [cancelPerformer, {data, error, loading}] = useMutation(
+    task.cancelPerformer,
+  );
+
   const isCostumer = user.id === customer?.id;
   const isPerformer = user.id === performer?.id;
   const involved = isCostumer || isPerformer;
-  const theme = useTheme();
-  const style = useStyle(theme);
+
+  const onDeleteHandler = () => {
+    dispatch({
+      type: PUT_TASK,
+      id,
+      task: {
+        performer: null,
+      },
+    });
+    cancelPerformer({variables: {id}});
+  };
+
+  React.useEffect(() => {
+    if (_.get(data, 'cancelOrderPerformer.result') === 'SUCCESS' && !error) {
+      setWorker(null);
+      dispatch({
+        type: PUT_TASK,
+        id,
+        task: {
+          performer: null,
+        },
+      });
+    } else {
+      setWorker(performer);
+    }
+  }, [dispatch, data, error, id, performer]);
 
   return (
     <View>
       <View style={style.user}>
+        {loading && <Spinner absolute />}
         {!isCostumer && (
           <User
             style={style}
@@ -119,7 +152,7 @@ const Component = ({
             status={status}
           />
         )}
-        {performer && !isPerformer && (
+        {worker && !isPerformer && (
           <User
             style={style}
             user={performer}
@@ -127,10 +160,11 @@ const Component = ({
             involved={involved}
             isPerformer={isPerformer}
             status={status}
+            onDeletePerformer={onDeleteHandler}
           />
         )}
       </View>
-      {involved && ['done', 'closed'].includes(status) && (
+      {involved && ['done', 'closed'].includes(status) && performer && (
         <Vote
           id={id}
           size={35}
@@ -149,6 +183,7 @@ const useStyle = (theme: WhiteOrDark) =>
       alignItems: 'center',
       flexDirection: 'column',
       flexWrap: 'wrap',
+      overflow: 'hidden',
     },
     wrap: {
       borderWidth: 1,

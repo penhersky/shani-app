@@ -45,7 +45,7 @@ const Scroll = ({
   const {data, fetchMore, loading, error, refetch} = useQuery(schema, {
     variables: {...initialParams},
     client,
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   });
 
   const handleScroll = (event: any) => {
@@ -64,13 +64,12 @@ const Scroll = ({
     setRefreshing(true);
     refetch({})?.then((res) => {
       setRefreshing(res.loading);
-      if (_.get(res, method)) {
-        scroll.current.scrollTo(0);
+      if (_.get(res, 'data')) {
         dispatch({
           type: storage.set,
-          page: _.get(data, method)?.page,
-          list: _.get(res, `${method}.${listName}`),
-          total: _.get(data, method)?.totalPages,
+          page: _.get(res, `data.${method}`)?.page,
+          list: _.get(res, `data.${method}.${listName}`),
+          total: _.get(res, `data.${method}`)?.totalPages,
         });
       }
     });
@@ -78,12 +77,12 @@ const Scroll = ({
 
   const refetchResult = (err?: any | undefined, res?: any) => {
     if (!err) {
-      if (_.get(res, method)) {
+      if (_.get(res, 'data')) {
         dispatch({
           type: storage.set,
-          page: _.get(data, method)?.page,
-          list: _.get(res, `${method}.${listName}`),
-          total: _.get(data, method)?.totalPages,
+          page: _.get(res, `data.${method}`)?.page,
+          list: _.get(res, `data.${method}.${listName}`),
+          total: _.get(res, `data.${method}`)?.totalPages,
         });
       }
     }
@@ -94,11 +93,11 @@ const Scroll = ({
       setLoaded(false);
       fetchMore({variables: {page}})?.then((res) => {
         setLoaded(!res.loading);
-        if (_.get(res, method)) {
+        if (_.get(res, 'data')) {
           dispatch({
             type: storage.add,
-            total: _.get(res, method)?.totalPages,
-            list: _.get(res, `${method}.${listName}`),
+            total: _.get(res, `data.${method}`)?.totalPages,
+            list: _.get(res, `data.${method}.${listName}`),
           });
         }
       });

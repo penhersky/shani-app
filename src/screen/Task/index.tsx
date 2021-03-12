@@ -29,7 +29,7 @@ const Task = ({
 
   const {data, loading, error} = useQuery(scheme.getOrder, {
     variables: {id: task.id},
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   });
 
   React.useEffect(

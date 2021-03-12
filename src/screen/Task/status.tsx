@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {Subheading} from 'react-native-paper';
 import {useMutation} from '@apollo/client';
@@ -8,11 +8,12 @@ import {useMutation} from '@apollo/client';
 import {useTranslation, statuses} from '../../translate';
 import {useTheme, WhiteOrDark} from '../../theme';
 
-import {Picker} from '../../components';
+import {Picker, Spinner} from '../../components';
 import {getCustomerList, getPerformerList} from './statusList';
 import {getTaskStatus} from '../../lib/getStyle';
 import {AntDesign, size} from '../../lib/icon';
 import {task} from '../../schemas';
+import {PUT_TASK} from '../../../redux/types/task';
 
 const StatusPiker = ({
   id,
@@ -26,6 +27,7 @@ const StatusPiker = ({
   status: string;
 }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const style = useStyle(theme);
   const {tr} = useTranslation();
   const [state, setState] = React.useState<string>(status);
@@ -34,7 +36,7 @@ const StatusPiker = ({
   const isCostumer = user.id === customer?.id;
   const involved = isCostumer || user.id === performer?.id;
 
-  const [setStatus, {data, error}] = useMutation(task.setStatus);
+  const [setStatus, {data, error, loading}] = useMutation(task.setStatus);
 
   const onChangeHandler = (value: string) => {
     setState(value);
@@ -44,11 +46,16 @@ const StatusPiker = ({
   React.useEffect(() => {
     if (_.get(data, 'setOrderStatus.result') === 'SUCCESS') {
       setOld(state);
+      dispatch({
+        type: PUT_TASK,
+        id,
+        task: {status: state},
+      });
     }
     if (_.get(data, 'setOrderStatus.result') === 'ERROR' || error) {
       setState(oldStatus);
     }
-  }, [data, setStatus, oldStatus, state, error]);
+  }, [data, setStatus, oldStatus, state, error, dispatch, id]);
 
   const {icon, color} = getTaskStatus(state, theme, size.medium);
 
@@ -72,11 +79,13 @@ const StatusPiker = ({
                 size={size.medium}
                 color={theme.colors.text}
               />
+              {loading && <Spinner size={20} />}
               <Subheading>{tr(statuses, 'status')}</Subheading>
             </>
           ) : (
             <>
               {icon}
+              {loading && <Spinner size={20} />}
               <Subheading>{tr(statuses, `statuses.${state}`)}</Subheading>
             </>
           )}
@@ -99,6 +108,11 @@ const useStyle = (theme: WhiteOrDark) =>
       marginVertical: 10,
       borderRadius: theme.borderRadius,
       borderWidth: 1,
+      overflow: 'hidden',
+    },
+    spinner: {
+      alignSelf: 'center',
+      top: 10,
     },
   });
 

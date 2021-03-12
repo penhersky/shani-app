@@ -27,6 +27,7 @@ const MyOrders = ({navigation}: any) => {
   const theme = useTheme();
   const {tr} = useTranslation();
   const {type} = useSelector((state: any) => state.user);
+  console.log(1);
   return (
     <Screen>
       <InfinityScroll
