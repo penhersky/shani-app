@@ -5,7 +5,7 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useQuery, TypedDocumentNode, DocumentNode} from '@apollo/client';
 
-import NetworkError from '../Message/NetworkError';
+import NetworkError from '../MessageInfo/NetworkError';
 
 const Scroll = ({
   schema,
@@ -16,6 +16,7 @@ const Scroll = ({
   listName,
   client,
   storage,
+  componentParams,
   Empty,
 }: {
   schema: DocumentNode | TypedDocumentNode<any, any>;
@@ -26,6 +27,7 @@ const Scroll = ({
   listName: string;
   client?: any;
   Empty: any;
+  componentParams?: any;
   storage: {
     key: string;
     set: string;
@@ -136,7 +138,7 @@ const Scroll = ({
         }>
         {_.map(loading ? Array.from(new Array(5)) : list, (item, i) =>
           item ? (
-            <Item key={item?.id + i} value={item} />
+            <Item key={item?.id + i} value={item} {...componentParams} />
           ) : (
             <View key={i}>{ItemSkeleton}</View>
           ),

@@ -14,7 +14,7 @@ import {
   Task,
   TaskSkeleton,
   Screen,
-  Message,
+  MessageInfo,
 } from '../../../modules';
 
 import {
@@ -47,7 +47,7 @@ const MyOrders = ({navigation}: any) => {
           key: 'task',
         }}
         Empty={
-          <Message
+          <MessageInfo
             title={tr(messages, 'noneMyOrder')}
             Icon={
               <MaterialIcons
@@ -66,7 +66,7 @@ const MyOrders = ({navigation}: any) => {
               }}>
               {tr(global, type === 'customer' ? 'create' : 'find')}
             </Button>
-          </Message>
+          </MessageInfo>
         }
       />
     </Screen>

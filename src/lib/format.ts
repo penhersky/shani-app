@@ -11,3 +11,7 @@ export const avatarText = (text: string) => {
 
   return word.length === 1 ? word.slice(0, 1) : word.slice(0, 2);
 };
+
+export const date = (d: any) => {
+  return new Date(Number(d)).toLocaleDateString();
+};

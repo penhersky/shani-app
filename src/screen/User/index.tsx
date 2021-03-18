@@ -9,7 +9,7 @@ import {useTranslation, user as text} from '../../translate';
 
 import {fullAccount} from '../../schemas';
 
-import {Message, NetworkError} from '../../modules';
+import {MessageInfo, NetworkError} from '../../modules';
 import {authClient} from '../../clients';
 
 import {useTheme} from '../../theme';
@@ -76,7 +76,7 @@ const Panel = ({route}: any): JSX.Element => {
 
   if (!userId) {
     return (
-      <Message
+      <MessageInfo
         title={tr(text, 'error').notFond}
         body={tr(text, 'error').notFondBody}
       />
@@ -89,7 +89,7 @@ const Panel = ({route}: any): JSX.Element => {
 
   if (status === 44) {
     return (
-      <Message
+      <MessageInfo
         Icon={
           <Icon name="user-alt-slash" size={50} color={theme.colors.primary} />
         }

@@ -11,6 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {getPerformerStyles, getTaskStatus} from '../../lib/getStyle';
 import screens from '../../lib/screens';
+import {date} from '../../lib/format';
 
 import {Rating, Avatar, Price} from '../../components';
 import Vote from '../vote';
@@ -134,14 +135,24 @@ const Task = ({value}: {value: any}) => {
         )}
         <View style={style.footer}>
           <View style={style.section}>
-            <AntDesign name="user" size={20} style={style.icon} />
+            <AntDesign
+              name="user"
+              size={20}
+              style={style.icon}
+              color={theme.colors.text}
+            />
             <Text>{value.requests}</Text>
           </View>
           <View style={style.section}>
-            <Icon name="comment" size={20} style={style.icon} />
+            <Icon
+              name="comment"
+              size={20}
+              style={style.icon}
+              color={theme.colors.text}
+            />
             <Text>{value.comments}</Text>
           </View>
-          <Text>{new Date(Number(value.createdAt)).toLocaleDateString()}</Text>
+          <Text>{date(value.createdAt)}</Text>
         </View>
         {['done', 'closed'].includes(value.status) && performer && (
           <Vote

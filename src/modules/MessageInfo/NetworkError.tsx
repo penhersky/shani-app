@@ -7,7 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {useTranslation, collapsed} from '../../translate';
 
-import Message from './';
+import Message from '.';
 import {useTheme} from '../../theme';
 
 const Error = ({
