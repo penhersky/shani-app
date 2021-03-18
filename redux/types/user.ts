@@ -1,3 +1,4 @@
+import {Category} from './categories';
 export const SET_SHORT_USER = 'SET_SHORT_USER';
 export const SET_USER = 'SET_USER';
 export const SET_USER_TYPE = 'SET_USER_TYPE';
@@ -23,7 +24,7 @@ export type User = {
 export type ShortUser = {
   id: string;
   name: string;
-  categories?: string[];
+  categories?: string[] | Category[];
   image?: string;
 };
 

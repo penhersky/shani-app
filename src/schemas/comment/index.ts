@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
 const getByOrder = gql`
-  query getCommentsByOrder($paginate: Paginate!) {
-    getCommentsByOrder(paginate: $paginate) {
+  query getCommentsByOrder($id: ID!, $paginate: Paginate!) {
+    getCommentsByOrder(id: $id, paginate: $paginate) {
       result
       totalItems
       page

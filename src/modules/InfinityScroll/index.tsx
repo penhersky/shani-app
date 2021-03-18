@@ -91,7 +91,10 @@ const Scroll = ({
   React.useEffect(() => {
     if (page > 1) {
       setLoaded(false);
-      fetchMore({variables: {page}})?.then((res) => {
+      const variables = initialParams.pagination
+        ? {...initialParams, pagination: {...initialParams.pagination}}
+        : {...initialParams, paginate: {...initialParams.paginate}};
+      fetchMore({variables})?.then((res) => {
         setLoaded(!res.loading);
         if (_.get(res, 'data')) {
           dispatch({
@@ -102,7 +105,7 @@ const Scroll = ({
         }
       });
     }
-  }, [page, listName, method, fetchMore, dispatch, storage.add]);
+  }, [page, listName, method, fetchMore, dispatch, storage.add, initialParams]);
 
   React.useEffect(() => {
     if (_.get(data, method)) {

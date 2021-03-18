@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import {useSelector} from 'react-redux';
 import {Button, Text} from 'react-native-paper';
 
@@ -17,7 +18,7 @@ import {
   SET_PAGE,
 } from '../../../redux/types/comments';
 
-const MyOrders = ({navigation}: any) => {
+const MyOrders = ({route}: any) => {
   const theme = useTheme();
   const {tr} = useTranslation();
   const {user} = useSelector((state: any) => state.user);
@@ -31,14 +32,15 @@ const MyOrders = ({navigation}: any) => {
         client={mainClient}
         Item={Comment}
         initialParams={{
-          pagination: {page: 1, limit: 20, sort: 'ASC', sortKey: 'createdAt'},
+          id: _.get(route?.params, 'id'),
+          paginate: {page: 1, limit: 20, sort: 'ASC', sortKey: 'createdAt'},
         }}
         ItemSkeleton={<></>}
         storage={{
           page: SET_PAGE,
           set: SET_COMMENTS,
           add: ADD_COMMENT_PAGE,
-          key: 'task',
+          key: 'comments',
         }}
         Empty={<Text>Empty</Text>}
       />
