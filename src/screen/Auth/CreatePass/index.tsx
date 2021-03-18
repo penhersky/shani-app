@@ -43,7 +43,6 @@ const Pass = ({route, navigation}: any) => {
 
   React.useEffect(() => {
     if (data) {
-      console.log(data);
       if (data?.confirmRegistration.result === 'SUCCESS') {
         return navigation.navigate('Login');
       }

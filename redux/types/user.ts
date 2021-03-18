@@ -20,6 +20,13 @@ export type User = {
   image: string;
 };
 
+export type ShortUser = {
+  id: string;
+  name: string;
+  categories?: string[];
+  image?: string;
+};
+
 export type Admin = {
   id: string;
   name: string;

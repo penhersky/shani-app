@@ -5,6 +5,7 @@ import categories from './categories';
 import user from './user';
 import notification from './notification';
 import task from './Task';
+import comments from './comments';
 
 const rootReducers = combineReducers({
   settings,
@@ -12,6 +13,7 @@ const rootReducers = combineReducers({
   user,
   notification,
   task,
+  comments,
 });
 
 export default rootReducers;

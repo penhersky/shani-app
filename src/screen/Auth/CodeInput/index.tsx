@@ -42,7 +42,6 @@ const Code = ({route, navigation}: any) => {
 
   React.useEffect(() => {
     if (data) {
-      console.log(data);
       if (data?.verifyCode.result === 'SUCCESS') {
         return navigation.navigate('CreatePass', {
           token: data?.verifyCode?.token,

@@ -5,6 +5,8 @@ export default {
   settings: 'Settings',
   notifications: 'Notifications',
   task: 'Task',
+  Comments: 'Comments',
+  Requests: 'Requests',
   networkError: 'NetworkError',
   landing: 'Landing',
   login: 'Login',

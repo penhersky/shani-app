@@ -9,6 +9,7 @@ import {useTranslation} from '../../translate';
 import {useTheme} from '../../theme';
 import {task as scheme} from '../../schemas';
 import {MaterialIcons, size} from '../../lib/icon';
+import screens from '../../lib/screens';
 
 import {Price, Picker} from '../../components';
 import StatusPiker from './status';
@@ -103,13 +104,21 @@ const Task = ({
       </View>
       <Card>
         <Card.Content style={style.actions}>
-          <TouchableRipple style={style.action} onPress={() => {}}>
+          <TouchableRipple
+            style={style.action}
+            onPress={() => {
+              navigation.navigate(screens.Requests, {id: state.id});
+            }}>
             <>
               <AntDesign name="user" size={size.medium} style={style.margin} />
               <Subheading>{state.requests}</Subheading>
             </>
           </TouchableRipple>
-          <TouchableRipple style={style.action} onPress={() => {}}>
+          <TouchableRipple
+            style={style.action}
+            onPress={() => {
+              navigation.navigate(screens.Comments, {id: state.id});
+            }}>
             <>
               <MaterialIcons
                 name="comment"

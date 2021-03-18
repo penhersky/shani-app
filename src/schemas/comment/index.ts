@@ -1,6 +1,6 @@
 import {gql} from '@apollo/client';
 
-export const getCommentsByOrder = gql`
+const getByOrder = gql`
   query getCommentsByOrder($paginate: Paginate!) {
     getCommentsByOrder(paginate: $paginate) {
       result
@@ -9,19 +9,20 @@ export const getCommentsByOrder = gql`
       totalPages
       comments {
         id
+        text
+        visible
+        createdAt
         user {
           id
           name
           image
         }
-        text
-        createdAt
       }
     }
   }
 `;
 
-export const createComment = gql`
+const create = gql`
   mutation createComment($comment: InputComment!) {
     createComment(comment: $comment) {
       result
@@ -29,3 +30,8 @@ export const createComment = gql`
     }
   }
 `;
+
+export default {
+  create,
+  getByOrder,
+};
