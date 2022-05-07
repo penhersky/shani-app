@@ -1,28 +1,53 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import {LogBox} from 'react-native';
 import {Provider} from 'react-redux';
-import {SafeAreaView} from 'react-native';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
+import {Provider as PaperProvider} from 'react-native-paper';
 
-import {mainApiUrl} from './src/config';
+import {mainClient} from './src/clients';
+import {
+  DBProvider,
+  connect as db,
+  query,
+  tokenSchemas,
+  notificationSchemas,
+  settings,
+} from './src/wrappers/db';
 
 import store from './redux/store';
+import {useTheme} from './src/theme';
 import App from './src';
 
-const client = new ApolloClient({
-  uri: mainApiUrl,
-  cache: new InMemoryCache(),
-});
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
+
+const InitialTheme = () => {
+  const theme = useTheme();
+  return (
+    <PaperProvider theme={theme as any}>
+      <App />
+    </PaperProvider>
+  );
+};
 
 const Root = () => {
+  React.useEffect(() => {
+    query(db, tokenSchemas.table);
+    query(db, notificationSchemas.table);
+    query(db, settings.table);
+  }, []);
+
   return (
     <>
-      <ApolloProvider client={client}>
-        <Provider store={store}>
-          <SafeAreaView>
-            <App />
-          </SafeAreaView>
-        </Provider>
-      </ApolloProvider>
+      <DBProvider database={db}>
+        <ApolloProvider client={mainClient}>
+          <Provider store={store}>
+            <InitialTheme />
+          </Provider>
+        </ApolloProvider>
+      </DBProvider>
     </>
   );
 };
